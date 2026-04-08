@@ -45,7 +45,10 @@ const TIER_CLASSES: Record<HTier, string> = {
 }
 
 const COLLAPSED_ROW_HEIGHT = 57
-const EXPANDED_ROW_HEIGHT = 230
+// Generous fixed estimate — actual content varies by which bio fields a row
+// has. The virtualizer tolerates over-estimates better than under-estimates
+// (under causes scroll jumps when rows reflow), so we err on the high side.
+const EXPANDED_ROW_HEIGHT = 360
 
 interface FacultyTableProps {
   rows: Array<Faculty>
@@ -470,27 +473,107 @@ function RowDetail({ row }: RowDetailProps) {
     f.openalexFirstYear != null && f.openalexLastYear != null
       ? `${f.openalexFirstYear}–${f.openalexLastYear}`
       : null
+  const phdLine = formatPhd(f.phdInstitution, f.phdYear)
+
+  const hasDeptPercentiles =
+    f.deptHPercentile != null ||
+    f.deptFwciPercentile != null ||
+    f.deptWorksPercentile != null
+  const hasGlobalRank =
+    f.fieldHPercentile != null || f.subfieldHPercentile != null
+
   return (
-    <div className="grid grid-cols-1 gap-6 md:grid-cols-[1fr_auto]">
-      <div className="space-y-3">
-        {f.openalexTopTopic ? (
-          <div>
-            <div className="text-muted-foreground text-[10px] font-medium tracking-[0.08em] uppercase">
-              Top research topic
-            </div>
-            <div className="mt-1 text-[13px]">{f.openalexTopTopic}</div>
+    // items-start prevents the right column from stretching to match the left
+    // column's height — without it, the evidence link flex container fills the
+    // full cell vertically and its children stretch into giant boxes.
+    <div className="grid grid-cols-1 items-start gap-6 md:grid-cols-[minmax(0,1fr)_auto]">
+      <div className="min-w-0 space-y-4">
+        {/* Title + admin role */}
+        {f.bioTitle != null || f.adminRole != null ? (
+          <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
+            {f.bioTitle ? (
+              <span className="text-foreground text-[13px] leading-snug font-medium">
+                {f.bioTitle}
+              </span>
+            ) : null}
+            {f.adminRole ? (
+              <span className="border-primary/30 bg-primary/10 text-primary inline-flex items-center rounded-full border px-2 py-0.5 text-[10px] font-medium tracking-tight whitespace-nowrap">
+                {f.adminRole}
+              </span>
+            ) : null}
           </div>
         ) : null}
-        <div className="flex flex-wrap gap-x-8 gap-y-2 text-[12px]">
-          {yearRange ? (
-            <Field label="Active years" value={yearRange} />
+
+        {/* Research interests blurb — line-clamp keeps virtualizer estimate
+            sane; users can click through to the SLU profile for the full text. */}
+        {f.researchInterests ? (
+          <div>
+            <SectionLabel>Research interests</SectionLabel>
+            <p className="text-foreground/90 mt-1 line-clamp-3 text-[12px] leading-relaxed">
+              {f.researchInterests}
+            </p>
+          </div>
+        ) : null}
+
+        {/* Two metric blocks side by side: within-SLU dept rank + global field rank */}
+        {hasDeptPercentiles || hasGlobalRank ? (
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+            {hasDeptPercentiles ? (
+              <MetricBlock title="Within SLU department">
+                <div className="grid grid-cols-3 gap-3">
+                  <PctStat label="h-index" pct={f.deptHPercentile} />
+                  <PctStat label="FWCI" pct={f.deptFwciPercentile} />
+                  <PctStat label="Works" pct={f.deptWorksPercentile} />
+                </div>
+              </MetricBlock>
+            ) : null}
+            {hasGlobalRank ? (
+              <MetricBlock title="Global h-index rank">
+                <div className="grid grid-cols-2 gap-3">
+                  <PctStat
+                    label="Field"
+                    sublabel={f.openalexField ?? undefined}
+                    pct={f.fieldHPercentile}
+                  />
+                  <PctStat
+                    label="Subfield"
+                    sublabel={f.openalexSubfield ?? undefined}
+                    pct={f.subfieldHPercentile}
+                  />
+                </div>
+              </MetricBlock>
+            ) : null}
+          </div>
+        ) : null}
+
+        {/* Footnote line of one-line metadata fields */}
+        <div className="flex flex-wrap gap-x-6 gap-y-2 border-t pt-3 text-[12px]">
+          {phdLine ? <Field label="Ph.D." value={phdLine} /> : null}
+          {f.openalexTopTopic ? (
+            <Field label="Top topic" value={f.openalexTopTopic} />
           ) : null}
+          {yearRange ? <Field label="Active years" value={yearRange} /> : null}
+          {f.bioEmail ? (
+            <div>
+              <SectionLabel>Email</SectionLabel>
+              <a
+                href={`mailto:${f.bioEmail}`}
+                onClick={(e) => e.stopPropagation()}
+                className="text-primary mt-0.5 block hover:underline"
+              >
+                {f.bioEmail}
+              </a>
+            </div>
+          ) : null}
+          {/* bioOffice intentionally omitted — extract_bio.py over-collects this
+              field (often containing email + phone + nav text). Re-enable once
+              the extractor is fixed upstream. */}
           {f.matchedAffiliation ? (
             <Field label="Affiliation" value={f.matchedAffiliation} />
           ) : null}
         </div>
       </div>
-      <div className="flex flex-wrap gap-2 md:justify-end">
+      <div className="flex flex-col gap-2 md:items-end">
         {f.scholarUrl ? (
           <EvidenceLink href={f.scholarUrl} label="Google Scholar" />
         ) : null}
@@ -508,13 +591,81 @@ function RowDetail({ row }: RowDetailProps) {
   )
 }
 
-function Field({ label, value }: { label: string; value: string }) {
+function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
-    <div>
-      <div className="text-muted-foreground text-[10px] font-medium tracking-[0.08em] uppercase">
+    <div className="text-muted-foreground text-[10px] font-medium tracking-[0.08em] uppercase">
+      {children}
+    </div>
+  )
+}
+
+function MetricBlock({
+  title,
+  children,
+}: {
+  title: string
+  children: React.ReactNode
+}) {
+  return (
+    <div className="bg-muted/30 rounded-md border p-3">
+      <SectionLabel>{title}</SectionLabel>
+      <div className="mt-2">{children}</div>
+    </div>
+  )
+}
+
+interface PctStatProps {
+  label: string
+  sublabel?: string
+  pct: number | null
+}
+
+function PctStat({ label, sublabel, pct }: PctStatProps) {
+  const rounded = pct == null ? null : Math.round(pct)
+  return (
+    <div className="min-w-0">
+      <div className="text-muted-foreground truncate text-[10px] font-medium tracking-[0.04em] uppercase">
         {label}
       </div>
-      <div className="mt-0.5">{value}</div>
+      {rounded == null ? (
+        <div className="text-muted-foreground/50 mt-1 text-[13px]">—</div>
+      ) : (
+        // flex + items-baseline keeps "75" and "th" tight on a shared baseline
+        // — without it the size differential and tabular-nums width create a
+        // visible gap that reads as "75 th" instead of "75th".
+        <div className="text-foreground mt-1 flex items-baseline leading-none">
+          <span className="tabular text-[18px] font-semibold">{rounded}</span>
+          <span className="text-muted-foreground text-[11px] font-normal">
+            {ordinalSuffix(rounded)}
+          </span>
+        </div>
+      )}
+      {sublabel ? (
+        <div
+          className="text-muted-foreground/70 mt-1 truncate text-[10px]"
+          title={sublabel}
+        >
+          {sublabel}
+        </div>
+      ) : null}
+    </div>
+  )
+}
+
+function formatPhd(
+  institution: string | null,
+  year: number | null,
+): string | null {
+  if (!institution && year == null) return null
+  if (institution && year != null) return `${institution} (${year})`
+  return institution ?? `${year}`
+}
+
+function Field({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="min-w-0">
+      <SectionLabel>{label}</SectionLabel>
+      <div className="text-foreground/90 mt-0.5">{value}</div>
     </div>
   )
 }
