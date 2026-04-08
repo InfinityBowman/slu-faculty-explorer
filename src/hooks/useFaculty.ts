@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
 import type { Faculty, HTier } from '@/lib/types'
-import type { MetricSource } from '@/store/appStore'
 import { loadFaculty } from '@/lib/loadFaculty'
 import { useAppStore } from '@/store/appStore'
 
@@ -13,12 +12,6 @@ const TIER_RANK: Record<HTier, number> = {
   'top_25%': 3,
   above_median: 2,
   below_median: 1,
-}
-
-export interface PercentileInfo {
-  rank: number // 1 = highest
-  total: number
-  percentile: number // 0–100, 100 = top
 }
 
 export function useFacultyData() {
@@ -92,51 +85,3 @@ export function useDepartmentOptions(
   }, [all, school])
 }
 
-const hIndexFor = (f: Faculty, source: MetricSource): number | null =>
-  source === 'scholar' ? f.hIndex : f.openalexHIndex
-
-/**
- * Compute each faculty member's rank and percentile within their department,
- * based on the current metric source's h-index. Faculty with a null h-index
- * are excluded from the ranking entirely (not given a percentile). Computed
- * against the full dataset, not filtered, so the number is stable as users
- * filter the view.
- */
-export function useFacultyPercentiles(
-  all: Array<Faculty> | null,
-): Map<number, PercentileInfo> {
-  const metricSource = useAppStore((s) => s.metricSource)
-
-  return useMemo(() => {
-    const out = new Map<number, PercentileInfo>()
-    if (!all) return out
-
-    // Group by department
-    const byDept = new Map<string, Array<Faculty>>()
-    for (const f of all) {
-      if (!f.department) continue
-      if (hIndexFor(f, metricSource) == null) continue
-      const bucket = byDept.get(f.department)
-      if (bucket) bucket.push(f)
-      else byDept.set(f.department, [f])
-    }
-
-    for (const bucket of byDept.values()) {
-      bucket.sort((a, b) => {
-        const ha = hIndexFor(a, metricSource) ?? 0
-        const hb = hIndexFor(b, metricSource) ?? 0
-        return hb - ha
-      })
-      const total = bucket.length
-      for (let i = 0; i < total; i++) {
-        const rank = i + 1
-        // Percentile: top of dept = 100, bottom = 100/total
-        // Using (total - rank + 1) / total * 100 for "at or above" semantics
-        const percentile = ((total - rank + 1) / total) * 100
-        out.set(bucket[i].id, { rank, total, percentile })
-      }
-    }
-
-    return out
-  }, [all, metricSource])
-}

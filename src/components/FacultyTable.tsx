@@ -9,7 +9,6 @@ import { useVirtualizer } from '@tanstack/react-virtual'
 import { ArrowDown, ArrowUp, ChevronRight, ExternalLink } from 'lucide-react'
 import type { ColumnDef, SortingState } from '@tanstack/react-table'
 import type { Faculty, HTier } from '@/lib/types'
-import type { PercentileInfo } from '@/hooks/useFaculty'
 import { useAppStore } from '@/store/appStore'
 import { cn } from '@/lib/utils'
 
@@ -52,7 +51,6 @@ const EXPANDED_ROW_HEIGHT = 360
 
 interface FacultyTableProps {
   rows: Array<Faculty>
-  percentiles: Map<number, PercentileInfo>
 }
 
 interface Row {
@@ -63,7 +61,7 @@ interface Row {
   works: number | null
   fwci: number | null
   tier: HTier | null
-  percentile: PercentileInfo | null
+  field: string | null
 }
 
 const fmt = (n: number | null) =>
@@ -73,7 +71,7 @@ const fmt = (n: number | null) =>
     n.toLocaleString()
   )
 
-export function FacultyTable({ rows, percentiles }: FacultyTableProps) {
+export function FacultyTable({ rows }: FacultyTableProps) {
   const metricSource = useAppStore((s) => s.metricSource)
   const [sorting, setSorting] = useState<SortingState>([
     { id: 'hIndex', desc: true },
@@ -90,9 +88,9 @@ export function FacultyTable({ rows, percentiles }: FacultyTableProps) {
       works: f.openalexWorksCount,
       fwci: f.openalex2yrFwci,
       tier: f.primaryHTier,
-      percentile: percentiles.get(f.id) ?? null,
+      field: f.openalexField,
     }))
-  }, [rows, metricSource, percentiles])
+  }, [rows, metricSource])
 
   const columns = useMemo<Array<ColumnDef<Row>>>(
     () => [
@@ -130,10 +128,10 @@ export function FacultyTable({ rows, percentiles }: FacultyTableProps) {
         cell: ({ row }) => <TierBadge tier={row.original.tier} />,
       },
       {
-        id: 'percentile',
-        accessorFn: (r) => r.percentile?.percentile ?? -1,
-        header: 'Dept percentile',
-        cell: ({ row }) => <PercentileBar info={row.original.percentile} />,
+        id: 'field',
+        accessorFn: (r) => r.field ?? '',
+        header: 'Field',
+        cell: ({ row }) => <FieldCell value={row.original.field} />,
       },
       {
         id: 'hIndex',
@@ -198,7 +196,6 @@ export function FacultyTable({ rows, percentiles }: FacultyTableProps) {
 
   const numericColumns = new Set([
     'tier',
-    'percentile',
     'hIndex',
     'i10',
     'citations',
@@ -343,6 +340,7 @@ export function FacultyTable({ rows, percentiles }: FacultyTableProps) {
                               cell.column.id === 'name' &&
                                 'max-w-[280px] pl-6',
                               cell.column.id === 'school' && 'max-w-[200px]',
+                              cell.column.id === 'field' && 'max-w-[160px]',
                               cell.column.id === 'works' && 'pr-6',
                             )}
                           >
@@ -434,32 +432,21 @@ function FwciCell({ value }: FwciCellProps) {
   )
 }
 
-interface PercentileBarProps {
-  info: PercentileInfo | null
+interface FieldCellProps {
+  value: string | null
 }
 
-function PercentileBar({ info }: PercentileBarProps) {
-  if (!info) {
+function FieldCell({ value }: FieldCellProps) {
+  if (!value) {
     return <span className="text-muted-foreground/50 tabular text-[11px]">—</span>
   }
-  const pct = Math.round(info.percentile)
-  const ordinal = ordinalSuffix(pct)
   return (
-    <div className="flex flex-col items-end gap-1">
-      <div className="tabular text-muted-foreground text-[11px]">
-        <span className="text-foreground font-medium">{pct}</span>
-        <span className="text-muted-foreground">{ordinal}</span>
-        <span className="text-muted-foreground/70 ml-1">
-          ({info.rank}/{info.total})
-        </span>
-      </div>
-      <div className="bg-muted h-1 w-24 overflow-hidden rounded-full">
-        <div
-          className="bg-primary h-full rounded-full"
-          style={{ width: `${pct}%` }}
-        />
-      </div>
-    </div>
+    <span
+      className="text-muted-foreground line-clamp-2 text-[11px] leading-tight"
+      title={value}
+    >
+      {value}
+    </span>
   )
 }
 

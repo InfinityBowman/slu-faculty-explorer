@@ -4,11 +4,7 @@ import { FacultyTable } from '@/components/FacultyTable'
 import { ScatterPanel } from '@/components/scatter/ScatterPanel'
 import { StatStrip } from '@/components/StatStrip'
 import { Skeleton } from '@/components/ui/skeleton'
-import {
-  useFacultyData,
-  useFacultyPercentiles,
-  useFilteredFaculty,
-} from '@/hooks/useFaculty'
+import { useFacultyData, useFilteredFaculty } from '@/hooks/useFaculty'
 
 export const Route = createFileRoute('/')({
   component: ExplorerPage,
@@ -17,7 +13,6 @@ export const Route = createFileRoute('/')({
 function ExplorerPage() {
   const { data, error, isLoading } = useFacultyData()
   const filtered = useFilteredFaculty(data)
-  const percentiles = useFacultyPercentiles(data)
 
   return (
     <main className="mx-auto max-w-[1400px] px-6 py-8">
@@ -59,7 +54,7 @@ function ExplorerPage() {
                 Click a row for details
               </p>
             </div>
-            <FacultyTable rows={filtered} percentiles={percentiles} />
+            <FacultyTable rows={filtered} />
           </section>
         </div>
       ) : null}

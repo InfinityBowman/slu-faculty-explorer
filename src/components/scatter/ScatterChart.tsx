@@ -11,6 +11,7 @@ import type { ScaleContinuousNumeric } from 'd3-scale'
 import type { D3ZoomEvent, ZoomBehavior, ZoomTransform } from 'd3-zoom'
 import type { Point, PointsResult, ResolvedFields } from './usePoints'
 import type { ColorAssignment } from './palettes'
+import { cn } from '@/lib/utils'
 
 interface ScatterChartProps {
   result: PointsResult
@@ -26,18 +27,55 @@ const MARGIN = { top: 16, right: 28, bottom: 44, left: 64 }
 const HEIGHT = 340
 const TRANSITION_MS = 450
 
-// Pan/zoom config — 20x is enough to resolve individual dots in the dense
-// clusters without the user getting lost in empty pixels.
-const SCALE_EXTENT: [number, number] = [1, 20]
+// Pan/zoom config. Lower bound under 1 lets the user pull out past the
+// default fit-to-data view when they want more breathing room around the
+// dots. Upper bound of 20 resolves individual dots in dense clusters.
+const SCALE_EXTENT: [number, number] = [0.5, 20]
 
 // Sqrt size scale range, used when size encoding is on.
 const SIZE_RANGE: [number, number] = [3, 16]
 const FIXED_DOT_RADIUS = 5
 
+// Estimated tooltip dimensions used for viewport clamping. The tooltip has a
+// bounded width via CSS and a single-row stats block (X, Y, optional size),
+// so the rendered height stays near-constant and the estimate is accurate
+// enough to skip measuring the real element.
+const TOOLTIP_WIDTH = 220
+const TOOLTIP_HEIGHT = 108
+const TOOLTIP_GAP = 14
+const TOOLTIP_PAD = 8
+
+function computeTooltipPosition(
+  x: number,
+  y: number,
+): { left: number; top: number } {
+  const vw = window.innerWidth
+  const vh = window.innerHeight
+
+  // Prefer above the cursor, centered horizontally
+  let left = x - TOOLTIP_WIDTH / 2
+  let top = y - TOOLTIP_GAP - TOOLTIP_HEIGHT
+
+  // Flip below if it would clip the top of the viewport
+  if (top < TOOLTIP_PAD) {
+    top = y + TOOLTIP_GAP
+  }
+  // Clamp bottom
+  if (top + TOOLTIP_HEIGHT > vh - TOOLTIP_PAD) {
+    top = vh - TOOLTIP_HEIGHT - TOOLTIP_PAD
+  }
+  // Clamp horizontally
+  left = Math.max(
+    TOOLTIP_PAD,
+    Math.min(vw - TOOLTIP_WIDTH - TOOLTIP_PAD, left),
+  )
+
+  return { left, top }
+}
+
 export function ScatterChart({ result }: ScatterChartProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const svgRef = useRef<SVGSVGElement>(null)
-  const tooltipRef = useRef<HTMLDivElement>(null)
 
   // Current zoom transform — kept in a ref so width changes preserve the
   // user's view across renders without round-tripping through React state.
@@ -51,38 +89,24 @@ export function ScatterChart({ result }: ScatterChartProps) {
 
   const [width, setWidth] = useState(800)
   const [hover, setHover] = useState<HoverState | null>(null)
-  const [tooltipPos, setTooltipPos] = useState<{
-    left: number
-    top: number
-  } | null>(null)
+  // `displayedHover` lags `hover` on exits by the tooltip's transition
+  // duration, so the tooltip can animate out before unmounting.
+  const [displayedHover, setDisplayedHover] = useState<HoverState | null>(null)
   const [isZoomed, setIsZoomed] = useState(false)
 
-  const { points, fields, colorAssignment } = result
-
-  // Tooltip viewport clamping.
-  useLayoutEffect(() => {
-    if (!hover) {
-      setTooltipPos(null)
+  useEffect(() => {
+    if (hover) {
+      setDisplayedHover(hover)
       return
     }
-    const el = tooltipRef.current
-    if (!el) return
-    const ttW = el.offsetWidth
-    const ttH = el.offsetHeight
-    const vw = window.innerWidth
-    const vh = window.innerHeight
-    const GAP = 14
-    const PAD = 8
-
-    let left = hover.x - ttW / 2
-    let top = hover.y - GAP - ttH
-
-    if (top < PAD) top = hover.y + GAP
-    if (top + ttH > vh - PAD) top = vh - ttH - PAD
-    left = Math.max(PAD, Math.min(vw - ttW - PAD, left))
-
-    setTooltipPos({ left, top })
+    // Keep the last-hovered point displayed while the exit transition runs,
+    // then unmount. Canceling the timeout on hover coming back lets the
+    // tooltip smoothly reuse its div for the next point.
+    const timeout = setTimeout(() => setDisplayedHover(null), 150)
+    return () => clearTimeout(timeout)
   }, [hover])
+
+  const { points, fields, colorAssignment } = result
 
   // Responsive width.
   useEffect(() => {
@@ -450,12 +474,12 @@ export function ScatterChart({ result }: ScatterChartProps) {
         </div>
       ) : null}
 
-      {hover ? (
+      {displayedHover ? (
         <Tooltip
-          ref={tooltipRef}
-          point={hover.point}
+          point={displayedHover.point}
           fields={fields}
-          pos={tooltipPos}
+          pos={computeTooltipPosition(displayedHover.x, displayedHover.y)}
+          isOpen={hover != null}
         />
       ) : null}
     </div>
@@ -470,11 +494,18 @@ function defaultFormat(d: number): string {
   return d.toString()
 }
 
-// Builds a scale appropriate for the field. Log scales clamp the lower bound
-// to 1 to avoid log(0); explicit field domains override the data-derived
-// range entirely.
+// Builds a scale appropriate for the field. Explicit field domains override
+// the data-derived range entirely. Otherwise:
+//  - log scales clamp the lower bound to 1 (to avoid log(0)) and round the
+//    upper bound UP to the next declared tick value, so the extreme dot
+//    isn't glued to the plot edge
+//  - linear scales add a small proportional pad on both ends
 function buildScale(
-  field: { scale: 'log' | 'linear'; domain?: [number, number] },
+  field: {
+    scale: 'log' | 'linear'
+    domain?: [number, number]
+    tickValues?: ReadonlyArray<number>
+  },
   points: ReadonlyArray<Point>,
   axis: 'x' | 'y',
   innerWidth: number,
@@ -490,12 +521,19 @@ function buildScale(
     const minObs = values.length > 0 ? Math.min(...values) : 0
     const maxObs = values.length > 0 ? Math.max(...values) : 1
     if (field.scale === 'log') {
-      const lo = Math.max(1, minObs)
-      const hi = Math.max(lo + 1, maxObs)
+      // Pin the lower bound to the field's first declared tick (usually 1)
+      // rather than minObs. Otherwise the lowest actual dot ends up glued
+      // to the plot floor and gets half-clipped.
+      const firstTick = field.tickValues?.[0] ?? 1
+      const lo = Math.max(1, firstTick)
+      const paddedMax = roundUpToNextTick(maxObs, field.tickValues)
+      // Fall back to a proportional bump if no tick is big enough (or the
+      // field has no declared ticks) so the dot still has breathing room.
+      const hi = Math.max(lo + 1, paddedMax ?? maxObs * 1.25)
       domain = [lo, hi]
     } else {
       const span = Math.max(1, maxObs - minObs)
-      const pad = span * 0.05
+      const pad = span * 0.08
       domain = [minObs - pad, maxObs + pad]
     }
   }
@@ -507,6 +545,22 @@ function buildScale(
     return scaleLog().domain(domain).range(range)
   }
   return scaleLinear().domain(domain).range(range).nice()
+}
+
+// Returns the smallest tick value >= target, or null if the field has no
+// declared ticks. Mirrors the old chart's half-decade rounding so log axes
+// always extend past their extreme data points.
+function roundUpToNextTick(
+  target: number,
+  ticks: ReadonlyArray<number> | undefined,
+): number | null {
+  if (!ticks || ticks.length === 0) return null
+  for (const t of ticks) {
+    if (t >= target) return t
+  }
+  // Target exceeds the largest declared tick — extend past it proportionally
+  // so the dot still has breathing room instead of being clipped.
+  return target * 1.25
 }
 
 // Picks tick values for an axis. If the field declares its own tickValues,
@@ -550,28 +604,29 @@ function makeColorResolver(
 // ─── Tooltip ──────────────────────────────────────────────────────────────
 
 interface TooltipProps {
-  ref: React.RefObject<HTMLDivElement | null>
   point: Point
   fields: ResolvedFields
-  pos: { left: number; top: number } | null
+  pos: { left: number; top: number }
+  isOpen: boolean
 }
 
-function Tooltip({ ref, point, fields, pos }: TooltipProps) {
+function Tooltip({ point, fields, pos, isOpen }: TooltipProps) {
   return (
     <div
-      ref={ref}
-      className="bg-popover text-popover-foreground animate-in fade-in-0 zoom-in-95 pointer-events-none fixed z-50 max-w-[280px] min-w-[180px] rounded-md border p-2.5 shadow-md duration-150 ease-out"
-      style={{
-        left: pos?.left ?? -9999,
-        top: pos?.top ?? -9999,
-        visibility: pos ? 'visible' : 'hidden',
-      }}
+      data-state={isOpen ? 'open' : 'closed'}
+      className={cn(
+        'bg-popover text-popover-foreground pointer-events-none fixed z-50 max-w-[280px] min-w-[180px] rounded-md border p-2.5 shadow-md',
+        'data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95',
+        'data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95',
+        'duration-150 ease-out',
+      )}
+      style={{ left: pos.left, top: pos.top }}
     >
       <div className="text-[13px] font-medium">{point.name}</div>
       <div className="text-muted-foreground mt-0.5 text-[11px]">
         {point.department}
       </div>
-      <div className="mt-2 grid grid-cols-2 gap-2 border-t pt-2 text-[11px]">
+      <div className="mt-2 flex gap-4 border-t pt-2 text-[11px]">
         <TooltipStat
           label={fields.xField.label}
           value={formatTooltipValue(fields.xField, point.x)}
@@ -584,12 +639,6 @@ function Tooltip({ ref, point, fields, pos }: TooltipProps) {
           <TooltipStat
             label={fields.sizeField.label}
             value={formatTooltipValue(fields.sizeField, point.size)}
-          />
-        ) : null}
-        {fields.colorField ? (
-          <TooltipStat
-            label={fields.colorField.label}
-            value={point.colorValue ?? '—'}
           />
         ) : null}
       </div>
