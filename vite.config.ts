@@ -1,21 +1,22 @@
-import path from "node:path"
+import { cloudflare } from "@cloudflare/vite-plugin"
 import tailwindcss from "@tailwindcss/vite"
-import { tanstackRouter } from "@tanstack/router-plugin/vite"
-import react from "@vitejs/plugin-react"
+import { tanstackStart } from "@tanstack/react-start/plugin/vite"
+import viteReact from "@vitejs/plugin-react"
 import { defineConfig } from "vite"
+import viteTsConfigPaths from "vite-tsconfig-paths"
 
 // https://vite.dev/config/
 export default defineConfig({
-  // tanstackRouter must come before react() so the generated route tree
-  // exists when react/refresh runs.
   plugins: [
-    tanstackRouter({ target: "react", autoCodeSplitting: true }),
-    react(),
+    cloudflare({ viteEnvironment: { name: "ssr" } }),
+    viteTsConfigPaths({ projects: ["./tsconfig.json"] }),
     tailwindcss(),
+    tanstackStart({
+      prerender: {
+        enabled: true,
+        crawlLinks: true,
+      },
+    }),
+    viteReact(),
   ],
-  resolve: {
-    alias: {
-      "@": path.resolve(__dirname, "./src"),
-    },
-  },
 })

@@ -1,7 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { Filters } from '@/components/Filters'
 import { FacultyTable } from '@/components/FacultyTable'
-import { ScatterChart } from '@/components/ScatterChart'
+import { ScatterPanel } from '@/components/scatter/ScatterPanel'
 import { StatStrip } from '@/components/StatStrip'
 import { Skeleton } from '@/components/ui/skeleton'
 import {
@@ -38,15 +38,13 @@ function ExplorerPage() {
           <section className="bg-card rounded-lg border">
             <div className="flex items-baseline justify-between border-b px-6 py-4">
               <h2 className="text-sm font-medium tracking-tight">
-                Productivity vs. impact
+                Faculty scatter
               </h2>
               <p className="text-muted-foreground text-xs">
-                Each dot is one faculty member · sized by h-index
+                Each dot is one faculty member · pick what to plot
               </p>
             </div>
-            <div className="p-4">
-              <ScatterChart rows={filtered} />
-            </div>
+            <ScatterPanel rows={filtered} />
           </section>
 
           <section className="bg-card rounded-lg border">

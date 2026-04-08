@@ -1,11 +1,57 @@
-import { Link, Outlet, createRootRoute } from '@tanstack/react-router'
-import { cn } from '@/lib/utils'
+import {
+  HeadContent,
+  Link,
+  Outlet,
+  Scripts,
+  createRootRoute,
+} from "@tanstack/react-router"
+import appCss from "../index.css?url"
+import { ThemeProvider } from "@/components/theme-provider"
+import { cn } from "@/lib/utils"
+
+// Runs inline in <head> before React hydrates so the correct theme class is
+// applied to <html> — prevents a flash of the wrong theme.
+const themeInitScript = `(function(){try{var s=localStorage.getItem('theme');var t=s==='dark'||s==='light'||s==='system'?s:'light';var r=t==='system'?(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'):t;document.documentElement.classList.add(r);}catch(e){document.documentElement.classList.add('light');}})();`
 
 export const Route = createRootRoute({
-  component: RootLayout,
+  head: () => ({
+    meta: [
+      { charSet: "utf-8" },
+      { name: "viewport", content: "width=device-width, initial-scale=1.0" },
+      { title: "SLU Faculty Research Explorer" },
+      {
+        name: "description",
+        content:
+          "Explore research productivity and impact metrics for Saint Louis University faculty using Google Scholar and OpenAlex data.",
+      },
+    ],
+    links: [
+      { rel: "icon", type: "image/svg+xml", href: "/vite.svg" },
+      { rel: "stylesheet", href: appCss },
+    ],
+    scripts: [{ children: themeInitScript }],
+  }),
+
+  component: RootComponent,
+  shellComponent: RootDocument,
+  notFoundComponent: NotFound,
 })
 
-function RootLayout() {
+function RootDocument({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en">
+      <head>
+        <HeadContent />
+      </head>
+      <body>
+        <ThemeProvider defaultTheme="light">{children}</ThemeProvider>
+        <Scripts />
+      </body>
+    </html>
+  )
+}
+
+function RootComponent() {
   return (
     <div className="min-h-svh">
       <Header />
@@ -42,7 +88,7 @@ function NavLink({
   to,
   children,
 }: {
-  to: '/' | '/schools' | '/about'
+  to: "/" | "/schools" | "/about"
   children: React.ReactNode
 }) {
   return (
@@ -51,7 +97,7 @@ function NavLink({
       className="text-muted-foreground hover:text-foreground rounded-md px-3 py-1.5 text-[12px] font-medium transition-colors"
       activeProps={{
         className: cn(
-          'text-foreground bg-muted rounded-md px-3 py-1.5 text-[12px] font-medium',
+          "text-foreground bg-muted rounded-md px-3 py-1.5 text-[12px] font-medium",
         ),
       }}
       activeOptions={{ exact: true }}
@@ -64,8 +110,44 @@ function NavLink({
 function Footer() {
   return (
     <footer className="text-muted-foreground mx-auto max-w-[1400px] px-6 py-8 text-xs">
-      Sources: Google Scholar &amp; OpenAlex ·{' '}
+      Sources: Google Scholar &amp; OpenAlex ·{" "}
       <span className="tabular">Saint Louis University</span>
     </footer>
+  )
+}
+
+function NotFound() {
+  return (
+    <main className="mx-auto flex min-h-[calc(100svh-200px)] max-w-[1400px] flex-col items-center justify-center px-6 py-16">
+      <div className="flex items-center gap-6">
+        <div className="bg-primary h-24 w-[3px] rounded-sm" aria-hidden />
+        <div>
+          <p className="text-muted-foreground tabular text-[11px] font-medium tracking-widest uppercase">
+            Error 404
+          </p>
+          <h1 className="mt-1 text-4xl font-semibold tracking-tight">
+            Page not found
+          </h1>
+          <p className="text-muted-foreground mt-3 max-w-md text-sm leading-relaxed">
+            The page you&apos;re looking for doesn&apos;t exist. It may have
+            been moved, or the link may be incorrect.
+          </p>
+          <div className="mt-6 flex items-center gap-1">
+            <Link
+              to="/"
+              className="bg-primary text-primary-foreground hover:bg-primary/90 inline-flex items-center rounded-md px-3 py-1.5 text-[12px] font-medium transition-colors"
+            >
+              Back to Explorer
+            </Link>
+            <Link
+              to="/about"
+              className="text-muted-foreground hover:text-foreground inline-flex items-center rounded-md px-3 py-1.5 text-[12px] font-medium transition-colors"
+            >
+              About this data
+            </Link>
+          </div>
+        </div>
+      </div>
+    </main>
   )
 }

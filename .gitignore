@@ -9,3 +9,4 @@ dist
 .env.production.local
 routeTree.gen.ts
 .tanstack/*
+.wrangler/

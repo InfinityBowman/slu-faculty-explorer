@@ -1,0 +1,20 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "slu-faculty-explorer",
+  "compatibility_date": "2025-09-02",
+  "compatibility_flags": ["nodejs_compat"],
+  "main": "@tanstack/react-start/server-entry",
+  "assets": {
+    "html_handling": "drop-trailing-slash",
+  },
+
+  // ─── Production ─────────────────────────────────────────────────────
+  "env": {
+    "production": {
+      "name": "slu-faculty-explorer-prod",
+      "routes": [
+        { "pattern": "faculty.jacobmaynard.dev", "custom_domain": true },
+      ],
+    },
+  },
+}
