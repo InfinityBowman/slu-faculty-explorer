@@ -134,4 +134,11 @@
       'lnum' 1,
       'cv11' 1;
   }
+
+  /* Smooth stroke change when hovering a scatter dot */
+  circle.dot {
+    transition:
+      stroke 150ms ease-out,
+      stroke-width 150ms ease-out;
+  }
 }
