@@ -15,9 +15,9 @@ export function Sources() {
         <Strong>Coverage gap in the Scholar/OpenAlex toggle.</Strong> The
         Scholar source covers only 35% of faculty. When you flip the
         explorer's Source toggle to Scholar, two-thirds of the rows show no
-        h-index, no citations, and no i10. This is not a bug — those faculty
-        simply don't have a public Google Scholar profile. The dataset's
-        broadest coverage is the OpenAlex view.
+        h-index, no citations, and no i10. This is not a bug. Those faculty
+        members simply do not have a public Google Scholar profile. The
+        OpenAlex view provides the broadest coverage.
       </Callout>
     </Section>
   )

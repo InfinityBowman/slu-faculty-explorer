@@ -49,14 +49,6 @@ export function Strong({ children }: { children: React.ReactNode }) {
   return <strong className="text-foreground font-semibold">{children}</strong>
 }
 
-export function Code({ children }: { children: React.ReactNode }) {
-  return (
-    <code className="bg-muted text-foreground rounded px-1 py-0.5 font-mono text-[12px]">
-      {children}
-    </code>
-  )
-}
-
 export function Anchor({
   href,
   children,

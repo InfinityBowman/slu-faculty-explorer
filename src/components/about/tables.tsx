@@ -1,4 +1,4 @@
-import { Code, Strong } from './prose'
+import { Strong } from './prose'
 import { cn } from '@/lib/utils'
 
 // Three reference tables embedded in the About page. Kept in one file
@@ -98,26 +98,26 @@ export function SourceTable() {
 
 // ─── Question → column lookup ──────────────────────────────────────────────
 
-const USAGE_ROWS: ReadonlyArray<{ q: string; col: string }> = [
+const USAGE_ROWS: ReadonlyArray<{ q: string; answer: string }> = [
   {
     q: 'How does Dr. X rank within Finance at SLU?',
-    col: 'dept_h_percentile',
+    answer: 'Dept percentile',
   },
   {
     q: 'Is Dr. X elite globally for their field?',
-    col: 'primary_h_tier',
+    answer: 'Field tier',
   },
   {
     q: "Are Dr. X's recent papers cited more than typical for the field?",
-    col: 'openalex_2yr_fwci',
+    answer: 'FWCI (above 1.0 means above field average)',
   },
   {
-    q: 'Compare an h=23 in Finance to an h=44 in Social Work',
-    col: 'field_h_percentile (both)',
+    q: 'Compare an h-index of 23 in Finance to an h-index of 44 in Social Work',
+    answer: 'Field tier (for both)',
   },
   {
-    q: 'Who are the dean-track researchers?',
-    col: "filter admin_role in ('Dean','Associate Dean')",
+    q: 'How is this person doing on impact vs productivity vs citations?',
+    answer: "The three numbers in the row detail's Within SLU department block",
   },
 ]
 
@@ -128,16 +128,14 @@ export function UsageTable() {
         <thead>
           <tr className="bg-muted text-muted-foreground text-left">
             <Th>Question</Th>
-            <Th>Best column</Th>
+            <Th>Where to look</Th>
           </tr>
         </thead>
         <tbody>
           {USAGE_ROWS.map((r) => (
             <tr key={r.q} className="border-t align-top">
               <Td>{r.q}</Td>
-              <Td>
-                <Code>{r.col}</Code>
-              </Td>
+              <Td>{r.answer}</Td>
             </tr>
           ))}
         </tbody>
@@ -148,9 +146,9 @@ export function UsageTable() {
 
 // ─── Hirsch / Bornmann field landmarks ─────────────────────────────────────
 
-// From DESIGN §5 — published landmarks for active researchers
-// (works_count >= 10) by OpenAlex field. Anchors the "top 10%" claims with
-// concrete numbers so readers can sanity-check the tier methodology.
+// Published h-index landmarks for active researchers by field. Anchors the
+// "top 10%" claims with concrete numbers so readers can sanity-check the tier
+// methodology against benchmarks they may have seen elsewhere.
 const HIRSCH_ROWS: ReadonlyArray<{
   field: string
   n: string

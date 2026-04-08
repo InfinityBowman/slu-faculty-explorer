@@ -5,7 +5,7 @@ export function Overview() {
     <Section id="overview" title="Overview">
       <P>
         This dataset covers <Strong>519 active US Ph.D. faculty</Strong> across
-        nine schools and sixty-one departments at Saint Louis University. The
+        nine schools and 61 departments at Saint Louis University. The
         unit of analysis is the individual faculty member.
       </P>
       <P>
@@ -18,10 +18,10 @@ export function Overview() {
         researchers in the same OpenAlex field.
       </P>
       <Callout>
-        Read the{' '}
+        Before drawing conclusions from any rank, read the{' '}
         <Anchor href="#percentile-systems">two percentile systems</Anchor>{' '}
-        section before drawing conclusions from any rank — they answer
-        different questions and you should not mix them up.
+        section. The two systems answer different questions and should not
+        be mixed up.
       </Callout>
     </Section>
   )

@@ -7,3 +7,5 @@ dist
 .env.development.local
 .env.production
 .env.production.local
+routeTree.gen.ts
+.tanstack/*

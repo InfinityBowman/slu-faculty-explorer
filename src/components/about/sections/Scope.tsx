@@ -1,4 +1,4 @@
-import { Bullets, Code, P, Section, Strong } from '../prose'
+import { Bullets, P, Section, Strong } from '../prose'
 
 export function Scope() {
   return (
@@ -20,9 +20,7 @@ export function Scope() {
       <P>
         These exclusions are about matching the dataset to its purpose
         (cross-field research-output comparison among research faculty), not
-        a judgment on the excluded groups. The unfiltered SLU directory ships
-        in a separate <Code>directory.csv</Code> that includes all of the
-        above.
+        a judgment on the excluded groups.
       </P>
       <P>
         If a faculty member you expect to find isn't in the explorer, the

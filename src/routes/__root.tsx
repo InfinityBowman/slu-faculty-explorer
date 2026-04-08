@@ -30,6 +30,7 @@ function Header() {
         </div>
         <nav className="flex items-center gap-1">
           <NavLink to="/">Explorer</NavLink>
+          <NavLink to="/schools">Schools</NavLink>
           <NavLink to="/about">About this data</NavLink>
         </nav>
       </div>
@@ -41,7 +42,7 @@ function NavLink({
   to,
   children,
 }: {
-  to: '/' | '/about'
+  to: '/' | '/schools' | '/about'
   children: React.ReactNode
 }) {
   return (

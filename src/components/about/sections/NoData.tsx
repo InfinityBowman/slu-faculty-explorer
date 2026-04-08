@@ -1,32 +1,32 @@
-import { Callout, Code, P, Section, Strong } from '../prose'
+import { Callout, P, Section, Strong } from '../prose'
 
 export function NoData() {
   return (
     <Section id="no-data" title="The 84 no-data faculty">
       <P>
-        About 84 faculty have no Scholar and no OpenAlex h-index. Almost all
-        of them are in humanities departments —{' '}
-        <Strong>Theology, English, History, Philosophy</Strong>. Their
-        primary scholarly output is books, and Scholar and OpenAlex both
-        index journal articles heavily but books poorly.
+        About 84 faculty have no h-index from either source. Almost all of
+        them are in humanities departments such as{' '}
+        <Strong>Theology, English, History, and Philosophy</Strong>. Their
+        primary scholarly output is books, and the bibliographic sources
+        used here index journal articles thoroughly but books poorly.
       </P>
       <Callout tone="warn">
-        These rows are real "no data," not bugs. The dataset cannot evaluate
-        book-scholarship-heavy fields with the metrics it has. If you compare
-        departments by mean h-index, humanities departments will look
-        underperforming because the measurement instrument doesn't fit them
-        — not because of the people.
+        These rows reflect a real absence of indexed data, not a bug in the
+        scrape. The explorer cannot evaluate book-scholarship-heavy fields
+        with the metrics it has. If you compare departments by mean h-index,
+        humanities departments will look as if they are underperforming when
+        the measurement is the actual problem.
       </Callout>
       <P>
-        If you need to compare humanities departments, you need a different
-        instrument (book reviews, university press placements, monograph
-        impact, awards). This dataset is honest about being unable to provide
-        that.
+        Comparing humanities departments fairly requires a different
+        instrument: book reviews, university press placements, monograph
+        impact, and disciplinary awards. The explorer does not attempt to
+        capture any of these.
       </P>
       <P>
-        Three additional rows are clinical practitioners who likely don't
-        publish: <Code>Minh Kosfeld</Code>, <Code>Angela Cecil</Code>,{' '}
-        <Code>Saneta Thurmon</Code>. Treat as honest no-data.
+        Three additional rows are clinical-track faculty members who do not
+        publish in indexed venues. These should also be read as a genuine
+        absence of data rather than a missed lookup.
       </P>
     </Section>
   )

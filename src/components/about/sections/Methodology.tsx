@@ -1,4 +1,4 @@
-import { Code, P, Section, Strong, Subhead } from '../prose'
+import { P, Section, Strong, Subhead } from '../prose'
 
 export function Methodology() {
   return (
@@ -10,45 +10,45 @@ export function Methodology() {
 
       <Subhead>Department reclassification</Subhead>
       <P>
-        Classifying moves people from generic directory buckets
-        into their actual home departments using the bio page's department
-        text, or by extracting "Professor of X" from the bio title. About 25
-        faculty were reclassified. Side effect: the explorer's "Department" for
-        a given person doesn't always match the SLU directory's listed
-        department. The bio-page version is more accurate.
+        Faculty are pulled out of generic directory buckets like "Office of
+        the Dean" or "Teacher Education Faculty" and placed in their actual
+        home departments using the department text on their bio page (or, as
+        a fallback, by extracting "Professor of X" from their title). About
+        25 faculty were reclassified this way. <Strong>Side effect:</Strong>{' '}
+        the Department shown in the explorer doesn't always match the
+        Department listed on the SLU directory page for the same person.
+        The explorer's version is the more accurate of the two.
       </P>
 
-      <Subhead>OpenAlex name collisions</Subhead>
+      <Subhead>Possible name collisions</Subhead>
       <P>
-        OpenAlex's author lookup is by name, with an SLU institution filter
-        applied. Common names can collide: in one caught case, John James
-        (an SLU faculty member with a modest publication record) was matched
-        to Michael J. Mack, an h=168 cardiologist with no SLU affiliation.
-        The match was rejected by an affiliation cross-check. The{' '}
-        <Code>openalex_status</Code> column flags any{' '}
-        <Code>rejected_wrong_person_*</Code> cases that were caught. There
-        may be undetected collisions in faculty with very common names — if
-        a number looks implausibly high, check the OpenAlex profile link.
+        Faculty are matched to their OpenAlex author record by name, with an
+        SLU institution filter applied. Common names can collide: in one
+        caught case, an SLU faculty member with a modest publication record
+        was being matched to a high-h-index cardiologist at a different
+        institution. The match was rejected by an affiliation cross-check.
+        We've also caught and filtered other miss-matches the same way.
+      </P>
+      <P>
+        There may still be undetected collisions in faculty with very common
+        names. If a number looks implausibly high for someone you know, open
+        the OpenAlex profile link in their row detail and confirm it's the
+        right person.
       </P>
 
       <Subhead>Career length and m-index</Subhead>
       <P>
-        <Code>openalex_first_year</Code> is "first OpenAlex-indexed year,"
-        not "first ever published." For senior faculty whose early career
-        predates good indexing, this biases career length downward. m-index
-        (h-index ÷ career length) is therefore <Strong>not computed</Strong>{' '}
-        in the dataset — it would systematically penalize long-tenured
-        faculty whose early work is missing from the index.
+        The "Active years" range shown for each faculty member is the first
+        and last year of their <Strong>indexed</Strong> publications, not
+        their actual first publication ever. For senior faculty whose early
+        career predates good electronic indexing, this biases career length
+        downward.
       </P>
-
-      <Subhead>Computation formulas</Subhead>
       <P>
-        Within-SLU dept percentile uses the standard formula:{' '}
-        <Code>(% strictly less + 0.5 × % equal)</Code>. Global field
-        percentile is computed against an OpenAlex{' '}
-        <Code>group_by=summary_stats.h_index</Code> histogram, filtered to
-        active researchers (<Code>works_count &gt;= 10</Code>) in the field
-        or subfield as described above.
+        For this reason, the explorer does not show m-index (h-index divided
+        by career length). An m-index computed from indexed-only career
+        length would systematically penalize long-tenured faculty whose
+        early work is missing from the index.
       </P>
     </Section>
   )
