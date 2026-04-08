@@ -55,7 +55,7 @@ export function Filters({ all }: FiltersProps) {
           <Search className="text-muted-foreground pointer-events-none absolute top-1/2 left-2.5 size-3.5 -translate-y-1/2" />
           <input
             type="text"
-            placeholder="Name, department, or research topic…"
+            placeholder="Name, field, research interest…"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             className="border-input placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/30 h-9 w-full rounded-md border bg-white pl-8 text-[13px] focus-visible:ring-[3px] focus-visible:outline-none"
