@@ -8,7 +8,6 @@
     "html_handling": "drop-trailing-slash",
   },
 
-  // ─── Production ─────────────────────────────────────────────────────
   "env": {
     "production": {
       "name": "slu-faculty-explorer-prod",

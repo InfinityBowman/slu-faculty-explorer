@@ -1,14 +1,17 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import { select } from 'd3-selection'
-import { scaleLinear } from 'd3-scale'
+import { scaleLinear, scaleLog } from 'd3-scale'
 import { axisBottom } from 'd3-axis'
 import 'd3-transition'
 import type { Faculty, HTier } from '@/lib/types'
 import type { SchoolSummary } from '@/hooks/useSchools'
 
+export type ChartMetric = 'fieldPercentile' | 'fwci'
+
 interface SchoolStripChartProps {
   schools: Array<SchoolSummary>
   faculty: Array<Faculty>
+  metric: ChartMetric
 }
 
 interface StripPoint {
@@ -16,7 +19,11 @@ interface StripPoint {
   schoolIdx: number
   name: string
   department: string
-  fieldPercentile: number
+  // The metric-specific value used for x positioning on the current view
+  value: number
+  // Both metrics kept on the point so the tooltip always has full context
+  fieldPercentile: number | null
+  fwci: number | null
   tier: HTier | null
 }
 
@@ -27,13 +34,14 @@ interface HoverState {
   y: number
 }
 
-const MARGIN = { top: 16, right: 24, bottom: 36, left: 200 }
+const MARGIN = { top: 20, right: 24, bottom: 40, left: 200 }
 const ROW_HEIGHT = 56
 const DOT_RADIUS = 3.5
+const TRANSITION_MS = 500
 
 // Tooltip viewport clamping — same pattern as ScatterChart
-const TOOLTIP_WIDTH = 230
-const TOOLTIP_HEIGHT = 110
+const TOOLTIP_WIDTH = 240
+const TOOLTIP_HEIGHT = 130
 const TOOLTIP_GAP = 14
 const TOOLTIP_PAD = 8
 
@@ -72,33 +80,53 @@ const TIER_LABELS: Record<HTier, string> = {
   below_median: 'Below median',
 }
 
-export function SchoolStripChart({ schools, faculty }: SchoolStripChartProps) {
+// FWCI log scale clamps values below this floor (0.1) to avoid log(0) and to
+// keep a handful of zero-FWCI faculty visible at the left edge.
+const FWCI_FLOOR = 0.1
+const FWCI_CEIL = 10
+const FWCI_TICKS = [0.1, 0.3, 1, 3, 10]
+const FIELD_TICKS = [0, 25, 50, 75, 100]
+const FIELD_GRID = [25, 50, 75]
+const FWCI_GRID = [0.3, 3]
+
+export function SchoolStripChart({
+  schools,
+  faculty,
+  metric,
+}: SchoolStripChartProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const svgRef = useRef<SVGSVGElement>(null)
+  // Track previous metric to know when to animate vs snap (width changes
+  // and initial mount should snap; metric toggles should glide).
+  const prevMetricRef = useRef<ChartMetric | null>(null)
   const [width, setWidth] = useState(800)
   const [hover, setHover] = useState<HoverState | null>(null)
 
-  // Sort schools by median field percentile desc (best at top), nulls last
+  const isFwci = metric === 'fwci'
+
+  // Sort schools by the active metric's median desc, nulls sink to the bottom
   const sortedSchools = useMemo(() => {
     return [...schools].sort((a, b) => {
-      const av = a.medianFieldPercentile ?? -1
-      const bv = b.medianFieldPercentile ?? -1
+      const av = (isFwci ? a.medianFwci : a.medianFieldPercentile) ?? -1
+      const bv = (isFwci ? b.medianFwci : b.medianFieldPercentile) ?? -1
       return bv - av
     })
-  }, [schools])
+  }, [schools, isFwci])
 
-  // Build school lookup by name → index in sorted order
+  // School name → sorted index lookup, used when assigning dots to rows
   const schoolIndex = useMemo(() => {
     const m = new Map<string, number>()
     sortedSchools.forEach((s, i) => m.set(s.school, i))
     return m
   }, [sortedSchools])
 
-  // Extract plottable faculty (those with a field percentile)
+  // Plottable faculty for the current metric — both values stashed on the
+  // point so the tooltip can show them regardless of which axis is active.
   const points = useMemo<Array<StripPoint>>(() => {
     const out: Array<StripPoint> = []
     for (const f of faculty) {
-      if (f.fieldHPercentile == null) continue
+      const raw = isFwci ? f.openalex2yrFwci : f.fieldHPercentile
+      if (raw == null) continue
       const idx = schoolIndex.get(f.school)
       if (idx == null) continue
       out.push({
@@ -106,12 +134,23 @@ export function SchoolStripChart({ schools, faculty }: SchoolStripChartProps) {
         schoolIdx: idx,
         name: f.name,
         department: f.department,
+        value: raw,
         fieldPercentile: f.fieldHPercentile,
+        fwci: f.openalex2yrFwci,
         tier: f.primaryHTier,
       })
     }
     return out
-  }, [faculty, schoolIndex])
+  }, [faculty, schoolIndex, isFwci])
+
+  // Count of visible dots per school row, for the "N of total" label
+  const pointsPerSchool = useMemo(() => {
+    const counts = new Map<number, number>()
+    for (const p of points) {
+      counts.set(p.schoolIdx, (counts.get(p.schoolIdx) ?? 0) + 1)
+    }
+    return counts
+  }, [points])
 
   // Responsive width via ResizeObserver
   useEffect(() => {
@@ -135,67 +174,172 @@ export function SchoolStripChart({ schools, faculty }: SchoolStripChartProps) {
     const innerHeight = sortedSchools.length * ROW_HEIGHT
     if (innerWidth <= 0) return
 
+    // Detect metric change for animated transitions. Width changes and
+    // initial mount snap (dur=0); only metric toggles glide.
+    const metricChanged =
+      prevMetricRef.current != null && prevMetricRef.current !== metric
+    prevMetricRef.current = metric
+    const dur = metricChanged ? TRANSITION_MS : 0
+
     const svg = select(svgRef.current)
 
-    const x = scaleLinear().domain([0, 100]).range([0, innerWidth])
+    // Scale construction. Log for FWCI (distribution is heavy-tailed with
+    // 1.0 as the meaningful reference); linear for field percentile.
+    const x = isFwci
+      ? scaleLog().domain([FWCI_FLOOR, FWCI_CEIL]).range([0, innerWidth]).clamp(true)
+      : scaleLinear().domain([0, 100]).range([0, innerWidth])
+
+    // Defensive clamp for FWCI log scale (raw 0 would map to -Infinity)
+    const xSafe = (v: number): number =>
+      isFwci ? x(Math.max(FWCI_FLOOR, v)) : x(v)
 
     const yFor = (schoolIdx: number): number =>
       schoolIdx * ROW_HEIGHT + ROW_HEIGHT / 2
 
-    // Root group
+    const tickValues = isFwci ? FWCI_TICKS : FIELD_TICKS
+    const gridValues = isFwci ? FWCI_GRID : FIELD_GRID
+    const tickFormat = (d: number | { valueOf: () => number }): string => {
+      const n = Number(d)
+      if (isFwci) {
+        if (n === 1) return '1.0'
+        if (n < 1) return n.toString()
+        return n.toString()
+      }
+      return n.toString()
+    }
+    const axisLabel = isFwci
+      ? 'FIELD-WEIGHTED CITATION IMPACT · 1.0 = FIELD AVERAGE'
+      : 'GLOBAL FIELD H-INDEX PERCENTILE'
+    const formatMedian = (v: number): string =>
+      isFwci ? v.toFixed(2) : Math.round(v).toString()
+
+    // Root plot group (created once, reused)
     let plot = svg.select<SVGGElement>('g.plot')
     if (plot.empty()) {
       plot = svg.append('g').attr('class', 'plot')
     }
     plot.attr('transform', `translate(${MARGIN.left},${MARGIN.top})`)
 
-    // Alternating row background stripes — makes rows easier to scan
+    // Alternating row background stripes — keyed on index (not school name)
+    // so rows don't animate backgrounds when schools reorder.
     const bgData = sortedSchools.map((_, i) => i)
-    const bgs = plot
+    plot
       .selectAll<SVGRectElement, number>('rect.row-bg')
       .data(bgData, (d) => d.toString())
-    bgs
       .join('rect')
       .attr('class', 'row-bg')
       .attr('x', 0)
       .attr('y', (i) => i * ROW_HEIGHT)
       .attr('width', innerWidth)
       .attr('height', ROW_HEIGHT)
-      .attr(
-        'fill',
-        (i) =>
-          i % 2 === 0 ? 'var(--color-muted)' : 'transparent',
-      )
+      .attr('fill', (i) => (i % 2 === 0 ? 'var(--color-muted)' : 'transparent'))
       .attr('fill-opacity', 0.4)
 
-    // Vertical gridlines at 25, 50, 75
-    const gridValues = [25, 50, 75]
-    plot
+    // Vertical gridlines — positions depend on the scale and re-animate on
+    // metric toggle since the tick values are completely different.
+    const gridLines = plot
       .selectAll<SVGLineElement, number>('line.grid-x')
       .data(gridValues)
-      .join('line')
-      .attr('class', 'grid-x')
-      .attr('x1', (d) => x(d))
-      .attr('x2', (d) => x(d))
+      .join((enter) =>
+        enter
+          .append('line')
+          .attr('class', 'grid-x')
+          .attr('stroke', 'var(--color-border)')
+          .attr('stroke-opacity', 0.6)
+          .attr('stroke-dasharray', '2,3')
+          .attr('x1', (d) => xSafe(d))
+          .attr('x2', (d) => xSafe(d))
+          .attr('y1', 0)
+          .attr('y2', innerHeight),
+      )
+    gridLines
+      .transition('pos')
+      .duration(dur)
+      .attr('x1', (d) => xSafe(d))
+      .attr('x2', (d) => xSafe(d))
+      .attr('y2', innerHeight)
+
+    // Reference line (FWCI only) at 1.0 — the "field average" marker. Enters
+    // on toggle to FWCI, exits on toggle to field %.
+    const refData: Array<number> = isFwci ? [1] : []
+    const refLines = plot
+      .selectAll<SVGLineElement, number>('line.ref-line')
+      .data(refData)
+    refLines
+      .exit()
+      .transition('ref')
+      .duration(dur)
+      .attr('stroke-opacity', 0)
+      .remove()
+    const refEnter = refLines
+      .enter()
+      .append('line')
+      .attr('class', 'ref-line')
+      .attr('stroke', 'var(--color-foreground)')
+      .attr('stroke-opacity', 0)
+      .attr('stroke-width', 1.5)
+      .attr('stroke-dasharray', '5,3')
+      .attr('pointer-events', 'none')
+      .attr('x1', (d) => xSafe(d))
+      .attr('x2', (d) => xSafe(d))
       .attr('y1', 0)
       .attr('y2', innerHeight)
-      .attr('stroke', 'var(--color-border)')
-      .attr('stroke-opacity', 0.6)
-      .attr('stroke-dasharray', '2,3')
+    refEnter
+      .transition('ref')
+      .duration(dur)
+      .attr('stroke-opacity', 0.4)
+    refLines
+      .transition('pos')
+      .duration(dur)
+      .attr('x1', (d) => xSafe(d))
+      .attr('x2', (d) => xSafe(d))
+      .attr('y2', innerHeight)
+
+    // Reference label "FIELD AVG" above the 1.0 line
+    const refLabelData: Array<number> = isFwci ? [1] : []
+    const refLabels = plot
+      .selectAll<SVGTextElement, number>('text.ref-label')
+      .data(refLabelData)
+    refLabels
+      .exit()
+      .transition('ref')
+      .duration(dur)
+      .attr('opacity', 0)
+      .remove()
+    const refLabelEnter = refLabels
+      .enter()
+      .append('text')
+      .attr('class', 'ref-label')
+      .attr('font-size', 9)
+      .attr('fill', 'var(--color-muted-foreground)')
+      .attr('letter-spacing', '0.06em')
+      .attr('text-anchor', 'start')
+      .attr('pointer-events', 'none')
+      .attr('opacity', 0)
+      .attr('x', (d) => xSafe(d) + 4)
+      .attr('y', -6)
+      .text('FIELD AVG')
+    refLabelEnter.transition('ref').duration(dur).attr('opacity', 1)
+    refLabels
+      .transition('pos')
+      .duration(dur)
+      .attr('x', (d) => xSafe(d) + 4)
 
     // X axis
     let xAxisG = plot.select<SVGGElement>('g.x-axis')
     if (xAxisG.empty()) {
       xAxisG = plot.append('g').attr('class', 'x-axis')
     }
-    xAxisG
-      .attr('transform', `translate(0,${innerHeight})`)
-      .call(
-        axisBottom(x)
-          .tickValues([0, 25, 50, 75, 100])
-          .tickFormat((d) => `${d}`)
-          .tickSizeOuter(0),
-      )
+    xAxisG.attr('transform', `translate(0,${innerHeight})`)
+    const axisCall = axisBottom(x)
+      .tickValues(tickValues)
+      .tickFormat(tickFormat)
+      .tickSizeOuter(0)
+    if (metricChanged) {
+      xAxisG.transition('axis').duration(dur).call(axisCall)
+    } else {
+      xAxisG.call(axisCall)
+    }
     xAxisG.selectAll('path.domain').attr('stroke', 'var(--color-border)')
     xAxisG
       .selectAll('line')
@@ -207,7 +351,7 @@ export function SchoolStripChart({ schools, faculty }: SchoolStripChartProps) {
       .attr('font-size', 11)
       .attr('font-family', 'inherit')
 
-    // X axis label
+    // X axis label — text snaps on toggle, position stays put
     let xLabel = plot.select<SVGTextElement>('text.x-label')
     if (xLabel.empty()) {
       xLabel = plot
@@ -220,8 +364,8 @@ export function SchoolStripChart({ schools, faculty }: SchoolStripChartProps) {
     }
     xLabel
       .attr('x', innerWidth / 2)
-      .attr('y', innerHeight + 28)
-      .text('GLOBAL FIELD H-INDEX PERCENTILE')
+      .attr('y', innerHeight + 32)
+      .text(axisLabel)
 
     // School row labels (two lines: abbreviated name + "n/total")
     const labels = plot
@@ -234,6 +378,10 @@ export function SchoolStripChart({ schools, faculty }: SchoolStripChartProps) {
       .enter()
       .append('g')
       .attr('class', 'school-label')
+      .attr(
+        'transform',
+        (d) => `translate(0, ${yFor(schoolIndex.get(d.school) ?? 0)})`,
+      )
 
     labelsEnter
       .append('text')
@@ -244,6 +392,7 @@ export function SchoolStripChart({ schools, faculty }: SchoolStripChartProps) {
       .attr('fill', 'var(--color-foreground)')
       .attr('font-size', 11)
       .attr('font-weight', 500)
+      .attr('y', -6)
 
     labelsEnter
       .append('text')
@@ -253,27 +402,27 @@ export function SchoolStripChart({ schools, faculty }: SchoolStripChartProps) {
       .attr('dominant-baseline', 'middle')
       .attr('fill', 'var(--color-muted-foreground)')
       .attr('font-size', 10)
+      .attr('y', 9)
 
     const labelsMerged = labelsEnter.merge(labels)
 
-    labelsMerged.attr(
-      'transform',
-      (_, i) => `translate(0, ${yFor(i)})`,
-    )
+    labelsMerged
+      .transition('pos')
+      .duration(dur)
+      .attr(
+        'transform',
+        (d) => `translate(0, ${yFor(schoolIndex.get(d.school) ?? 0)})`,
+      )
     labelsMerged
       .select<SVGTextElement>('text.school-name')
-      .attr('y', -6)
       .text((d) => abbreviateSchool(d.school))
-    labelsMerged
-      .select<SVGTextElement>('text.school-sub')
-      .attr('y', 9)
-      .text((d) =>
-        d.nWithData === d.n
-          ? `n=${d.n}`
-          : `${d.nWithData} of ${d.n}`,
-      )
+    labelsMerged.select<SVGTextElement>('text.school-sub').text((d) => {
+      const visible = pointsPerSchool.get(schoolIndex.get(d.school) ?? -1) ?? 0
+      return visible === d.n ? `n=${d.n}` : `${visible} of ${d.n}`
+    })
 
-    // Dots — one per plottable faculty
+    // Dots — one per plottable faculty. Positions update on metric change,
+    // opacity handles initial fade-in.
     const dotBand = ROW_HEIGHT * 0.55
     const dots = plot
       .selectAll<SVGCircleElement, StripPoint>('circle.dot')
@@ -290,12 +439,13 @@ export function SchoolStripChart({ schools, faculty }: SchoolStripChartProps) {
       .attr('stroke-width', 0.5)
       .attr('opacity', 0)
       .style('cursor', 'pointer')
+      // Start at the target position so newly-entered dots don't fly in
+      .attr('cx', (d) => xSafe(d.value))
+      .attr('cy', (d) => yFor(d.schoolIdx) + jitterFor(d.id) * (dotBand / 2))
+      .attr('r', DOT_RADIUS)
 
     const dotsMerged = dotsEnter
       .merge(dots)
-      .attr('cx', (d) => x(d.fieldPercentile))
-      .attr('cy', (d) => yFor(d.schoolIdx) + jitterFor(d.id) * (dotBand / 2))
-      .attr('r', DOT_RADIUS)
       .on('mouseenter', function (event: MouseEvent, d: StripPoint) {
         setHover({
           point: d,
@@ -324,29 +474,36 @@ export function SchoolStripChart({ schools, faculty }: SchoolStripChartProps) {
           .attr('opacity', 0.35)
       })
 
-    dotsMerged.transition().duration(450).attr('opacity', 0.35)
+    // Position transition (animated on metric change, instant otherwise)
+    dotsMerged
+      .transition('pos')
+      .duration(dur)
+      .attr('cx', (d) => xSafe(d.value))
+      .attr('cy', (d) => yFor(d.schoolIdx) + jitterFor(d.id) * (dotBand / 2))
 
-    // Median markers — thick vertical line per school at its median field %
+    // Opacity transition — always runs so newly-entered dots fade in. For
+    // existing dots it's a no-op (already at 0.35).
+    dotsMerged.transition('opacity').duration(450).attr('opacity', 0.35)
+
+    // ---- Median markers + labels ----
     interface MedianMarker {
+      schoolKey: string
       schoolIdx: number
       value: number
-      label: string
     }
     const medianMarkers: Array<MedianMarker> = sortedSchools
       .map((s, i) => ({
+        schoolKey: s.school,
         schoolIdx: i,
-        value: s.medianFieldPercentile,
-        label: s.school,
+        value: (isFwci ? s.medianFwci : s.medianFieldPercentile) ?? Number.NaN,
       }))
-      .filter(
-        (m): m is MedianMarker => m.value != null,
-      )
+      .filter((m) => !Number.isNaN(m.value))
 
     const markers = plot
       .selectAll<SVGLineElement, MedianMarker>('line.median')
-      .data(medianMarkers, (d) => d.label)
+      .data(medianMarkers, (d) => d.schoolKey)
     markers.exit().remove()
-    markers
+    const markersEnter = markers
       .enter()
       .append('line')
       .attr('class', 'median')
@@ -354,18 +511,25 @@ export function SchoolStripChart({ schools, faculty }: SchoolStripChartProps) {
       .attr('stroke-width', 2.5)
       .attr('stroke-linecap', 'round')
       .attr('pointer-events', 'none')
+      .attr('x1', (d) => xSafe(d.value))
+      .attr('x2', (d) => xSafe(d.value))
+      .attr('y1', (d) => yFor(d.schoolIdx) - ROW_HEIGHT * 0.35)
+      .attr('y2', (d) => yFor(d.schoolIdx) + ROW_HEIGHT * 0.35)
+    markersEnter
       .merge(markers)
-      .attr('x1', (d) => x(d.value))
-      .attr('x2', (d) => x(d.value))
+      .transition('pos')
+      .duration(dur)
+      .attr('x1', (d) => xSafe(d.value))
+      .attr('x2', (d) => xSafe(d.value))
       .attr('y1', (d) => yFor(d.schoolIdx) - ROW_HEIGHT * 0.35)
       .attr('y2', (d) => yFor(d.schoolIdx) + ROW_HEIGHT * 0.35)
 
     // Median value labels — small number next to each median tick
     const medianLabels = plot
       .selectAll<SVGTextElement, MedianMarker>('text.median-label')
-      .data(medianMarkers, (d) => d.label)
+      .data(medianMarkers, (d) => d.schoolKey)
     medianLabels.exit().remove()
-    medianLabels
+    const medianLabelsEnter = medianLabels
       .enter()
       .append('text')
       .attr('class', 'median-label')
@@ -379,11 +543,17 @@ export function SchoolStripChart({ schools, faculty }: SchoolStripChartProps) {
       .style('stroke', 'var(--color-background)')
       .style('stroke-width', '3px')
       .style('stroke-linejoin', 'round')
-      .merge(medianLabels)
-      .attr('x', (d) => x(d.value) + 6)
+      .attr('x', (d) => xSafe(d.value) + 6)
       .attr('y', (d) => yFor(d.schoolIdx) - ROW_HEIGHT * 0.3)
-      .text((d) => Math.round(d.value).toString())
-  }, [sortedSchools, points, width])
+
+    medianLabelsEnter
+      .merge(medianLabels)
+      .text((d) => formatMedian(d.value))
+      .transition('pos')
+      .duration(dur)
+      .attr('x', (d) => xSafe(d.value) + 6)
+      .attr('y', (d) => yFor(d.schoolIdx) - ROW_HEIGHT * 0.3)
+  }, [sortedSchools, schoolIndex, points, pointsPerSchool, width, metric, isFwci])
 
   if (sortedSchools.length === 0) {
     return (
@@ -405,40 +575,111 @@ export function SchoolStripChart({ schools, faculty }: SchoolStripChartProps) {
         height={HEIGHT}
         className="block overflow-visible"
       />
-      {hover ? (
-        (() => {
-          const pos = computeTooltipPosition(hover.x, hover.y)
-          return (
-            <div
-              className="bg-popover text-popover-foreground animate-in fade-in-0 zoom-in-95 pointer-events-none fixed z-50 min-w-[180px] max-w-[280px] rounded-md border p-2.5 shadow-md duration-150 ease-out"
-              style={{ left: pos.left, top: pos.top }}
-            >
-              <div className="text-[13px] font-medium">{hover.point.name}</div>
-              <div className="text-muted-foreground mt-0.5 text-[11px]">
-                {hover.point.department}
-              </div>
-              <div className="mt-2 grid grid-cols-2 gap-2 border-t pt-2 text-[11px]">
-                <div>
-                  <div className="text-muted-foreground text-[9px] tracking-wider uppercase">
-                    Field %
-                  </div>
-                  <div className="tabular text-primary font-medium">
-                    {Math.round(hover.point.fieldPercentile)}
+      {hover
+        ? (() => {
+            const pos = computeTooltipPosition(hover.x, hover.y)
+            return (
+              <div
+                className="bg-popover text-popover-foreground animate-in fade-in-0 zoom-in-95 pointer-events-none fixed z-50 min-w-[200px] max-w-[280px] rounded-md border p-2.5 shadow-md duration-150 ease-out"
+                style={{ left: pos.left, top: pos.top }}
+              >
+                <div className="text-[13px] font-medium">
+                  {hover.point.name}
+                </div>
+                <div className="text-muted-foreground mt-0.5 text-[11px]">
+                  {hover.point.department}
+                </div>
+                <div className="mt-2 grid grid-cols-3 gap-2 border-t pt-2 text-[11px]">
+                  {isFwci ? (
+                    <FwciTooltipCell value={hover.point.fwci} primary />
+                  ) : (
+                    <FieldPctTooltipCell
+                      value={hover.point.fieldPercentile}
+                      primary
+                    />
+                  )}
+                  {isFwci ? (
+                    <FieldPctTooltipCell
+                      value={hover.point.fieldPercentile}
+                    />
+                  ) : (
+                    <FwciTooltipCell value={hover.point.fwci} />
+                  )}
+                  <div>
+                    <div className="text-muted-foreground text-[9px] tracking-wider uppercase">
+                      Tier
+                    </div>
+                    <div className="text-[11px] font-medium">
+                      {hover.point.tier ? TIER_LABELS[hover.point.tier] : '—'}
+                    </div>
                   </div>
                 </div>
-                <div>
-                  <div className="text-muted-foreground text-[9px] tracking-wider uppercase">
-                    Tier
-                  </div>
-                  <div className="font-medium">
-                    {hover.point.tier ? TIER_LABELS[hover.point.tier] : '—'}
-                  </div>
-                </div>
               </div>
-            </div>
-          )
-        })()
-      ) : null}
+            )
+          })()
+        : null}
+    </div>
+  )
+}
+
+interface TooltipCellProps {
+  value: number | null
+  primary?: boolean
+}
+
+function FieldPctTooltipCell({ value, primary }: TooltipCellProps) {
+  return (
+    <div>
+      <div className="text-muted-foreground text-[9px] tracking-wider uppercase">
+        Field %
+      </div>
+      <div
+        className={
+          primary
+            ? 'text-primary tabular text-[13px] font-semibold'
+            : 'text-foreground tabular text-[11px] font-medium'
+        }
+      >
+        {value == null ? '—' : Math.round(value)}
+      </div>
+    </div>
+  )
+}
+
+function FwciTooltipCell({ value, primary }: TooltipCellProps) {
+  if (value == null) {
+    return (
+      <div>
+        <div className="text-muted-foreground text-[9px] tracking-wider uppercase">
+          FWCI
+        </div>
+        <div
+          className={
+            primary
+              ? 'tabular text-[13px] font-semibold'
+              : 'text-muted-foreground tabular text-[11px]'
+          }
+        >
+          —
+        </div>
+      </div>
+    )
+  }
+  const aboveAverage = value >= 1
+  return (
+    <div>
+      <div className="text-muted-foreground text-[9px] tracking-wider uppercase">
+        FWCI
+      </div>
+      <div
+        className={
+          primary
+            ? `tabular text-[13px] font-semibold ${aboveAverage ? 'text-primary' : 'text-muted-foreground'}`
+            : `tabular text-[11px] ${aboveAverage ? 'text-foreground font-medium' : 'text-muted-foreground'}`
+        }
+      >
+        {value.toFixed(2)}
+      </div>
     </div>
   )
 }

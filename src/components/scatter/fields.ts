@@ -6,6 +6,11 @@ import { H_TIER_ORDER } from '@/lib/types'
 const formatLog10 = (n: number): string => {
   if (n >= 1_000_000) return `${Math.round(n / 1_000_000)}M`
   if (n >= 1000) return `${Math.round(n / 1000)}k`
+  // Fractional values appear when the user zooms deep into a log axis;
+  // showing one or two decimals keeps the labels meaningful instead of
+  // collapsing "1.5" to "2" mid-zoom.
+  if (n > 0 && n < 1) return n.toFixed(2)
+  if (!Number.isInteger(n)) return n.toFixed(1)
   return n.toString()
 }
 

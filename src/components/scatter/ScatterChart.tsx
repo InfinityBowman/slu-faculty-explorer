@@ -2,12 +2,15 @@ import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import { select } from 'd3-selection'
 import { scaleLinear, scaleLog, scaleSqrt } from 'd3-scale'
 import { axisBottom, axisLeft } from 'd3-axis'
+import { zoom as d3Zoom, zoomIdentity } from 'd3-zoom'
 import 'd3-transition'
+import { Maximize2 } from 'lucide-react'
 import { DEFAULT_DOT_COLOR, UNKNOWN_CATEGORY_COLOR } from './palettes'
+import { drawLabels } from './labels'
 import type { ScaleContinuousNumeric } from 'd3-scale'
+import type { D3ZoomEvent, ZoomBehavior, ZoomTransform } from 'd3-zoom'
 import type { Point, PointsResult, ResolvedFields } from './usePoints'
 import type { ColorAssignment } from './palettes'
-import { useAppStore } from '@/store/appStore'
 
 interface ScatterChartProps {
   result: PointsResult
@@ -23,31 +26,40 @@ const MARGIN = { top: 16, right: 28, bottom: 44, left: 64 }
 const HEIGHT = 340
 const TRANSITION_MS = 450
 
-// Sqrt size scale range, used when size encoding is on. The lower bound is
-// big enough to be clickable; upper bound stays restrained so big dots don't
-// dominate the chart.
-const SIZE_RANGE: [number, number] = [3, 16]
+// Pan/zoom config — 20x is enough to resolve individual dots in the dense
+// clusters without the user getting lost in empty pixels.
+const SCALE_EXTENT: [number, number] = [1, 20]
 
-// Fixed-size dot radius when size encoding is off.
+// Sqrt size scale range, used when size encoding is on.
+const SIZE_RANGE: [number, number] = [3, 16]
 const FIXED_DOT_RADIUS = 5
 
 export function ScatterChart({ result }: ScatterChartProps) {
-  const metricSource = useAppStore((s) => s.metricSource)
   const containerRef = useRef<HTMLDivElement>(null)
   const svgRef = useRef<SVGSVGElement>(null)
   const tooltipRef = useRef<HTMLDivElement>(null)
+
+  // Current zoom transform — kept in a ref so width changes preserve the
+  // user's view across renders without round-tripping through React state.
+  const transformRef = useRef<ZoomTransform>(zoomIdentity)
+  const zoomBehaviorRef = useRef<ZoomBehavior<SVGSVGElement, unknown> | null>(
+    null,
+  )
+  // Tracks the identity of the points list so we can reset zoom when filters
+  // (or any non-width input) change the dataset out from under the user.
+  const prevPointsKeyRef = useRef<string>('')
+
   const [width, setWidth] = useState(800)
   const [hover, setHover] = useState<HoverState | null>(null)
   const [tooltipPos, setTooltipPos] = useState<{
     left: number
     top: number
   } | null>(null)
+  const [isZoomed, setIsZoomed] = useState(false)
 
   const { points, fields, colorAssignment } = result
 
-  // Position the tooltip so it never leaves the viewport. Measures the real
-  // tooltip width/height after it renders, then clamps its position. Prefer
-  // placement above the cursor; flip below if there's no room.
+  // Tooltip viewport clamping.
   useLayoutEffect(() => {
     if (!hover) {
       setTooltipPos(null)
@@ -72,7 +84,7 @@ export function ScatterChart({ result }: ScatterChartProps) {
     setTooltipPos({ left, top })
   }, [hover])
 
-  // Responsive width via ResizeObserver
+  // Responsive width.
   useEffect(() => {
     const el = containerRef.current
     if (!el) return
@@ -86,9 +98,8 @@ export function ScatterChart({ result }: ScatterChartProps) {
     }
   }, [])
 
-  // Pick which points get labeled. Top 5 by size when size is encoded, else
-  // top 5 by y-axis value — keeps the labeled dots associated with whatever
-  // is visually prominent.
+  // Top-N points eligible for labeling. By size when size is encoded, else by
+  // Y value — keeps labels associated with whatever is visually prominent.
   const labelIds = useMemo(() => {
     const sortKey = fields.sizeField
       ? (p: Point) => p.size ?? 0
@@ -97,7 +108,17 @@ export function ScatterChart({ result }: ScatterChartProps) {
     return new Set(top.map((p) => p.id))
   }, [points, fields.sizeField])
 
-  // Main d3 draw effect — runs whenever any of the inputs change.
+  // Smooth-reset to identity, called by the reset button and double-click.
+  const resetZoom = (): void => {
+    const svgEl = svgRef.current
+    const zb = zoomBehaviorRef.current
+    if (!svgEl || !zb) return
+    select(svgEl).transition().duration(400).call(zb.transform, zoomIdentity)
+  }
+
+  // Main d3 effect — full rebuild when any of points/fields/color/width
+  // changes. Pan/zoom updates are handled inline by calling draw() with
+  // rescaled scales, *without* re-running this effect.
   useLayoutEffect(() => {
     if (!svgRef.current) return
     const innerWidth = width - MARGIN.left - MARGIN.right
@@ -106,83 +127,79 @@ export function ScatterChart({ result }: ScatterChartProps) {
 
     const svg = select(svgRef.current)
 
-    // ── Scales ────────────────────────────────────────────────────────────
-    const x = buildScale(fields.xField, points, 'x', innerWidth)
-    const y = buildScale(fields.yField, points, 'y', innerHeight)
+    // Reset preserved zoom when the dataset changes (filter toggle, source
+    // change, color toggle). Width changes alone preserve the current view.
+    const pointsKey = points.map((p) => p.id).join('|')
+    const dataChanged = prevPointsKeyRef.current !== pointsKey
+    prevPointsKeyRef.current = pointsKey
+    if (dataChanged) {
+      transformRef.current = zoomIdentity
+      setIsZoomed((prev) => (prev ? false : prev))
+    }
 
-    // Size scale: sqrt for perceptual area-proportionality. Domain is 0 to
-    // max-observed (or 1 to avoid empty domain). Only used when size is on.
-    const maxSize = points.reduce(
-      (m, p) => Math.max(m, p.size ?? 0),
-      1,
-    )
-    const r = scaleSqrt().domain([0, maxSize]).range(SIZE_RANGE)
+    // ── Base scales ─────────────────────────────────────────────────────
+    const xBase = buildScale(fields.xField, points, 'x', innerWidth, innerHeight)
+    const yBase = buildScale(fields.yField, points, 'y', innerWidth, innerHeight)
 
-    // ── Tick values ───────────────────────────────────────────────────────
-    const xTicks = pickTicks(fields.xField, x)
-    const yTicks = pickTicks(fields.yField, y)
+    const maxSize = points.reduce((m, p) => Math.max(m, p.size ?? 0), 1)
+    const rScale = scaleSqrt().domain([0, maxSize]).range(SIZE_RANGE)
+    const radiusOf = (p: Point): number =>
+      fields.sizeField ? rScale(p.size ?? 0) : FIXED_DOT_RADIUS
 
-    // ── Plot group ────────────────────────────────────────────────────────
+    const colorFor = makeColorResolver(colorAssignment)
+
+    // ── Plot group + clip path ──────────────────────────────────────────
     let plot = svg.select<SVGGElement>('g.plot')
     if (plot.empty()) {
       plot = svg.append('g').attr('class', 'plot')
     }
     plot.attr('transform', `translate(${MARGIN.left},${MARGIN.top})`)
 
-    // ── Y grid lines ──────────────────────────────────────────────────────
+    let defs = svg.select<SVGDefsElement>('defs')
+    if (defs.empty()) {
+      defs = svg.append('defs')
+    }
+    let clipPath = defs.select<SVGClipPathElement>('#scatter-clip')
+    if (clipPath.empty()) {
+      clipPath = defs.append('clipPath').attr('id', 'scatter-clip')
+      clipPath.append('rect')
+    }
+    clipPath
+      .select('rect')
+      .attr('width', innerWidth)
+      .attr('height', innerHeight)
+
+    // Grid (clipped — should stop at the plot edge when zoomed)
     let gridY = plot.select<SVGGElement>('g.grid-y')
     if (gridY.empty()) {
-      gridY = plot.append('g').attr('class', 'grid-y')
+      gridY = plot
+        .append('g')
+        .attr('class', 'grid-y')
+        .attr('clip-path', 'url(#scatter-clip)')
     }
-    gridY
-      .selectAll('line')
-      .data(yTicks)
-      .join('line')
-      .attr('x1', 0)
-      .attr('x2', innerWidth)
-      .attr('y1', (d) => y(d))
-      .attr('y2', (d) => y(d))
-      .attr('stroke', 'var(--color-border)')
-      .attr('stroke-opacity', 0.6)
 
-    // ── X axis ────────────────────────────────────────────────────────────
+    // Overlay group for dots + labels (clipped)
+    let overlay = plot.select<SVGGElement>('g.overlay')
+    if (overlay.empty()) {
+      overlay = plot
+        .append('g')
+        .attr('class', 'overlay')
+        .attr('clip-path', 'url(#scatter-clip)')
+    }
+
+    // Axis containers (NOT clipped — they live in the margin)
     let xAxisG = plot.select<SVGGElement>('g.x-axis')
     if (xAxisG.empty()) {
       xAxisG = plot.append('g').attr('class', 'x-axis')
     }
-    const xFormat = fields.xField.formatTick ?? ((d: number) => d.toString())
-    xAxisG
-      .attr('transform', `translate(0,${innerHeight})`)
-      .transition()
-      .duration(TRANSITION_MS)
-      .call(
-        axisBottom(x)
-          .tickValues(xTicks)
-          .tickFormat((d) => xFormat(Number(d)))
-          .tickSizeOuter(0),
-      )
+    xAxisG.attr('transform', `translate(0,${innerHeight})`)
 
-    styleAxis(xAxisG)
-
-    // ── Y axis ────────────────────────────────────────────────────────────
     let yAxisG = plot.select<SVGGElement>('g.y-axis')
     if (yAxisG.empty()) {
       yAxisG = plot.append('g').attr('class', 'y-axis')
     }
-    const yFormat = fields.yField.formatTick ?? ((d: number) => d.toString())
-    yAxisG
-      .transition()
-      .duration(TRANSITION_MS)
-      .call(
-        axisLeft(y)
-          .tickValues(yTicks)
-          .tickFormat((d) => yFormat(Number(d)))
-          .tickSizeOuter(0),
-      )
 
-    styleAxis(yAxisG)
-
-    // ── Axis labels ───────────────────────────────────────────────────────
+    // Axis labels (static)
     let xLabel = plot.select<SVGTextElement>('text.x-label')
     if (xLabel.empty()) {
       xLabel = plot
@@ -212,68 +229,187 @@ export function ScatterChart({ result }: ScatterChartProps) {
       .attr('transform', `translate(${-50},${innerHeight / 2}) rotate(-90)`)
       .text(fields.yField.label.toUpperCase())
 
-    // ── Dots ──────────────────────────────────────────────────────────────
-    const colorFor = makeColorResolver(colorAssignment)
+    // ── The draw function ───────────────────────────────────────────────
+    // Called once for the initial / data-change render (animated=true) and
+    // then on every zoom event (animated=false). Redraws grid, axes, dots,
+    // labels using the (possibly rescaled) x/y scales it's handed.
+    const draw = (xScale: Scale, yScale: Scale, animated: boolean): void => {
+      const dur = animated ? TRANSITION_MS : 0
 
-    const dots = plot
-      .selectAll<SVGCircleElement, Point>('circle.dot')
-      .data(points, (d) => d.id.toString())
+      const xTicks = pickTicks(fields.xField, xScale)
+      const yTicks = pickTicks(fields.yField, yScale)
 
-    dots
-      .exit()
-      .transition()
-      .duration(TRANSITION_MS / 2)
-      .attr('r', 0)
-      .attr('opacity', 0)
-      .remove()
+      // Grid
+      gridY
+        .selectAll<SVGLineElement, number>('line')
+        .data(yTicks)
+        .join('line')
+        .attr('x1', 0)
+        .attr('x2', innerWidth)
+        .attr('y1', (d) => yScale(d))
+        .attr('y2', (d) => yScale(d))
+        .attr('stroke', 'var(--color-border)')
+        .attr('stroke-opacity', 0.6)
 
-    const dotsEnter = dots
-      .enter()
-      .append('circle')
-      .attr('class', 'dot')
-      .attr('cx', (d) => x(d.x))
-      .attr('cy', (d) => y(d.y))
-      .attr('r', 0)
-      .attr('opacity', 0)
-      .attr('stroke', 'var(--color-slu-700)')
-      .attr('stroke-width', 0.5)
-      .style('cursor', 'pointer')
+      // X axis
+      const xFormat = fields.xField.formatTick ?? defaultFormat
+      const xAxisCall = axisBottom(xScale)
+        .tickValues(xTicks)
+        .tickFormat((d) => xFormat(Number(d)))
+        .tickSizeOuter(0)
+      if (animated) {
+        xAxisG.transition().duration(dur).call(xAxisCall)
+      } else {
+        xAxisG.call(xAxisCall)
+      }
+      styleAxis(xAxisG)
 
-    dotsEnter
-      .merge(dots)
-      .on('mouseenter', function (event: MouseEvent, d: Point) {
-        setHover({ point: d, x: event.clientX, y: event.clientY })
-        select(this).attr('stroke-width', 1.5)
+      // Y axis
+      const yFormat = fields.yField.formatTick ?? defaultFormat
+      const yAxisCall = axisLeft(yScale)
+        .tickValues(yTicks)
+        .tickFormat((d) => yFormat(Number(d)))
+        .tickSizeOuter(0)
+      if (animated) {
+        yAxisG.transition().duration(dur).call(yAxisCall)
+      } else {
+        yAxisG.call(yAxisCall)
+      }
+      styleAxis(yAxisG)
+
+      // Dots — enter / update / exit inside the clipped overlay
+      const dots = overlay
+        .selectAll<SVGCircleElement, Point>('circle.dot')
+        .data(points, (d) => d.id.toString())
+
+      dots
+        .exit()
+        .transition()
+        .duration(animated ? TRANSITION_MS / 2 : 0)
+        .attr('r', 0)
+        .attr('opacity', 0)
+        .remove()
+
+      const dotsEnter = dots
+        .enter()
+        .append('circle')
+        .attr('class', 'dot')
+        .attr('cx', (d) => xScale(d.x))
+        .attr('cy', (d) => yScale(d.y))
+        .attr('r', 0)
+        .attr('opacity', 0)
+        .attr('stroke', 'var(--color-slu-700)')
+        .attr('stroke-width', 0.5)
+        .style('cursor', 'pointer')
+
+      const dotsMerged = dotsEnter
+        .merge(dots)
+        .on('mouseenter', function (event: MouseEvent, d: Point) {
+          setHover({ point: d, x: event.clientX, y: event.clientY })
+          select(this).attr('stroke-width', 1.5)
+        })
+        .on('mousemove', function (event: MouseEvent, d: Point) {
+          setHover({ point: d, x: event.clientX, y: event.clientY })
+        })
+        .on('mouseleave', function () {
+          setHover(null)
+          select(this).attr('stroke-width', 0.5)
+        })
+        .attr('fill', (d) => colorFor(d.colorValue))
+
+      if (animated) {
+        dotsMerged
+          .transition()
+          .duration(dur)
+          .attr('cx', (d) => xScale(d.x))
+          .attr('cy', (d) => yScale(d.y))
+          .attr('r', radiusOf)
+          .attr('opacity', 0.6)
+      } else {
+        // Direct attribute updates — avoid interrupting the initial enter
+        // transition mid-animation if the user starts zooming immediately,
+        // and skip the transition overhead on every wheel tick.
+        dotsMerged
+          .interrupt()
+          .attr('cx', (d) => xScale(d.x))
+          .attr('cy', (d) => yScale(d.y))
+          .attr('r', radiusOf)
+          .attr('opacity', 0.6)
+      }
+
+      // Labels — viewport-filtered so they don't pile up at edges when zoomed
+      drawLabels({
+        overlay,
+        points,
+        labelIds,
+        xPx: (p) => xScale(p.x),
+        yPx: (p) => yScale(p.y),
+        radiusOf,
+        innerWidth,
+        innerHeight,
+        animated,
+        transitionMs: TRANSITION_MS,
       })
-      .on('mousemove', function (event: MouseEvent, d: Point) {
-        setHover({ point: d, x: event.clientX, y: event.clientY })
-      })
-      .on('mouseleave', function () {
-        setHover(null)
-        select(this).attr('stroke-width', 0.5)
-      })
-      .attr('fill', (d) => colorFor(d.colorValue))
-      .transition()
-      .duration(TRANSITION_MS)
-      .attr('cx', (d) => x(d.x))
-      .attr('cy', (d) => y(d.y))
-      .attr('r', (d) =>
-        fields.sizeField ? r(d.size ?? 0) : FIXED_DOT_RADIUS,
+    }
+
+    // Initial draw — apply any preserved transform (from a width change) so
+    // the view is continuous across resizes.
+    const xInitial = transformRef.current.rescaleX(xBase)
+    const yInitial = transformRef.current.rescaleY(yBase)
+    draw(xInitial, yInitial, true)
+
+    // ── Zoom behavior ───────────────────────────────────────────────────
+    // Recreated each effect run because scales and extents depend on width.
+    const zoomBehavior = d3Zoom<SVGSVGElement, unknown>()
+      .scaleExtent(SCALE_EXTENT)
+      .translateExtent([
+        [0, 0],
+        [innerWidth, innerHeight],
+      ])
+      .extent([
+        [0, 0],
+        [innerWidth, innerHeight],
+      ])
+      .filter(
+        (event: Event) =>
+          (!(event as MouseEvent).ctrlKey || event.type === 'wheel') &&
+          !(event as MouseEvent).button,
       )
-      .attr('opacity', 0.6)
+      .on('start', () => {
+        // Hide the tooltip as soon as a pan/zoom gesture begins — the point
+        // under the cursor is about to move and a stale tooltip would feel
+        // broken.
+        setHover(null)
+      })
+      .on('zoom', (event: D3ZoomEvent<SVGSVGElement, unknown>) => {
+        transformRef.current = event.transform
+        const zoomedIn =
+          event.transform.k !== 1 ||
+          event.transform.x !== 0 ||
+          event.transform.y !== 0
+        setIsZoomed((prev) => (prev !== zoomedIn ? zoomedIn : prev))
+        const nx = event.transform.rescaleX(xBase)
+        const ny = event.transform.rescaleY(yBase)
+        draw(nx, ny, false)
+      })
 
-    // ── Outlier labels with collision avoidance ───────────────────────────
-    drawLabels({
-      plot,
-      points,
-      labelIds,
-      x,
-      y,
-      r,
-      hasSize: fields.sizeField != null,
-      innerWidth,
-      innerHeight,
+    svg.call(zoomBehavior).on('dblclick.zoom', null)
+    // Override d3-zoom's default "zoom in 2x on dblclick" — for an analytical
+    // dashboard, smooth-reset is much more useful.
+    svg.on('dblclick', () => {
+      svg
+        .transition()
+        .duration(400)
+        .call(zoomBehavior.transform, zoomIdentity)
     })
+
+    // Sync d3-zoom's internal state with our preserved transform so the next
+    // wheel/drag continues from the current view (e.g. after a resize).
+    if (transformRef.current !== zoomIdentity) {
+      svg.call(zoomBehavior.transform, transformRef.current)
+    }
+
+    zoomBehaviorRef.current = zoomBehavior
   }, [points, fields, colorAssignment, labelIds, width])
 
   if (points.length === 0) {
@@ -294,14 +430,31 @@ export function ScatterChart({ result }: ScatterChartProps) {
         ref={svgRef}
         width={width}
         height={HEIGHT}
-        className="block overflow-visible"
+        className="block cursor-grab overflow-visible select-none active:cursor-grabbing"
       />
+
+      {isZoomed ? (
+        <button
+          type="button"
+          onClick={resetZoom}
+          className="bg-card hover:bg-muted animate-in fade-in-0 absolute top-2 right-2 inline-flex items-center gap-1.5 rounded-md border px-2.5 py-1.5 text-[11px] font-medium shadow-sm transition-colors duration-150"
+        >
+          <Maximize2 className="size-3" />
+          Reset zoom
+        </button>
+      ) : null}
+
+      {!isZoomed ? (
+        <div className="text-muted-foreground pointer-events-none absolute top-2 right-3 text-[10px] tracking-wide uppercase select-none">
+          Scroll to zoom · drag to pan
+        </div>
+      ) : null}
+
       {hover ? (
         <Tooltip
           ref={tooltipRef}
           point={hover.point}
           fields={fields}
-          metricSource={metricSource}
           pos={tooltipPos}
         />
       ) : null}
@@ -313,6 +466,10 @@ export function ScatterChart({ result }: ScatterChartProps) {
 
 type Scale = ScaleContinuousNumeric<number, number>
 
+function defaultFormat(d: number): string {
+  return d.toString()
+}
+
 // Builds a scale appropriate for the field. Log scales clamp the lower bound
 // to 1 to avoid log(0); explicit field domains override the data-derived
 // range entirely.
@@ -320,7 +477,8 @@ function buildScale(
   field: { scale: 'log' | 'linear'; domain?: [number, number] },
   points: ReadonlyArray<Point>,
   axis: 'x' | 'y',
-  innerSize: number,
+  innerWidth: number,
+  innerHeight: number,
 ): Scale {
   const accessor = axis === 'x' ? (p: Point) => p.x : (p: Point) => p.y
 
@@ -332,15 +490,10 @@ function buildScale(
     const minObs = values.length > 0 ? Math.min(...values) : 0
     const maxObs = values.length > 0 ? Math.max(...values) : 1
     if (field.scale === 'log') {
-      // Clamp to >=1 for log; cap upper bound for very long tails (works,
-      // citations) using a half-decade rounding so the axis doesn't waste
-      // space on a couple of outliers.
       const lo = Math.max(1, minObs)
       const hi = Math.max(lo + 1, maxObs)
       domain = [lo, hi]
     } else {
-      // Linear: a tiny pad on each side keeps the extreme dots from sitting
-      // on the axes themselves.
       const span = Math.max(1, maxObs - minObs)
       const pad = span * 0.05
       domain = [minObs - pad, maxObs + pad]
@@ -348,7 +501,7 @@ function buildScale(
   }
 
   const range: [number, number] =
-    axis === 'x' ? [0, innerSize] : [innerSize, 0]
+    axis === 'x' ? [0, innerWidth] : [innerHeight, 0]
 
   if (field.scale === 'log') {
     return scaleLog().domain(domain).range(range)
@@ -357,16 +510,19 @@ function buildScale(
 }
 
 // Picks tick values for an axis. If the field declares its own tickValues,
-// filter them to the current domain. Otherwise let the scale choose.
+// filter them to the current (possibly zoomed) domain. Falls back to d3's
+// default ticks when fewer than two declared ticks land in view — that way
+// zooming in tight enough doesn't leave the axis empty.
 function pickTicks(
   field: { scale: 'log' | 'linear'; tickValues?: ReadonlyArray<number> },
   scale: Scale,
 ): Array<number> {
   const [lo, hi] = scale.domain() as [number, number]
   if (field.tickValues) {
-    return field.tickValues.filter((t) => t >= lo && t <= hi)
+    const filtered = field.tickValues.filter((t) => t >= lo && t <= hi)
+    if (filtered.length >= 2) return filtered
+    return scale.ticks(5)
   }
-  // Default: use the scale's own ticks. For linear, asks for ~6 ticks.
   return scale.ticks(6)
 }
 
@@ -391,159 +547,12 @@ function makeColorResolver(
   }
 }
 
-// ─── Outlier label rendering ──────────────────────────────────────────────
-
-interface DrawLabelsArgs {
-  plot: ReturnType<typeof select<SVGGElement, unknown>>
-  points: ReadonlyArray<Point>
-  labelIds: ReadonlySet<number>
-  x: Scale
-  y: Scale
-  // d3-scale's sqrt scale has overloaded call signatures that confuse
-  // inference downstream; narrowing to (number) => number avoids that.
-  r: (value: number) => number
-  hasSize: boolean
-  innerWidth: number
-  innerHeight: number
-}
-
-interface PlacedLabel {
-  point: Point
-  x: number
-  y: number
-  anchor: 'start' | 'end'
-}
-
-const CHAR_WIDTH = 6.3
-const LABEL_HEIGHT = 14
-const LABEL_PAD = 4
-
-function drawLabels({
-  plot,
-  points,
-  labelIds,
-  x,
-  y,
-  r,
-  hasSize,
-  innerWidth,
-  innerHeight,
-}: DrawLabelsArgs): void {
-  const labelPoints = points
-    .filter((p) => labelIds.has(p.id))
-    .sort((a, b) => (b.size ?? 0) - (a.size ?? 0))
-
-  const placed: Array<PlacedLabel> = []
-  for (const p of labelPoints) {
-    const dotX = x(p.x)
-    const dotY = y(p.y)
-    const radius = hasSize ? r(p.size ?? 0) : FIXED_DOT_RADIUS
-    const anchor: 'start' | 'end' =
-      dotX > innerWidth * 0.65 ? 'end' : 'start'
-    const labelOffset = radius + 5
-    const labelX =
-      anchor === 'end' ? dotX - labelOffset : dotX + labelOffset
-    let labelY = dotY
-    const textWidth = p.lastName.length * CHAR_WIDTH
-
-    const overlaps = (cy: number): boolean => {
-      const aLeft = anchor === 'start' ? labelX : labelX - textWidth
-      const aRight = anchor === 'start' ? labelX + textWidth : labelX
-      const aTop = cy - LABEL_HEIGHT / 2
-      const aBottom = cy + LABEL_HEIGHT / 2
-      for (const pl of placed) {
-        const plText = pl.point.lastName.length * CHAR_WIDTH
-        const bLeft = pl.anchor === 'start' ? pl.x : pl.x - plText
-        const bRight = pl.anchor === 'start' ? pl.x + plText : pl.x
-        const bTop = pl.y - LABEL_HEIGHT / 2
-        const bBottom = pl.y + LABEL_HEIGHT / 2
-        if (
-          aLeft < bRight + LABEL_PAD &&
-          aRight > bLeft - LABEL_PAD &&
-          aTop < bBottom + LABEL_PAD &&
-          aBottom > bTop - LABEL_PAD
-        ) {
-          return true
-        }
-      }
-      return false
-    }
-
-    if (overlaps(labelY)) {
-      let offset = LABEL_HEIGHT + LABEL_PAD
-      let found = false
-      for (let tries = 0; tries < 6; tries++) {
-        if (!overlaps(labelY - offset)) {
-          labelY = labelY - offset
-          found = true
-          break
-        }
-        if (!overlaps(labelY + offset)) {
-          labelY = labelY + offset
-          found = true
-          break
-        }
-        offset += LABEL_HEIGHT + LABEL_PAD
-      }
-      if (!found) labelY = dotY
-    }
-
-    labelY = Math.max(
-      LABEL_HEIGHT / 2,
-      Math.min(innerHeight - LABEL_HEIGHT / 2, labelY),
-    )
-
-    placed.push({ point: p, x: labelX, y: labelY, anchor })
-  }
-
-  const labels = plot
-    .selectAll<SVGTextElement, PlacedLabel>('text.label')
-    .data(placed, (d) => d.point.id.toString())
-
-  labels
-    .exit()
-    .transition()
-    .duration(TRANSITION_MS / 2)
-    .attr('opacity', 0)
-    .remove()
-
-  const labelsEnter = labels
-    .enter()
-    .append('text')
-    .attr('class', 'label')
-    .attr('fill', 'var(--color-foreground)')
-    .attr('font-size', 11)
-    .attr('font-weight', 500)
-    .attr('dominant-baseline', 'middle')
-    .attr('x', (d) => d.x)
-    .attr('y', (d) => d.y)
-    .attr('text-anchor', (d) => d.anchor)
-    .attr('opacity', 0)
-    .style('pointer-events', 'none')
-    .style('font-variant-numeric', 'tabular-nums')
-    .style('paint-order', 'stroke')
-    .style('stroke', 'var(--color-background)')
-    .style('stroke-width', '3px')
-    .style('stroke-linejoin', 'round')
-
-  labelsEnter
-    .merge(labels)
-    .text((d) => d.point.lastName)
-    .attr('text-anchor', (d) => d.anchor)
-    .transition()
-    .duration(TRANSITION_MS)
-    .attr('x', (d) => d.x)
-    .attr('y', (d) => d.y)
-    .attr('opacity', 1)
-}
-
 // ─── Tooltip ──────────────────────────────────────────────────────────────
 
 interface TooltipProps {
   ref: React.RefObject<HTMLDivElement | null>
   point: Point
   fields: ResolvedFields
-  metricSource: ReturnType<typeof useAppStore.getState>['metricSource']
   pos: { left: number; top: number } | null
 }
 
@@ -551,7 +560,7 @@ function Tooltip({ ref, point, fields, pos }: TooltipProps) {
   return (
     <div
       ref={ref}
-      className="bg-popover text-popover-foreground animate-in fade-in-0 pointer-events-none fixed z-50 max-w-[280px] min-w-[180px] rounded-md border p-2.5 shadow-md duration-100 ease-out"
+      className="bg-popover text-popover-foreground animate-in fade-in-0 zoom-in-95 pointer-events-none fixed z-50 max-w-[280px] min-w-[180px] rounded-md border p-2.5 shadow-md duration-150 ease-out"
       style={{
         left: pos?.left ?? -9999,
         top: pos?.top ?? -9999,
@@ -607,3 +616,4 @@ function formatTooltipValue(
   if (field.formatTick) return field.formatTick(value)
   return value.toString()
 }
+
