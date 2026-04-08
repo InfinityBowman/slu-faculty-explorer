@@ -1,5 +1,6 @@
 import { Search } from 'lucide-react'
 import type { Faculty } from '@/lib/types'
+import type { TierFilter } from '@/store/appStore'
 import {
   Select,
   SelectContent,
@@ -11,6 +12,19 @@ import { useAppStore } from '@/store/appStore'
 import { useDepartmentOptions, useSchoolOptions } from '@/hooks/useFaculty'
 import { cn } from '@/lib/utils'
 
+// Threshold-style options: each entry means "this tier or better." Ordering
+// goes strictest → loosest so the dropdown reads top-to-bottom as elite → broad.
+// below_median is omitted on purpose — "everyone with a tier" is rarely useful
+// and confuses with "All faculty," which already includes the no-tier rows.
+const TIER_OPTIONS: ReadonlyArray<{ value: TierFilter; label: string }> = [
+  { value: 'all', label: 'All faculty' },
+  { value: 'top_1%', label: 'Top 1% in field' },
+  { value: 'top_5%', label: 'Top 5% in field' },
+  { value: 'top_10%', label: 'Top 10% in field' },
+  { value: 'top_25%', label: 'Top 25% in field' },
+  { value: 'above_median', label: 'Above field median' },
+]
+
 interface FiltersProps {
   all: Array<Faculty> | null
 }
@@ -19,10 +33,12 @@ export function Filters({ all }: FiltersProps) {
   const search = useAppStore((s) => s.search)
   const school = useAppStore((s) => s.school)
   const department = useAppStore((s) => s.department)
+  const tier = useAppStore((s) => s.tier)
   const metricSource = useAppStore((s) => s.metricSource)
   const setSearch = useAppStore((s) => s.setSearch)
   const setSchool = useAppStore((s) => s.setSchool)
   const setDepartment = useAppStore((s) => s.setDepartment)
+  const setTier = useAppStore((s) => s.setTier)
   const setMetricSource = useAppStore((s) => s.setMetricSource)
 
   const schools = useSchoolOptions(all)
@@ -30,6 +46,7 @@ export function Filters({ all }: FiltersProps) {
 
   const schoolActive = school !== 'all'
   const deptActive = department !== 'all'
+  const tierActive = tier !== 'all'
 
   return (
     <div className="bg-card sticky top-4 z-10 flex flex-wrap items-end gap-3 rounded-lg border p-3 shadow-sm backdrop-blur-sm">
@@ -82,6 +99,29 @@ export function Filters({ all }: FiltersProps) {
             {departments.map((d) => (
               <SelectItem key={d} value={d}>
                 {d}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </FilterField>
+
+      <FilterField label="Field tier" className="min-w-[180px]">
+        <Select
+          value={tier}
+          onValueChange={(v) => setTier(v as TierFilter)}
+        >
+          <SelectTrigger
+            className={cn(
+              'h-9 w-full',
+              tierActive && 'border-primary ring-primary/15 ring-[3px]',
+            )}
+          >
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            {TIER_OPTIONS.map((opt) => (
+              <SelectItem key={opt.value} value={opt.value}>
+                {opt.label}
               </SelectItem>
             ))}
           </SelectContent>

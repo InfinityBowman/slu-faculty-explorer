@@ -56,7 +56,7 @@ export function App() {
                   </span>
                 </h2>
                 <p className="text-muted-foreground text-xs">
-                  Click a row for details · hover to see department percentile
+                  Click a row for details
                 </p>
               </div>
               <FacultyTable rows={filtered} percentiles={percentiles} />

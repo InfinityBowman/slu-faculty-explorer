@@ -8,10 +8,41 @@ import {
 import { useVirtualizer } from '@tanstack/react-virtual'
 import { ArrowDown, ArrowUp, ChevronRight, ExternalLink } from 'lucide-react'
 import type { ColumnDef, SortingState } from '@tanstack/react-table'
-import type { Faculty } from '@/lib/types'
+import type { Faculty, HTier } from '@/lib/types'
 import type { PercentileInfo } from '@/hooks/useFaculty'
 import { useAppStore } from '@/store/appStore'
 import { cn } from '@/lib/utils'
+
+// Higher = better, so desc-sort puts top_1% on top and nulls sink to the bottom.
+const TIER_RANK: Record<HTier, number> = {
+  'top_1%': 6,
+  'top_5%': 5,
+  'top_10%': 4,
+  'top_25%': 3,
+  above_median: 2,
+  below_median: 1,
+}
+
+const TIER_LABELS: Record<HTier, string> = {
+  'top_1%': 'Top 1%',
+  'top_5%': 'Top 5%',
+  'top_10%': 'Top 10%',
+  'top_25%': 'Top 25%',
+  above_median: 'Above median',
+  below_median: 'Below median',
+}
+
+// Monochrome ramp on the SLU primary — strongest fill at top_1%, fading to a
+// plain text label at below_median. Keeps the table restrained while still
+// reading as a quality scale at a glance.
+const TIER_CLASSES: Record<HTier, string> = {
+  'top_1%': 'bg-primary text-primary-foreground border-primary shadow-sm',
+  'top_5%': 'bg-primary/85 text-primary-foreground border-primary/85',
+  'top_10%': 'bg-primary/15 text-primary border-primary/30',
+  'top_25%': 'bg-primary/8 text-primary/90 border-primary/15',
+  above_median: 'bg-muted text-foreground border-border',
+  below_median: 'text-muted-foreground/80 border-transparent',
+}
 
 const COLLAPSED_ROW_HEIGHT = 57
 const EXPANDED_ROW_HEIGHT = 230
@@ -27,6 +58,8 @@ interface Row {
   i10: number | null
   citations: number | null
   works: number | null
+  fwci: number | null
+  tier: HTier | null
   percentile: PercentileInfo | null
 }
 
@@ -52,6 +85,8 @@ export function FacultyTable({ rows, percentiles }: FacultyTableProps) {
       citations:
         metricSource === 'scholar' ? f.citations : f.openalexCitations,
       works: f.openalexWorksCount,
+      fwci: f.openalex2yrFwci,
+      tier: f.primaryHTier,
       percentile: percentiles.get(f.id) ?? null,
     }))
   }, [rows, metricSource, percentiles])
@@ -82,6 +117,14 @@ export function FacultyTable({ rows, percentiles }: FacultyTableProps) {
             {abbreviateSchool(row.original.faculty.school)}
           </span>
         ),
+      },
+      {
+        id: 'tier',
+        // Sort by tier rank (higher = better). Nulls become -1 so they sink
+        // to the bottom on a desc sort, matching the default for numeric cols.
+        accessorFn: (r) => (r.tier ? TIER_RANK[r.tier] : -1),
+        header: 'Field tier',
+        cell: ({ row }) => <TierBadge tier={row.original.tier} />,
       },
       {
         id: 'percentile',
@@ -120,6 +163,12 @@ export function FacultyTable({ rows, percentiles }: FacultyTableProps) {
         ),
       },
       {
+        id: 'fwci',
+        accessorFn: (r) => r.fwci,
+        header: 'FWCI',
+        cell: ({ row }) => <FwciCell value={row.original.fwci} />,
+      },
+      {
         id: 'works',
         accessorFn: (r) => r.works,
         header: 'Works',
@@ -144,7 +193,15 @@ export function FacultyTable({ rows, percentiles }: FacultyTableProps) {
     enableSortingRemoval: false,
   })
 
-  const numericColumns = new Set(['percentile', 'hIndex', 'i10', 'citations', 'works'])
+  const numericColumns = new Set([
+    'tier',
+    'percentile',
+    'hIndex',
+    'i10',
+    'citations',
+    'fwci',
+    'works',
+  ])
 
   const headerCellBase =
     'bg-muted sticky top-0 z-10 shadow-[inset_0_-1px_0_var(--color-border)]'
@@ -325,6 +382,52 @@ export function FacultyTable({ rows, percentiles }: FacultyTableProps) {
         </tbody>
       </table>
     </div>
+  )
+}
+
+interface TierBadgeProps {
+  tier: HTier | null
+}
+
+function TierBadge({ tier }: TierBadgeProps) {
+  if (!tier) {
+    return <span className="text-muted-foreground/50 tabular text-[11px]">—</span>
+  }
+  return (
+    <span
+      className={cn(
+        'inline-flex items-center rounded-full border px-2 py-0.5 text-[10px] font-medium tracking-tight whitespace-nowrap',
+        TIER_CLASSES[tier],
+      )}
+      title={`Global field h-index tier: ${TIER_LABELS[tier]}`}
+    >
+      {TIER_LABELS[tier]}
+    </span>
+  )
+}
+
+interface FwciCellProps {
+  value: number | null
+}
+
+// FWCI is field-normalized: 1.0 = field average. Above 1 is above-average impact;
+// below 1 is below-average. Show the number with a subtle emphasis to make
+// "above field average" pop without being garish.
+function FwciCell({ value }: FwciCellProps) {
+  if (value == null) {
+    return <span className="text-muted-foreground/50 tabular text-[11px]">—</span>
+  }
+  const aboveAverage = value >= 1
+  return (
+    <span
+      className={cn(
+        'tabular text-[12px]',
+        aboveAverage ? 'text-foreground font-medium' : 'text-muted-foreground',
+      )}
+      title={`Field-Weighted Citation Impact (1.0 = field average)`}
+    >
+      {value.toFixed(2)}
+    </span>
   )
 }
 
