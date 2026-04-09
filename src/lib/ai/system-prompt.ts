@@ -11,9 +11,9 @@ interface ExplorerState {
 
 const PAGE_CONTEXT: Record<string, string> = {
   '/': `The user is on the Explorer page. It has a filter bar (search, school, department, tier, source toggle), a stat strip, a configurable scatter chart (you can change axes/color/size via set_scatter), and a sortable faculty table. All UI tools work here.`,
-  '/schools': `The user is on the Schools page. It shows a strip chart of field percentile (or FWCI) by school and a school comparison table. The set_scatter tool does NOT work here (no scatter chart). set_filters still works for the Explorer page but won't affect what's visible on this page.`,
-  '/insights': `The user is on the Insights page. It shows presentation-ready analytics: tier distribution by school, FWCI distribution, m-index by career stage, admin role vs research output, SLU vs global field benchmarks, and data source coverage. No UI tools affect this page — it's read-only. You can still answer data questions via data tools.`,
-  '/about': `The user is on the About page which explains methodology, sources, and caveats. You can still answer data questions, but UI tools won't affect anything visible here.`,
+  '/schools': `The user is on the Schools page. It shows a strip chart of field percentile (or FWCI) by school and a school comparison table. The set_scatter tool does NOT work here (no scatter chart). set_filters still works for the Explorer page but won't affect what's visible on this page. Do not bring up the data source toggle unless asked about it as it does not affect this page - only the explorer page.`,
+  '/insights': `The user is on the Insights page. It shows presentation-ready analytics: tier distribution by school, FWCI distribution, m-index by career stage, admin role vs research output, SLU vs global field benchmarks, and data source coverage. No UI tools affect this page — it's read-only. You can still answer data questions via data tools. Do not bring up the data source toggle unless asked about it as it does not affect this page - only the explorer page.`,
+  '/about': `The user is on the About page which explains methodology, sources, and caveats. You can still answer data questions, but UI tools and data sources won't affect anything visible here.`,
 }
 
 export function buildSystemPrompt(

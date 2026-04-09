@@ -1,12 +1,4 @@
-import { executeCode } from './code-executor'
 import type { Faculty } from '@/lib/types'
-import type { ToolCall } from './use-chat'
-
-export interface DataToolResult {
-  toolCallId: string
-  name: string
-  content: string
-}
 
 const CURRENT_YEAR = new Date().getFullYear()
 
@@ -78,70 +70,7 @@ function facultyDetail(f: Faculty) {
   }
 }
 
-export async function executeDataTool(
-  toolCall: ToolCall,
-  faculty: Array<Faculty>,
-): Promise<DataToolResult> {
-  const args = toolCall.arguments
-  let content: unknown
-
-  switch (toolCall.name) {
-    case 'get_dataset_summary': {
-      content = buildDatasetSummary(faculty)
-      break
-    }
-    case 'get_faculty_detail': {
-      content = buildFacultyDetail(args.name as string, faculty)
-      break
-    }
-    case 'get_school_summary': {
-      content = buildSchoolSummary(args.school as string, faculty)
-      break
-    }
-    case 'get_department_summary': {
-      content = buildDepartmentSummary(args.department as string, faculty)
-      break
-    }
-    case 'get_rankings': {
-      content = buildRankings(
-        args.metric as string,
-        args.school as string | undefined,
-        args.department as string | undefined,
-        (args.order as string | undefined) ?? 'desc',
-        Math.min(Number(args.limit) || 10, 25),
-        faculty,
-      )
-      break
-    }
-    case 'search_faculty': {
-      content = buildSearch(
-        args.query as string,
-        Math.min(Number(args.limit) || 10, 25),
-        faculty,
-      )
-      break
-    }
-    case 'run_analysis': {
-      try {
-        const result = await executeCode(args.code as string, faculty)
-        content = { result }
-      } catch (err) {
-        content = { error: err instanceof Error ? err.message : String(err) }
-      }
-      break
-    }
-    default:
-      content = { error: `Unknown data tool: ${toolCall.name}` }
-  }
-
-  return {
-    toolCallId: toolCall.id,
-    name: toolCall.name,
-    content: JSON.stringify(content),
-  }
-}
-
-function buildDatasetSummary(faculty: Array<Faculty>) {
+export function buildDatasetSummary(faculty: Array<Faculty>) {
   const withScholar = faculty.filter((f) => f.hIndex != null)
   const withOpenalex = faculty.filter((f) => f.openalexHIndex != null)
   const allH = faculty
@@ -184,7 +113,7 @@ function buildDatasetSummary(faculty: Array<Faculty>) {
   }
 }
 
-function buildFacultyDetail(name: string, faculty: Array<Faculty>) {
+export function buildFacultyDetail(name: string, faculty: Array<Faculty>) {
   if (!name) return { error: 'No name provided' }
 
   const names = faculty.map((f) => f.name)
@@ -197,7 +126,7 @@ function buildFacultyDetail(name: string, faculty: Array<Faculty>) {
   return facultyDetail(match)
 }
 
-function buildSchoolSummary(school: string, faculty: Array<Faculty>) {
+export function buildSchoolSummary(school: string, faculty: Array<Faculty>) {
   if (!school) return { error: 'No school provided' }
 
   const schools = [...new Set(faculty.map((f) => f.school))]
@@ -241,7 +170,7 @@ function buildSchoolSummary(school: string, faculty: Array<Faculty>) {
   }
 }
 
-function buildDepartmentSummary(department: string, faculty: Array<Faculty>) {
+export function buildDepartmentSummary(department: string, faculty: Array<Faculty>) {
   if (!department) return { error: 'No department provided' }
 
   const depts = [...new Set(faculty.map((f) => f.department))]
@@ -278,7 +207,7 @@ function buildDepartmentSummary(department: string, faculty: Array<Faculty>) {
   }
 }
 
-function buildRankings(
+export function buildRankings(
   metric: string,
   school: string | undefined,
   department: string | undefined,
@@ -354,7 +283,7 @@ function buildRankings(
   }
 }
 
-function buildSearch(query: string, limit: number, faculty: Array<Faculty>) {
+export function buildSearch(query: string, limit: number, faculty: Array<Faculty>) {
   if (!query) return { error: 'No query provided' }
 
   const lower = query.toLowerCase()

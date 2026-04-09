@@ -1,287 +1,205 @@
-export interface ToolDefinition {
-  type: 'function'
-  function: {
-    name: string
-    description: string
-    parameters: {
-      type: 'object'
-      properties: Record<string, unknown>
-      required?: Array<string>
-    }
-  }
+import { toolDefinition } from '@tanstack/ai'
+import { z } from 'zod'
+import { executeCode } from './code-executor'
+import {
+  buildDatasetSummary,
+  buildDepartmentSummary,
+  buildFacultyDetail,
+  buildRankings,
+  buildSchoolSummary,
+  buildSearch,
+} from './data-executor'
+import type { Faculty } from '@/lib/types'
+import type { TierFilter } from '@/store/appStore'
+import { useAppStore } from '@/store/appStore'
+
+// ── Faculty data ref (set from CommandBar when data loads) ──
+
+let _faculty: Array<Faculty> = []
+export function setFacultyData(data: Array<Faculty>) {
+  _faculty = data
 }
 
-export const TOOL_DEFINITIONS: Array<ToolDefinition> = [
-  // ── UI Tools (mutate explorer state) ──
+// ── Enum values ──
 
-  {
-    type: 'function',
-    function: {
-      name: 'set_filters',
-      description:
-        'Set explorer filters. Only include filters you want to change. Omit filters you want to leave as-is.',
-      parameters: {
-        type: 'object',
-        properties: {
-          search: {
-            type: 'string',
-            description:
-              'Free-text search (matches name, department, research interests)',
-          },
-          school: {
-            type: 'string',
-            description: 'School name or "all" for no filter',
-          },
-          department: {
-            type: 'string',
-            description: 'Department name or "all" for no filter',
-          },
-          tier: {
-            type: 'string',
-            enum: [
-              'all',
-              'top_1%',
-              'top_5%',
-              'top_10%',
-              'top_25%',
-              'above_median',
-            ],
-            description:
-              'Minimum field tier threshold. "top_5%" means top 5% or better.',
-          },
-          metricSource: {
-            type: 'string',
-            enum: ['scholar', 'openalex'],
-            description: 'Which data source to use for h-index and citations',
-          },
-        },
-      },
-    },
-  },
-  {
-    type: 'function',
-    function: {
-      name: 'set_scatter',
-      description:
-        'Configure the scatter chart axes and encodings. Only include fields you want to change.',
-      parameters: {
-        type: 'object',
-        properties: {
-          x: {
-            type: 'string',
-            enum: [
-              'works',
-              'citations',
-              'hIndex',
-              'mIndex',
-              'i10',
-              'fwci',
-              'fieldPct',
-              'subfieldPct',
-              'deptHPct',
-              'deptFwciPct',
-              'careerLength',
-              'lastYear',
-            ],
-            description: 'X-axis metric',
-          },
-          y: {
-            type: 'string',
-            enum: [
-              'works',
-              'citations',
-              'hIndex',
-              'mIndex',
-              'i10',
-              'fwci',
-              'fieldPct',
-              'subfieldPct',
-              'deptHPct',
-              'deptFwciPct',
-              'careerLength',
-              'lastYear',
-            ],
-            description: 'Y-axis metric',
-          },
-          color: {
-            type: 'string',
-            enum: ['none', 'domain', 'school', 'tier', 'adminRole'],
-            description: 'Color encoding categorical field, or "none"',
-          },
-          size: {
-            type: 'string',
-            enum: [
-              'fixed',
-              'works',
-              'citations',
-              'hIndex',
-              'mIndex',
-              'i10',
-              'fwci',
-              'fieldPct',
-              'subfieldPct',
-              'deptHPct',
-              'deptFwciPct',
-              'careerLength',
-              'lastYear',
-            ],
-            description: 'Size encoding metric, or "fixed" for uniform size',
-          },
-        },
-      },
-    },
-  },
-  {
-    type: 'function',
-    function: {
-      name: 'clear_filters',
-      description: 'Reset all explorer filters to their defaults.',
-      parameters: {
-        type: 'object',
-        properties: {},
-      },
-    },
-  },
+const TIER_VALUES = [
+  'all',
+  'top_1%',
+  'top_5%',
+  'top_10%',
+  'top_25%',
+  'above_median',
+] as const
 
-  // ── Data Retrieval Tools (resolved client-side) ──
+const SOURCE_VALUES = ['scholar', 'openalex'] as const
 
-  {
-    type: 'function',
-    function: {
-      name: 'get_dataset_summary',
-      description:
-        'Get high-level stats about the full faculty dataset: total faculty, coverage by source, school breakdown, median h-index. Call this first for general questions.',
-      parameters: {
-        type: 'object',
-        properties: {},
-      },
-    },
-  },
-  {
-    type: 'function',
-    function: {
-      name: 'get_faculty_detail',
-      description:
-        'Get the full profile for a specific faculty member by name. Uses fuzzy matching.',
-      parameters: {
-        type: 'object',
-        properties: {
-          name: {
-            type: 'string',
-            description: 'Faculty member name (e.g. "Jerome Katz")',
-          },
-        },
-        required: ['name'],
-      },
-    },
-  },
-  {
-    type: 'function',
-    function: {
-      name: 'get_school_summary',
-      description:
-        'Get summary stats for a specific school: faculty count, coverage, median h-index, top faculty, department breakdown.',
-      parameters: {
-        type: 'object',
-        properties: {
-          school: {
-            type: 'string',
-            description: 'School name (e.g. "Chaifetz School of Business")',
-          },
-        },
-        required: ['school'],
-      },
-    },
-  },
-  {
-    type: 'function',
-    function: {
-      name: 'get_department_summary',
-      description:
-        'Get summary stats for a specific department: faculty count, coverage, median h-index, top faculty.',
-      parameters: {
-        type: 'object',
-        properties: {
-          department: {
-            type: 'string',
-            description: 'Department name (e.g. "Finance")',
-          },
-        },
-        required: ['department'],
-      },
-    },
-  },
-  {
-    type: 'function',
-    function: {
-      name: 'get_rankings',
-      description:
-        'Rank faculty by a metric. Returns top or bottom faculty with values.',
-      parameters: {
-        type: 'object',
-        properties: {
-          metric: {
-            type: 'string',
-            enum: [
-              'hIndex',
-              'mIndex',
-              'citations',
-              'works',
-              'fwci',
-              'fieldPercentile',
-            ],
-            description: 'Metric to rank by',
-          },
-          school: {
-            type: 'string',
-            description: 'Optional school filter',
-          },
-          department: {
-            type: 'string',
-            description: 'Optional department filter',
-          },
-          order: {
-            type: 'string',
-            enum: ['desc', 'asc'],
-            description: 'Sort order (default: desc = highest first)',
-          },
-          limit: {
-            type: 'number',
-            description: 'Number of results (default: 10, max: 25)',
-          },
-        },
-        required: ['metric'],
-      },
-    },
-  },
-  {
-    type: 'function',
-    function: {
-      name: 'search_faculty',
-      description:
-        'Search faculty by name, department, research interests, or OpenAlex field. Returns matching faculty with key metrics.',
-      parameters: {
-        type: 'object',
-        properties: {
-          query: {
-            type: 'string',
-            description:
-              'Search query (matched against name, department, research interests, OpenAlex field/topic)',
-          },
-          limit: {
-            type: 'number',
-            description: 'Max results (default: 10, max: 25)',
-          },
-        },
-        required: ['query'],
-      },
-    },
-  },
-  {
-    type: 'function',
-    function: {
-      name: 'run_analysis',
-      description: `Execute JavaScript code against the faculty dataset for custom computations (correlations, statistical tests, complex filtering, group comparisons). The code receives \`data\` — an array of faculty objects — and must return a JSON-serializable value. Runs in a sandboxed worker with a 5-second timeout.
+const NUMERIC_FIELD_IDS = [
+  'works',
+  'citations',
+  'hIndex',
+  'mIndex',
+  'i10',
+  'fwci',
+  'fieldPct',
+  'subfieldPct',
+  'deptHPct',
+  'deptFwciPct',
+  'careerLength',
+  'lastYear',
+] as const
+
+const COLOR_FIELD_IDS = [
+  'none',
+  'domain',
+  'school',
+  'tier',
+  'adminRole',
+] as const
+
+const SIZE_FIELD_IDS = ['fixed', ...NUMERIC_FIELD_IDS] as const
+
+const RANKING_METRICS = [
+  'hIndex',
+  'mIndex',
+  'citations',
+  'works',
+  'fwci',
+  'fieldPercentile',
+] as const
+
+// ── Tool Definitions ──
+
+const setFiltersDef = toolDefinition({
+  name: 'set_filters' as const,
+  description:
+    'Set explorer filters. Only include filters you want to change. Omit filters you want to leave as-is.',
+  inputSchema: z.object({
+    search: z
+      .string()
+      .optional()
+      .describe(
+        'Free-text search (matches name, department, research interests)',
+      ),
+    school: z
+      .string()
+      .optional()
+      .describe('School name or "all" for no filter'),
+    department: z
+      .string()
+      .optional()
+      .describe('Department name or "all" for no filter'),
+    tier: z
+      .enum(TIER_VALUES)
+      .optional()
+      .describe(
+        'Minimum field tier threshold. "top_5%" means top 5% or better.',
+      ),
+    metricSource: z
+      .enum(SOURCE_VALUES)
+      .optional()
+      .describe('Which data source to use for h-index and citations'),
+  }),
+})
+
+const setScatterDef = toolDefinition({
+  name: 'set_scatter' as const,
+  description:
+    'Configure the scatter chart axes and encodings. Only include fields you want to change.',
+  inputSchema: z.object({
+    x: z.enum(NUMERIC_FIELD_IDS).optional().describe('X-axis metric'),
+    y: z.enum(NUMERIC_FIELD_IDS).optional().describe('Y-axis metric'),
+    color: z
+      .enum(COLOR_FIELD_IDS)
+      .optional()
+      .describe('Color encoding categorical field, or "none"'),
+    size: z
+      .enum(SIZE_FIELD_IDS)
+      .optional()
+      .describe('Size encoding metric, or "fixed" for uniform size'),
+  }),
+})
+
+const clearFiltersDef = toolDefinition({
+  name: 'clear_filters' as const,
+  description: 'Reset all explorer filters to their defaults.',
+  inputSchema: z.object({}),
+})
+
+const getDatasetSummaryDef = toolDefinition({
+  name: 'get_dataset_summary' as const,
+  description:
+    'Get high-level stats about the full faculty dataset: total faculty, coverage by source, school breakdown, median h-index. Call this first for general questions.',
+  inputSchema: z.object({}),
+})
+
+const getFacultyDetailDef = toolDefinition({
+  name: 'get_faculty_detail' as const,
+  description:
+    'Get the full profile for a specific faculty member by name. Uses fuzzy matching.',
+  inputSchema: z.object({
+    name: z.string().describe('Faculty member name (e.g. "Jerome Katz")'),
+  }),
+})
+
+const getSchoolSummaryDef = toolDefinition({
+  name: 'get_school_summary' as const,
+  description:
+    'Get summary stats for a specific school: faculty count, coverage, median h-index, top faculty, department breakdown.',
+  inputSchema: z.object({
+    school: z
+      .string()
+      .describe('School name (e.g. "Chaifetz School of Business")'),
+  }),
+})
+
+const getDepartmentSummaryDef = toolDefinition({
+  name: 'get_department_summary' as const,
+  description:
+    'Get summary stats for a specific department: faculty count, coverage, median h-index, top faculty.',
+  inputSchema: z.object({
+    department: z.string().describe('Department name (e.g. "Finance")'),
+  }),
+})
+
+const getRankingsDef = toolDefinition({
+  name: 'get_rankings' as const,
+  description:
+    'Rank faculty by a metric. Returns top or bottom faculty with values.',
+  inputSchema: z.object({
+    metric: z.enum(RANKING_METRICS).describe('Metric to rank by'),
+    school: z.string().optional().describe('Optional school filter'),
+    department: z.string().optional().describe('Optional department filter'),
+    order: z
+      .enum(['desc', 'asc'])
+      .optional()
+      .describe('Sort order (default: desc = highest first)'),
+    limit: z
+      .number()
+      .optional()
+      .describe('Number of results (default: 10, max: 25)'),
+  }),
+})
+
+const searchFacultyDef = toolDefinition({
+  name: 'search_faculty' as const,
+  description:
+    'Search faculty by name, department, research interests, or OpenAlex field. Returns matching faculty with key metrics.',
+  inputSchema: z.object({
+    query: z
+      .string()
+      .describe(
+        'Search query (matched against name, department, research interests, OpenAlex field/topic)',
+      ),
+    limit: z
+      .number()
+      .optional()
+      .describe('Max results (default: 10, max: 25)'),
+  }),
+})
+
+const runAnalysisDef = toolDefinition({
+  name: 'run_analysis' as const,
+  description: `Execute JavaScript code against the faculty dataset for custom computations (correlations, statistical tests, complex filtering, group comparisons). The code receives \`data\` — an array of faculty objects — and must return a JSON-serializable value. Runs in a sandboxed worker with a 5-second timeout.
 
 Each element in \`data\` has these properties (all nullable except id/name/school/department):
   id, name, school, department,
@@ -304,32 +222,160 @@ Example: compute average h-index by school:
     result[s] = { mean: vals.reduce((a,b) => a+b, 0) / vals.length, n: vals.length };
   }
   return result;`,
-      parameters: {
-        type: 'object',
-        properties: {
-          code: {
-            type: 'string',
-            description:
-              'JavaScript function body. Has access to `data` (Array of faculty objects). Must `return` a JSON-serializable value.',
-          },
-          description: {
-            type: 'string',
-            description:
-              'Brief human-readable description of what this code computes (shown to the user while running)',
-          },
-        },
-        required: ['code', 'description'],
-      },
-    },
-  },
+  inputSchema: z.object({
+    code: z
+      .string()
+      .describe(
+        'JavaScript function body. Has access to `data` (Array of faculty objects). Must `return` a JSON-serializable value.',
+      ),
+    description: z
+      .string()
+      .describe(
+        'Brief human-readable description of what this code computes (shown to the user while running)',
+      ),
+  }),
+})
+
+// ── Client Tools (with execute functions) ──
+
+const VALID_NUMERIC_IDS = new Set<string>(NUMERIC_FIELD_IDS)
+const VALID_COLOR_IDS = new Set<string>(COLOR_FIELD_IDS)
+
+const setFiltersClient = setFiltersDef.client((args) => {
+  const store = useAppStore.getState()
+  const descriptions: Array<string> = []
+
+  if (args.search !== undefined) {
+    store.setSearch(args.search)
+    descriptions.push(`Search: "${args.search}"`)
+  }
+  if (args.school !== undefined) {
+    store.setSchool(args.school)
+    descriptions.push(`School: ${args.school}`)
+  }
+  if (args.department !== undefined) {
+    store.setDepartment(args.department)
+    descriptions.push(`Department: ${args.department}`)
+  }
+  if (args.tier !== undefined) {
+    store.setTier(args.tier as TierFilter)
+    descriptions.push(`Tier: ${args.tier}`)
+  }
+  if (args.metricSource !== undefined) {
+    store.setMetricSource(args.metricSource)
+    descriptions.push(`Source: ${args.metricSource}`)
+  }
+
+  return {
+    success: true,
+    description: descriptions.join(', ') || 'No filter changes',
+  }
+})
+
+const setScatterClient = setScatterDef.client((args) => {
+  const updates: Record<string, string> = {}
+  const descriptions: Array<string> = []
+
+  if (args.x && VALID_NUMERIC_IDS.has(args.x)) {
+    updates.xId = args.x
+    descriptions.push(`X: ${args.x}`)
+  }
+  if (args.y && VALID_NUMERIC_IDS.has(args.y)) {
+    updates.yId = args.y
+    descriptions.push(`Y: ${args.y}`)
+  }
+  if (args.color && VALID_COLOR_IDS.has(args.color)) {
+    updates.colorId = args.color
+    descriptions.push(`Color: ${args.color}`)
+  }
+  if (args.size && (args.size === 'fixed' || VALID_NUMERIC_IDS.has(args.size))) {
+    updates.sizeId = args.size
+    descriptions.push(`Size: ${args.size}`)
+  }
+
+  if (Object.keys(updates).length > 0) {
+    useAppStore.getState().setScatterConfig(updates)
+  }
+
+  return {
+    success: true,
+    description: descriptions.length
+      ? `Scatter: ${descriptions.join(', ')}`
+      : 'No scatter changes',
+  }
+})
+
+const clearFiltersClient = clearFiltersDef.client(() => {
+  useAppStore.getState().reset()
+  return { success: true, description: 'Reset all filters' }
+})
+
+const getDatasetSummaryClient = getDatasetSummaryDef.client(() => {
+  return buildDatasetSummary(_faculty)
+})
+
+const getFacultyDetailClient = getFacultyDetailDef.client((args) => {
+  return buildFacultyDetail(args.name, _faculty)
+})
+
+const getSchoolSummaryClient = getSchoolSummaryDef.client((args) => {
+  return buildSchoolSummary(args.school, _faculty)
+})
+
+const getDepartmentSummaryClient = getDepartmentSummaryDef.client((args) => {
+  return buildDepartmentSummary(args.department, _faculty)
+})
+
+const getRankingsClient = getRankingsDef.client((args) => {
+  return buildRankings(
+    args.metric,
+    args.school,
+    args.department,
+    args.order ?? 'desc',
+    Math.min(args.limit ?? 10, 25),
+    _faculty,
+  )
+})
+
+const searchFacultyClient = searchFacultyDef.client((args) => {
+  return buildSearch(args.query, Math.min(args.limit ?? 10, 25), _faculty)
+})
+
+const runAnalysisClient = runAnalysisDef.client(async (args) => {
+  try {
+    const result = await executeCode(args.code, _faculty)
+    return { result }
+  } catch (err) {
+    return { error: err instanceof Error ? err.message : String(err) }
+  }
+})
+
+// ── Exports ──
+
+/** Tool definitions (no execute) — passed to server-side chat() */
+export const TOOL_DEFS = [
+  setFiltersDef,
+  setScatterDef,
+  clearFiltersDef,
+  getDatasetSummaryDef,
+  getFacultyDetailDef,
+  getSchoolSummaryDef,
+  getDepartmentSummaryDef,
+  getRankingsDef,
+  searchFacultyDef,
+  runAnalysisDef,
 ]
 
-export const DATA_TOOL_NAMES = new Set([
-  'get_dataset_summary',
-  'get_faculty_detail',
-  'get_school_summary',
-  'get_department_summary',
-  'get_rankings',
-  'search_faculty',
-  'run_analysis',
-])
+/** Client tools (with execute) — passed to useChat() */
+export const CLIENT_TOOLS = [
+  setFiltersClient,
+  setScatterClient,
+  clearFiltersClient,
+  getDatasetSummaryClient,
+  getFacultyDetailClient,
+  getSchoolSummaryClient,
+  getDepartmentSummaryClient,
+  getRankingsClient,
+  searchFacultyClient,
+  runAnalysisClient,
+] as const

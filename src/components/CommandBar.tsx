@@ -1,14 +1,11 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import Markdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
-import { MessageSquare, RotateCcw, Send, Square, X } from 'lucide-react'
+import { fetchServerSentEvents, useChat } from '@tanstack/ai-react'
+import { Brain, MessageSquare, RotateCcw, Send, Square, X, Zap } from 'lucide-react'
 import type { Faculty } from '@/lib/types'
-import type { ToolCall } from '@/lib/ai/use-chat'
-import { useChat } from '@/lib/ai/use-chat'
+import { CLIENT_TOOLS, setFacultyData } from '@/lib/ai/tools'
 import { buildSystemPrompt } from '@/lib/ai/system-prompt'
-import { executeDataTool } from '@/lib/ai/data-executor'
-import { executeToolCall } from '@/lib/ai/action-executor'
-import { DATA_TOOL_NAMES } from '@/lib/ai/tools'
 import { useAppStore } from '@/store/appStore'
 import { cn } from '@/lib/utils'
 
@@ -88,17 +85,14 @@ interface CommandBarProps {
 export function CommandBar({ faculty, currentPage }: CommandBarProps) {
   const [open, setOpen] = useState(false)
   const [input, setInput] = useState('')
+  const [model, setModel] = useState<'fast' | 'smart'>('fast')
   const inputRef = useRef<HTMLTextAreaElement>(null)
   const messagesEndRef = useRef<HTMLDivElement>(null)
-  const {
-    messages,
-    isStreaming,
-    sendMessage,
-    toolCalls,
-    pendingTools,
-    cancel,
-    reset,
-  } = useChat()
+
+  // Sync faculty data for client tools
+  useEffect(() => {
+    if (faculty) setFacultyData(faculty)
+  }, [faculty])
 
   // Read filter state for system prompt
   const search = useAppStore((s) => s.search)
@@ -106,6 +100,28 @@ export function CommandBar({ faculty, currentPage }: CommandBarProps) {
   const department = useAppStore((s) => s.department)
   const tier = useAppStore((s) => s.tier)
   const metricSource = useAppStore((s) => s.metricSource)
+
+  const systemPrompt = useMemo(
+    () =>
+      buildSystemPrompt(
+        { search, school, department, tier, metricSource },
+        faculty,
+        currentPage,
+      ),
+    [search, school, department, tier, metricSource, faculty, currentPage],
+  )
+
+  const connection = useMemo(() => fetchServerSentEvents('/api/chat'), [])
+  const body = useMemo(
+    () => ({ context: systemPrompt, model }),
+    [systemPrompt, model],
+  )
+
+  const { messages, sendMessage, stop, isLoading, clear } = useChat({
+    connection,
+    tools: CLIENT_TOOLS,
+    body,
+  })
 
   // Cmd+K toggle
   useEffect(() => {
@@ -129,52 +145,16 @@ export function CommandBar({ faculty, currentPage }: CommandBarProps) {
   // Auto-scroll to bottom on new messages
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
-  }, [messages, pendingTools])
-
-  // Execute UI tool calls when they arrive
-  useEffect(() => {
-    for (const tc of toolCalls) {
-      if (!DATA_TOOL_NAMES.has(tc.name)) {
-        executeToolCall(tc)
-      }
-    }
-  }, [toolCalls])
-
-  const resolveDataTools = useCallback(
-    async (tools: Array<ToolCall>) => {
-      if (!faculty) return []
-      const results = await Promise.all(
-        tools.map((tc) => executeDataTool(tc, faculty)),
-      )
-      return results
-    },
-    [faculty],
-  )
+  }, [messages])
 
   const handleSubmit = useCallback(
     async (text: string) => {
-      if (!text.trim() || isStreaming) return
+      if (!text.trim() || isLoading) return
       setInput('')
       if (inputRef.current) inputRef.current.style.height = 'auto'
-      const context = buildSystemPrompt(
-        { search, school, department, tier, metricSource },
-        faculty,
-        currentPage,
-      )
-      await sendMessage(text.trim(), context, resolveDataTools)
+      await sendMessage(text.trim())
     },
-    [
-      isStreaming,
-      search,
-      school,
-      department,
-      tier,
-      metricSource,
-      faculty,
-      currentPage,
-      sendMessage,
-      resolveDataTools,
-    ],
+    [isLoading, sendMessage],
   )
 
   return (
@@ -219,7 +199,31 @@ export function CommandBar({ faculty, currentPage }: CommandBarProps) {
             <div className="flex items-center gap-1">
               <button
                 type="button"
-                onClick={reset}
+                onClick={() =>
+                  setModel((m) => (m === 'fast' ? 'smart' : 'fast'))
+                }
+                className={cn(
+                  'flex items-center gap-1 rounded-md px-1.5 py-0.5 text-[10px] font-medium transition-colors',
+                  model === 'smart'
+                    ? 'bg-primary/10 text-primary'
+                    : 'text-muted-foreground hover:text-foreground',
+                )}
+                title={
+                  model === 'fast'
+                    ? 'Using fast model (GPT 5.4 Mini). Click for smart.'
+                    : 'Using smart model (DeepSeek V3.2). Click for fast.'
+                }
+              >
+                {model === 'fast' ? (
+                  <Zap className="size-3" />
+                ) : (
+                  <Brain className="size-3" />
+                )}
+                {model === 'fast' ? 'Fast' : 'Smart'}
+              </button>
+              <button
+                type="button"
+                onClick={clear}
                 className="rounded-md p-1 text-muted-foreground transition-colors hover:text-foreground"
                 title="Reset conversation"
               >
@@ -263,9 +267,9 @@ export function CommandBar({ faculty, currentPage }: CommandBarProps) {
               </div>
             ) : (
               <div className="space-y-3">
-                {messages.map((msg, i) => (
+                {messages.map((msg) => (
                   <div
-                    key={i}
+                    key={msg.id}
                     className={cn(
                       'text-[13px] leading-relaxed',
                       msg.role === 'user' && 'text-right',
@@ -273,34 +277,64 @@ export function CommandBar({ faculty, currentPage }: CommandBarProps) {
                   >
                     {msg.role === 'user' ? (
                       <span className="inline-block rounded-2xl rounded-br-sm bg-primary px-3 py-2 text-primary-foreground">
-                        {msg.content}
+                        {msg.parts
+                          .filter(
+                            (p): p is { type: 'text'; content: string } =>
+                              p.type === 'text',
+                          )
+                          .map((p) => p.content)
+                          .join('')}
                       </span>
                     ) : (
-                      <div className="prose prose-sm max-w-none text-[13px] dark:prose-invert [&_table]:block [&_table]:overflow-x-auto [&>*:first-child]:mt-0 [&>*:last-child]:mb-0">
-                        <Markdown remarkPlugins={[remarkGfm]}>
-                          {msg.content}
-                        </Markdown>
+                      <div className="space-y-2">
+                        {msg.parts.map((part, j) => {
+                          if (part.type === 'text') {
+                            return (
+                              <div
+                                key={j}
+                                className="prose prose-sm max-w-none text-[13px] dark:prose-invert [&_table]:block [&_table]:overflow-x-auto [&>*:first-child]:mt-0 [&>*:last-child]:mb-0"
+                              >
+                                <Markdown remarkPlugins={[remarkGfm]}>
+                                  {part.content}
+                                </Markdown>
+                              </div>
+                            )
+                          }
+                          if (part.type === 'tool-call') {
+                            const label =
+                              TOOL_LABELS[part.name]
+                            const isDone =
+                              part.state === 'input-complete' &&
+                              part.output !== undefined
+                            return (
+                              <span
+                                key={j}
+                                className={cn(
+                                  'inline-block rounded-full px-2.5 py-1 text-[10px] font-medium',
+                                  isDone
+                                    ? 'bg-muted text-muted-foreground'
+                                    : 'animate-pulse bg-primary/10 text-primary',
+                                )}
+                              >
+                                {label}
+                              </span>
+                            )
+                          }
+                          return null
+                        })}
                       </div>
                     )}
                   </div>
                 ))}
 
-                {/* Pending tool badges */}
-                {pendingTools.length > 0 ? (
-                  <div className="flex flex-wrap gap-1.5">
-                    {pendingTools.map((name, i) => (
-                      <span
-                        key={i}
-                        className="animate-pulse rounded-full bg-primary/10 px-2.5 py-1 text-[10px] font-medium text-primary"
-                      >
-                        {TOOL_LABELS[name] ?? name}
-                      </span>
-                    ))}
-                  </div>
-                ) : null}
-
                 {/* Streaming indicator */}
-                {isStreaming && pendingTools.length === 0 ? (
+                {isLoading &&
+                !messages
+                  .at(-1)
+                  ?.parts.some(
+                    (p) =>
+                      p.type === 'tool-call' && p.output === undefined,
+                  ) ? (
                   <div className="flex items-center gap-2 text-[12px] text-muted-foreground">
                     <span className="inline-block size-1.5 animate-pulse rounded-full bg-primary" />
                     Thinking...
@@ -325,27 +359,25 @@ export function CommandBar({ faculty, currentPage }: CommandBarProps) {
                 value={input}
                 onChange={(e) => {
                   setInput(e.target.value)
-                  // Auto-resize: reset height then set to scrollHeight
                   e.target.style.height = 'auto'
                   e.target.style.height = `${e.target.scrollHeight}px`
                 }}
                 onKeyDown={(e) => {
-                  // Enter submits, Shift+Enter inserts newline
                   if (e.key === 'Enter' && !e.shiftKey) {
                     e.preventDefault()
                     handleSubmit(input)
                   }
                 }}
                 placeholder="Ask about faculty data..."
-                disabled={isStreaming}
+                disabled={isLoading}
                 rows={1}
                 className="min-w-0 flex-1 resize-none bg-transparent text-[13px] leading-relaxed placeholder:text-muted-foreground focus:outline-none disabled:opacity-50"
                 style={{ maxHeight: 120 }}
               />
-              {isStreaming ? (
+              {isLoading ? (
                 <button
                   type="button"
-                  onClick={cancel}
+                  onClick={stop}
                   className="rounded-md p-1.5 text-muted-foreground transition-colors hover:text-foreground"
                   title="Stop"
                 >

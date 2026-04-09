@@ -427,11 +427,11 @@ export function ScatterChart({ result }: ScatterChartProps) {
         .call(zoomBehavior.transform, zoomIdentity)
     })
 
-    // Sync d3-zoom's internal state with our preserved transform so the next
-    // wheel/drag continues from the current view (e.g. after a resize).
-    if (transformRef.current !== zoomIdentity) {
-      svg.call(zoomBehavior.transform, transformRef.current)
-    }
+    // Sync d3-zoom's internal __zoom state with our preserved transform so
+    // the next wheel/drag continues from the current view. Uses .property()
+    // to avoid triggering a zoom event (which would interrupt the animated
+    // initial draw).
+    svg.property('__zoom', transformRef.current)
 
     zoomBehaviorRef.current = zoomBehavior
   }, [points, fields, colorAssignment, labelIds, width])
@@ -532,9 +532,12 @@ function buildScale(
       const hi = Math.max(lo + 1, paddedMax ?? maxObs * 1.25)
       domain = [lo, hi]
     } else {
-      const span = Math.max(1, maxObs - minObs)
+      // Nice first, then pad — .nice() can shrink the domain back toward
+      // round numbers, eating into proportional padding applied beforehand.
+      const niced = scaleLinear().domain([minObs, maxObs]).nice().domain() as [number, number]
+      const span = Math.max(1, niced[1] - niced[0])
       const pad = span * 0.08
-      domain = [minObs - pad, maxObs + pad]
+      domain = [niced[0] - pad, niced[1] + pad]
     }
   }
 
@@ -544,7 +547,7 @@ function buildScale(
   if (field.scale === 'log') {
     return scaleLog().domain(domain).range(range)
   }
-  return scaleLinear().domain(domain).range(range).nice()
+  return scaleLinear().domain(domain).range(range)
 }
 
 // Returns the smallest tick value >= target, or null if the field has no
