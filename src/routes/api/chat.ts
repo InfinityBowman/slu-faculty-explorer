@@ -86,7 +86,7 @@ export const Route = createFileRoute('/api/chat')({
         })
 
         const openRouterBody = {
-          model: 'openai/gpt-5.4-nano',
+          model: 'minimax/minimax-m2.7',
           stream: true,
           messages: [
             { role: 'system', content: context },

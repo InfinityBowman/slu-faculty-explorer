@@ -275,12 +275,10 @@ export function useChat() {
         contextParts.push(`Dashboard actions: ${uiToolNames.join(', ')}`)
       }
       const toolContext =
-        contextParts.length > 0
-          ? `[${contextParts.join('. ')}]`
-          : undefined
+        contextParts.length > 0 ? `[${contextParts.join('. ')}]` : undefined
 
       if (!responseText && allUiTools.length > 0) {
-        responseText = "Done — I've updated the explorer."
+        responseText = "Done, I've updated the explorer!"
       }
       if (!responseText && allUiTools.length === 0) {
         responseText =

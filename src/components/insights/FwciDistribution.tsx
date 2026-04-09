@@ -13,10 +13,10 @@ export function FwciDistribution({ faculty }: { faculty: Array<Faculty> }) {
     [faculty],
   )
 
-  const { data: hovered, rendered, setData, tooltipRef, trackPosition } = useChartTooltip<HistogramBin>()
+  const { data: hovered, rendered, setData, tooltipRef } = useChartTooltip<HistogramBin>()
 
   return (
-    <div onMouseMove={trackPosition}>
+    <div onMouseLeave={() => setData(null)}>
       <div className="mb-4 flex items-baseline gap-6">
         <Stat value={`${abovePct}%`} label="above field average" />
         {medianFwci != null ? (

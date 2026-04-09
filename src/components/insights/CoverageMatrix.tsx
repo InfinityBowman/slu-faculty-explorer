@@ -29,10 +29,10 @@ export function CoverageMatrix({ faculty }: { faculty: Array<Faculty> }) {
     [faculty],
   )
 
-  const { data: hovered, rendered, setData, tooltipRef, trackPosition } = useChartTooltip<CoverageChartRow>()
+  const { data: hovered, rendered, setData, tooltipRef } = useChartTooltip<CoverageChartRow>()
 
   return (
-    <div onMouseMove={trackPosition}>
+    <div onMouseLeave={() => setData(null)}>
       <ResponsiveContainer width="100%" height={data.length * 44 + 60}>
         <BarChart
           data={data}

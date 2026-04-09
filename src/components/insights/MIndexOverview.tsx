@@ -35,7 +35,7 @@ export function MIndexOverview({ faculty }: { faculty: Array<Faculty> }) {
     [decades],
   )
 
-  const { data: hovered, rendered, setData, tooltipRef, trackPosition } = useChartTooltip<MIndexChartRow>()
+  const { data: hovered, rendered, setData, tooltipRef } = useChartTooltip<MIndexChartRow>()
 
   if (data.length === 0) {
     return (
@@ -46,7 +46,7 @@ export function MIndexOverview({ faculty }: { faculty: Array<Faculty> }) {
   }
 
   return (
-    <div onMouseMove={trackPosition}>
+    <div onMouseLeave={() => setData(null)}>
       <div className="mb-3 text-[11px] text-muted-foreground">
         m = h-index / years publishing. Hirsch benchmarks: m&asymp;1 successful, m&asymp;2
         outstanding, m&ge;3 exceptional

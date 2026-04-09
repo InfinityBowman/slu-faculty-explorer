@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import Markdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
 import { MessageSquare, RotateCcw, Send, Square, X } from 'lucide-react'
 import type { Faculty } from '@/lib/types'
 import type { ToolCall } from '@/lib/ai/use-chat'
@@ -11,9 +12,13 @@ import { DATA_TOOL_NAMES } from '@/lib/ai/tools'
 import { useAppStore } from '@/store/appStore'
 import { cn } from '@/lib/utils'
 
-const PAGE_SUGGESTIONS: Record<string, { description: string; suggestions: Array<string> }> = {
+const PAGE_SUGGESTIONS: Record<
+  string,
+  { description: string; suggestions: Array<string> }
+> = {
   '/': {
-    description: 'Ask questions about faculty data. I can look up stats, search for people, and configure the scatter chart.',
+    description:
+      'Ask questions about faculty data. I can look up stats, search for people, and configure the scatter chart.',
     suggestions: [
       'Who has the highest h-index?',
       'Top 5 faculty by m-index',
@@ -23,7 +28,8 @@ const PAGE_SUGGESTIONS: Record<string, { description: string; suggestions: Array
     ],
   },
   '/schools': {
-    description: 'Ask about school-level comparisons, tier distributions, or specific schools.',
+    description:
+      'Ask about school-level comparisons, tier distributions, or specific schools.',
     suggestions: [
       'Which school has the most top-5% faculty?',
       'Tell me about the School of Social Work',
@@ -32,7 +38,8 @@ const PAGE_SUGGESTIONS: Record<string, { description: string; suggestions: Array
     ],
   },
   '/insights': {
-    description: 'Ask about the analytics shown on this page or dig into the underlying data.',
+    description:
+      'Ask about the analytics shown on this page or dig into the underlying data.',
     suggestions: [
       'Summarize the tier distribution',
       'Which schools have the highest FWCI?',
@@ -41,7 +48,8 @@ const PAGE_SUGGESTIONS: Record<string, { description: string; suggestions: Array
     ],
   },
   '/about': {
-    description: 'Ask about methodology, data sources, or how metrics are computed.',
+    description:
+      'Ask about methodology, data sources, or how metrics are computed.',
     suggestions: [
       'How is field tier calculated?',
       'Why is Scholar coverage so low?',
@@ -53,7 +61,10 @@ const PAGE_SUGGESTIONS: Record<string, { description: string; suggestions: Array
 
 const DEFAULT_PAGE_INFO = {
   description: 'Ask questions about SLU faculty research data.',
-  suggestions: ['Who has the highest h-index?', 'Tell me about Chaifetz Business'],
+  suggestions: [
+    'Who has the highest h-index?',
+    'Tell me about Chaifetz Business',
+  ],
 }
 
 const TOOL_LABELS: Record<string, string> = {
@@ -182,8 +193,12 @@ export function CommandBar({ faculty, currentPage }: CommandBarProps) {
         <MessageSquare className="size-4" />
         Ask about faculty
         <kbd className="ml-1 rounded bg-primary-foreground/20 px-1.5 py-0.5 text-[10px]">
-          {/* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- navigator.platform is undefined in Cloudflare Workers SSR */}
-          {typeof navigator !== 'undefined' && navigator.platform?.includes('Mac') ? '\u2318' : 'Ctrl'}K
+          {typeof navigator !== 'undefined' &&
+          // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- navigator.platform is undefined in Cloudflare Workers SSR
+          navigator.platform?.includes('Mac')
+            ? '\u2318'
+            : 'Ctrl'}
+          K
         </kbd>
       </button>
 
@@ -191,7 +206,7 @@ export function CommandBar({ faculty, currentPage }: CommandBarProps) {
       <div
         inert={!open || undefined}
         className={cn(
-          'fixed bottom-6 left-1/2 z-50 w-full max-w-[480px] -translate-x-1/2 transition-all duration-200 ease-out',
+          'fixed bottom-6 left-1/2 z-50 w-full max-w-120 -translate-x-1/2 transition-all duration-200 ease-out',
           open
             ? 'translate-y-0 scale-100 opacity-100'
             : 'pointer-events-none translate-y-4 scale-95 opacity-0',
@@ -222,14 +237,19 @@ export function CommandBar({ faculty, currentPage }: CommandBarProps) {
           </div>
 
           {/* Messages */}
-          <div className="max-h-[50vh] min-h-[200px] overflow-y-auto px-4 py-3">
+          <div className="max-h-[50vh] min-h-50 overflow-y-auto px-4 py-3">
             {messages.length === 0 ? (
               <div className="space-y-2">
                 <p className="text-[12px] text-muted-foreground">
-                  {(PAGE_SUGGESTIONS[currentPage] ?? DEFAULT_PAGE_INFO).description}
+                  {
+                    (PAGE_SUGGESTIONS[currentPage] ?? DEFAULT_PAGE_INFO)
+                      .description
+                  }
                 </p>
                 <div className="flex flex-wrap gap-1.5 pt-1">
-                  {(PAGE_SUGGESTIONS[currentPage] ?? DEFAULT_PAGE_INFO).suggestions.map((s) => (
+                  {(
+                    PAGE_SUGGESTIONS[currentPage] ?? DEFAULT_PAGE_INFO
+                  ).suggestions.map((s) => (
                     <button
                       key={s}
                       type="button"
@@ -256,8 +276,10 @@ export function CommandBar({ faculty, currentPage }: CommandBarProps) {
                         {msg.content}
                       </span>
                     ) : (
-                      <div className="prose prose-sm dark:prose-invert max-w-none text-[13px] [&>*:first-child]:mt-0 [&>*:last-child]:mb-0">
-                        <Markdown>{msg.content}</Markdown>
+                      <div className="prose prose-sm max-w-none text-[13px] dark:prose-invert [&_table]:block [&_table]:overflow-x-auto [&>*:first-child]:mt-0 [&>*:last-child]:mb-0">
+                        <Markdown remarkPlugins={[remarkGfm]}>
+                          {msg.content}
+                        </Markdown>
                       </div>
                     )}
                   </div>

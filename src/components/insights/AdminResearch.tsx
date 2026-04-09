@@ -9,10 +9,10 @@ import { adminRoleMetrics } from '@/lib/insights'
 
 export function AdminResearch({ faculty }: { faculty: Array<Faculty> }) {
   const roles = useMemo(() => adminRoleMetrics(faculty), [faculty])
-  const { data: hovered, rendered, setData, tooltipRef, trackPosition } = useChartTooltip<AdminRoleRow>()
+  const { data: hovered, rendered, setData, tooltipRef } = useChartTooltip<AdminRoleRow>()
 
   return (
-    <div onMouseMove={trackPosition}>
+    <div onMouseLeave={() => setData(null)}>
       <ResponsiveContainer width="100%" height={roles.length * 46 + 40}>
         <BarChart
           data={roles}

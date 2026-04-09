@@ -15,7 +15,7 @@ function ExplorerPage() {
   const filtered = useFilteredFaculty(data)
 
   return (
-    <main className="mx-auto max-w-[1400px] px-6 py-8">
+    <main className="mx-auto max-w-350 px-6 py-8">
       {error ? (
         <div className="border-destructive/30 bg-destructive/5 text-destructive rounded-md border px-4 py-3 text-sm">
           Failed to load faculty data: {error}

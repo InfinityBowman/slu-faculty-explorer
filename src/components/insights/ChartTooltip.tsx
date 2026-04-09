@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
-import type { MouseEvent, ReactNode, RefObject } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import type { ReactNode, RefObject } from 'react'
 
 const GAP = 12
 
@@ -18,19 +18,25 @@ export function useChartTooltip<T>() {
     }
   }, [data])
 
-  // Update tooltip position via DOM ref — runs on every mousemove, no state churn
-  const trackPosition = useCallback((e: MouseEvent) => {
-    const el = tooltipRef.current
-    if (!el) return
-    const { clientX: cx, clientY: cy } = e
-    const { width, height } = el.getBoundingClientRect()
-    const left = cx + GAP + width > window.innerWidth ? cx - width - GAP : cx + GAP
-    const top = cy + GAP + height > window.innerHeight ? cy - height - GAP : cy + GAP
-    el.style.left = `${left}px`
-    el.style.top = `${top}px`
-  }, [])
+  // Track cursor at document level while tooltip is visible or fading
+  const active = data != null || rendered != null
+  useEffect(() => {
+    if (!active) return
+    const handler = (e: MouseEvent) => {
+      const el = tooltipRef.current
+      if (!el) return
+      const { clientX: cx, clientY: cy } = e
+      const { width, height } = el.getBoundingClientRect()
+      const left = cx + GAP + width > window.innerWidth ? cx - width - GAP : cx + GAP
+      const top = cy + GAP + height > window.innerHeight ? cy - height - GAP : cy + GAP
+      el.style.left = `${left}px`
+      el.style.top = `${top}px`
+    }
+    document.addEventListener('mousemove', handler, { passive: true })
+    return () => document.removeEventListener('mousemove', handler)
+  }, [active])
 
-  return { data, rendered, setData, tooltipRef, trackPosition }
+  return { data, rendered, setData, tooltipRef }
 }
 
 export function ChartTooltip({

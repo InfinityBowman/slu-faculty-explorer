@@ -46,7 +46,7 @@ export function TierOverview({ faculty }: { faculty: Array<Faculty> }) {
     return { uniRow: uni, schoolRows: schools }
   }, [faculty])
 
-  const { data, rendered, setData, tooltipRef, trackPosition } = useChartTooltip<TierDatum>()
+  const { data, rendered, setData, tooltipRef } = useChartTooltip<TierDatum>()
 
   const xAxisProps = {
     type: 'number' as const,
@@ -59,7 +59,7 @@ export function TierOverview({ faculty }: { faculty: Array<Faculty> }) {
   }
 
   return (
-    <div onMouseMove={trackPosition}>
+    <div onMouseLeave={() => setData(null)}>
       {/* All SLU — single row, bold label */}
       <ResponsiveContainer width="100%" height={ROW_H + 10}>
         <BarChart

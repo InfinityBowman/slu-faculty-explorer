@@ -32,7 +32,7 @@ export function FieldBenchmark({ faculty }: { faculty: Array<Faculty> }) {
   const containerRef = useRef<HTMLDivElement>(null)
   const svgRef = useRef<SVGSVGElement>(null)
   const [width, setWidth] = useState(700)
-  const { data: hovered, rendered, setData, tooltipRef, trackPosition } = useChartTooltip<SchoolBenchmark>()
+  const { data: hovered, rendered, setData, tooltipRef } = useChartTooltip<SchoolBenchmark>()
 
   useEffect(() => {
     loadBenchmarks().then((b) => {
@@ -193,7 +193,7 @@ export function FieldBenchmark({ faculty }: { faculty: Array<Faculty> }) {
   }
 
   return (
-    <div ref={containerRef} className="relative overflow-hidden" onMouseMove={trackPosition}>
+    <div ref={containerRef} className="relative overflow-hidden" onMouseLeave={() => setData(null)}>
       <svg ref={svgRef} width={svgWidth} height={height} className="mx-auto block" />
       <div className="mt-3 flex flex-wrap items-center gap-4 text-[10px] text-muted-foreground">
         <span className="flex items-center gap-1.5"><span className="inline-block h-3 w-5 rounded-full bg-muted-foreground/12" /> Global P25&ndash;P90</span>
