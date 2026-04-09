@@ -18,6 +18,9 @@ const formatInt = (n: number): string => Math.round(n).toString()
 const formatPercent = (n: number): string => `${Math.round(n)}`
 const formatFwci = (n: number): string => n.toFixed(2)
 const formatYears = (n: number): string => `${Math.round(n)}y`
+const formatMIndex = (n: number): string => n.toFixed(2)
+
+const CURRENT_YEAR = new Date().getFullYear()
 
 // Half-decade tick set for log axes that span many orders of magnitude
 // (works, citations). Capped at 5k so a few extreme outliers don't waste
@@ -57,6 +60,19 @@ export const NUMERIC_FIELDS: ReadonlyArray<NumericField> = [
     scale: 'linear',
     formatTick: formatInt,
     formatValue: formatInt,
+  },
+  {
+    id: 'mIndex',
+    label: 'm-index',
+    accessor: (f, source) => {
+      const h = source === 'scholar' ? f.hIndex : f.openalexHIndex
+      if (h == null || f.openalexFirstYear == null) return null
+      const years = CURRENT_YEAR - f.openalexFirstYear
+      return years > 0 ? h / years : null
+    },
+    scale: 'linear',
+    formatTick: formatMIndex,
+    formatValue: formatMIndex,
   },
   {
     id: 'i10',

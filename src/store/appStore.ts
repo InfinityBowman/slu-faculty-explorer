@@ -1,5 +1,6 @@
 import { create } from 'zustand'
 import type { HTier } from '@/lib/types'
+import type { ScatterConfig } from '@/components/scatter/types'
 
 export type MetricSource = 'scholar' | 'openalex'
 
@@ -14,12 +15,21 @@ interface AppState {
   department: string // 'all' | department name
   tier: TierFilter
   metricSource: MetricSource
+  scatterConfig: ScatterConfig
   setSearch: (s: string) => void
   setSchool: (s: string) => void
   setDepartment: (d: string) => void
   setTier: (t: TierFilter) => void
   setMetricSource: (m: MetricSource) => void
+  setScatterConfig: (partial: Partial<ScatterConfig>) => void
   reset: () => void
+}
+
+const DEFAULT_SCATTER: ScatterConfig = {
+  xId: 'works',
+  yId: 'citations',
+  sizeId: 'hIndex',
+  colorId: 'none',
 }
 
 const initial = {
@@ -28,6 +38,7 @@ const initial = {
   department: 'all',
   tier: 'all' as TierFilter,
   metricSource: 'scholar' as MetricSource,
+  scatterConfig: DEFAULT_SCATTER,
 }
 
 export const useAppStore = create<AppState>()((set) => ({
@@ -37,5 +48,7 @@ export const useAppStore = create<AppState>()((set) => ({
   setDepartment: (department) => set({ department }),
   setTier: (tier) => set({ tier }),
   setMetricSource: (metricSource) => set({ metricSource }),
+  setScatterConfig: (partial) =>
+    set((s) => ({ scatterConfig: { ...s.scatterConfig, ...partial } })),
   reset: () => set(initial),
 }))

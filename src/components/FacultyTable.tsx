@@ -53,9 +53,12 @@ interface FacultyTableProps {
   rows: Array<Faculty>
 }
 
+const CURRENT_YEAR = new Date().getFullYear()
+
 interface Row {
   faculty: Faculty
   hIndex: number | null
+  mIndex: number | null
   i10: number | null
   citations: number | null
   works: number | null
@@ -79,17 +82,30 @@ export function FacultyTable({ rows }: FacultyTableProps) {
   const [expanded, setExpanded] = useState<number | null>(null)
 
   const tableData = useMemo<Array<Row>>(() => {
-    return rows.map((f) => ({
-      faculty: f,
-      hIndex: metricSource === 'scholar' ? f.hIndex : f.openalexHIndex,
-      i10: metricSource === 'scholar' ? f.i10Index : f.openalexI10Index,
-      citations:
-        metricSource === 'scholar' ? f.citations : f.openalexCitations,
-      works: f.openalexWorksCount,
-      fwci: f.openalex2yrFwci,
-      tier: f.primaryHTier,
-      field: f.openalexField,
-    }))
+    return rows.map((f) => {
+      const hIndex =
+        metricSource === 'scholar' ? f.hIndex : f.openalexHIndex
+      const years =
+        f.openalexFirstYear != null
+          ? CURRENT_YEAR - f.openalexFirstYear
+          : null
+      const mIndex =
+        hIndex != null && years != null && years > 0
+          ? hIndex / years
+          : null
+      return {
+        faculty: f,
+        hIndex,
+        mIndex,
+        i10: metricSource === 'scholar' ? f.i10Index : f.openalexI10Index,
+        citations:
+          metricSource === 'scholar' ? f.citations : f.openalexCitations,
+        works: f.openalexWorksCount,
+        fwci: f.openalex2yrFwci,
+        tier: f.primaryHTier,
+        field: f.openalexField,
+      }
+    })
   }, [rows, metricSource])
 
   const columns = useMemo<Array<ColumnDef<Row>>>(
@@ -140,6 +156,20 @@ export function FacultyTable({ rows }: FacultyTableProps) {
         cell: ({ row }) => (
           <span className="tabular text-foreground text-[13px] font-medium">
             {fmt(row.original.hIndex)}
+          </span>
+        ),
+      },
+      {
+        id: 'mIndex',
+        accessorFn: (r) => r.mIndex,
+        header: 'm-index',
+        cell: ({ row }) => (
+          <span className="tabular text-muted-foreground text-[12px]">
+            {row.original.mIndex == null ? (
+              <span className="text-muted-foreground/50">—</span>
+            ) : (
+              row.original.mIndex.toFixed(2)
+            )}
           </span>
         ),
       },
@@ -197,6 +227,7 @@ export function FacultyTable({ rows }: FacultyTableProps) {
   const numericColumns = new Set([
     'tier',
     'hIndex',
+    'mIndex',
     'i10',
     'citations',
     'fwci',

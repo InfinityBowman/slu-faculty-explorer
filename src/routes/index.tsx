@@ -1,4 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router'
+import { CommandBar } from '@/components/CommandBar'
 import { Filters } from '@/components/Filters'
 import { FacultyTable } from '@/components/FacultyTable'
 import { ScatterPanel } from '@/components/scatter/ScatterPanel'
@@ -23,6 +24,8 @@ function ExplorerPage() {
       ) : null}
 
       {isLoading ? <LoadingSkeleton /> : null}
+
+      <CommandBar faculty={data} />
 
       {data ? (
         <div className="space-y-8">

@@ -59,7 +59,7 @@ export function StatStrip({ rows, total }: StatStripProps) {
         <Stat
           label={profileLabel}
           value={stats.withProfile.toLocaleString()}
-          hint={`${profileRatio}% of shown`}
+          hint={`${profileRatio}% of total`}
         />
         <Stat
           label="Median h-index"
