@@ -77,10 +77,10 @@ function facultyDetail(f: Faculty) {
   }
 }
 
-export async function executeDataTool(
+export function executeDataTool(
   toolCall: ToolCall,
   faculty: Array<Faculty>,
-): Promise<DataToolResult> {
+): DataToolResult {
   const args = toolCall.arguments
   let content: unknown
 
@@ -150,7 +150,7 @@ function buildDatasetSummary(faculty: Array<Faculty>) {
   const tierCounts: Record<string, number> = {}
   for (const f of faculty) {
     if (f.primaryHTier) {
-      tierCounts[f.primaryHTier] = (tierCounts[f.primaryHTier] ?? 0) + 1
+      tierCounts[f.primaryHTier] = tierCounts[f.primaryHTier] + 1
     }
   }
 
@@ -181,10 +181,10 @@ function buildFacultyDetail(name: string, faculty: Array<Faculty>) {
   const matched = fuzzyMatch(name, names)
   if (!matched) return { error: `No faculty found matching "${name}"` }
 
-  const f = faculty.find((f) => f.name === matched)
-  if (!f) return { error: `No faculty found matching "${name}"` }
+  const match = faculty.find((fac) => fac.name === matched)
+  if (!match) return { error: `No faculty found matching "${name}"` }
 
-  return facultyDetail(f)
+  return facultyDetail(match)
 }
 
 function buildSchoolSummary(school: string, faculty: Array<Faculty>) {
@@ -289,7 +289,12 @@ function buildRankings(
     if (matched) filtered = filtered.filter((f) => f.department === matched)
   }
 
-  type Entry = { name: string; department: string; school: string; value: number }
+  type Entry = {
+    name: string
+    department: string
+    school: string
+    value: number
+  }
   const entries: Array<Entry> = []
 
   for (const f of filtered) {
@@ -339,11 +344,7 @@ function buildRankings(
   }
 }
 
-function buildSearch(
-  query: string,
-  limit: number,
-  faculty: Array<Faculty>,
-) {
+function buildSearch(query: string, limit: number, faculty: Array<Faculty>) {
   if (!query) return { error: 'No query provided' }
 
   const lower = query.toLowerCase()

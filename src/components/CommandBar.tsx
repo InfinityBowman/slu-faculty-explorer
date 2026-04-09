@@ -1,14 +1,14 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import Markdown from 'react-markdown'
 import { MessageSquare, RotateCcw, Send, Square, X } from 'lucide-react'
+import type { Faculty } from '@/lib/types'
+import type { ToolCall } from '@/lib/ai/use-chat'
 import { useChat } from '@/lib/ai/use-chat'
 import { buildSystemPrompt } from '@/lib/ai/system-prompt'
 import { executeDataTool } from '@/lib/ai/data-executor'
 import { executeToolCall } from '@/lib/ai/action-executor'
 import { DATA_TOOL_NAMES } from '@/lib/ai/tools'
 import { useAppStore } from '@/store/appStore'
-import type { Faculty } from '@/lib/types'
-import type { ToolCall } from '@/lib/ai/use-chat'
 import { cn } from '@/lib/utils'
 
 const SUGGESTIONS = [
@@ -124,157 +124,170 @@ export function CommandBar({ faculty }: CommandBarProps) {
     ],
   )
 
-  if (!open) {
-    return (
+  return (
+    <>
+      {/* Floating trigger button — visible when panel is closed */}
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="bg-primary text-primary-foreground hover:bg-primary/90 fixed bottom-6 left-1/2 z-50 flex -translate-x-1/2 items-center gap-2 rounded-full px-4 py-2.5 text-[13px] font-medium shadow-lg transition-colors"
+        className={cn(
+          'fixed bottom-6 left-1/2 z-50 flex -translate-x-1/2 items-center gap-2 rounded-full bg-primary px-4 py-2.5 text-[13px] font-medium text-primary-foreground shadow-lg transition-all duration-200 hover:bg-primary/90',
+          open
+            ? 'pointer-events-none translate-y-2 opacity-0'
+            : 'translate-y-0 opacity-100',
+        )}
       >
         <MessageSquare className="size-4" />
         Ask about faculty
-        <kbd className="bg-primary-foreground/20 ml-1 rounded px-1.5 py-0.5 text-[10px]">
-          {navigator.platform?.includes('Mac') ? '\u2318' : 'Ctrl'}K
+        <kbd className="ml-1 rounded bg-primary-foreground/20 px-1.5 py-0.5 text-[10px]">
+          {navigator.platform.includes('Mac') ? '\u2318' : 'Ctrl'}K
         </kbd>
       </button>
-    )
-  }
 
-  return (
-    <div className="fixed bottom-6 left-1/2 z-50 w-full max-w-[480px] -translate-x-1/2 animate-in fade-in-0 slide-in-from-bottom-4 duration-200">
-      <div className="bg-card/95 flex flex-col overflow-hidden rounded-xl border shadow-2xl backdrop-blur-xl">
-        {/* Header */}
-        <div className="flex items-center justify-between border-b px-4 py-3">
-          <span className="text-[13px] font-medium">Faculty Explorer AI</span>
-          <div className="flex items-center gap-1">
-            <button
-              type="button"
-              onClick={reset}
-              className="text-muted-foreground hover:text-foreground rounded-md p-1 transition-colors"
-              title="Reset conversation"
-            >
-              <RotateCcw className="size-3.5" />
-            </button>
-            <button
-              type="button"
-              onClick={() => setOpen(false)}
-              className="text-muted-foreground hover:text-foreground rounded-md p-1 transition-colors"
-              title="Close"
-            >
-              <X className="size-3.5" />
-            </button>
-          </div>
-        </div>
-
-        {/* Messages */}
-        <div className="max-h-[50vh] min-h-[200px] overflow-y-auto px-4 py-3">
-          {messages.length === 0 ? (
-            <div className="space-y-2">
-              <p className="text-muted-foreground text-[12px]">
-                Ask questions about SLU faculty research data. I can look up
-                stats, search for people, and configure the explorer.
-              </p>
-              <div className="flex flex-wrap gap-1.5 pt-1">
-                {SUGGESTIONS.map((s) => (
-                  <button
-                    key={s}
-                    type="button"
-                    onClick={() => handleSubmit(s)}
-                    className="bg-muted hover:bg-muted/80 rounded-full px-3 py-1.5 text-[11px] transition-colors"
-                  >
-                    {s}
-                  </button>
-                ))}
-              </div>
-            </div>
-          ) : (
-            <div className="space-y-3">
-              {messages.map((msg, i) => (
-                <div
-                  key={i}
-                  className={cn(
-                    'text-[13px] leading-relaxed',
-                    msg.role === 'user' && 'text-right',
-                  )}
-                >
-                  {msg.role === 'user' ? (
-                    <span className="bg-primary text-primary-foreground inline-block rounded-2xl rounded-br-sm px-3 py-2">
-                      {msg.content}
-                    </span>
-                  ) : (
-                    <div className="prose prose-sm dark:prose-invert max-w-none text-[13px] [&>*:first-child]:mt-0 [&>*:last-child]:mb-0">
-                      <Markdown>{msg.content}</Markdown>
-                    </div>
-                  )}
-                </div>
-              ))}
-
-              {/* Pending tool badges */}
-              {pendingTools.length > 0 ? (
-                <div className="flex flex-wrap gap-1.5">
-                  {pendingTools.map((name, i) => (
-                    <span
-                      key={i}
-                      className="bg-primary/10 text-primary animate-pulse rounded-full px-2.5 py-1 text-[10px] font-medium"
-                    >
-                      {TOOL_LABELS[name] ?? name}
-                    </span>
-                  ))}
-                </div>
-              ) : null}
-
-              {/* Streaming indicator */}
-              {isStreaming && pendingTools.length === 0 ? (
-                <div className="text-muted-foreground flex items-center gap-2 text-[12px]">
-                  <span className="bg-primary inline-block size-1.5 animate-pulse rounded-full" />
-                  Thinking...
-                </div>
-              ) : null}
-            </div>
-          )}
-          <div ref={messagesEndRef} />
-        </div>
-
-        {/* Input */}
-        <div className="border-t px-3 py-3">
-          <form
-            onSubmit={(e) => {
-              e.preventDefault()
-              handleSubmit(input)
-            }}
-            className="flex items-center gap-2"
-          >
-            <input
-              ref={inputRef}
-              type="text"
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              placeholder="Ask about faculty data..."
-              disabled={isStreaming}
-              className="placeholder:text-muted-foreground flex-1 bg-transparent text-[13px] focus:outline-none disabled:opacity-50"
-            />
-            {isStreaming ? (
+      {/* Chat panel — always mounted, hidden via CSS + inert when closed */}
+      <div
+        inert={!open || undefined}
+        className={cn(
+          'fixed bottom-6 left-1/2 z-50 w-full max-w-[480px] -translate-x-1/2 transition-all duration-200 ease-out',
+          open
+            ? 'translate-y-0 scale-100 opacity-100'
+            : 'pointer-events-none translate-y-4 scale-95 opacity-0',
+        )}
+      >
+        <div className="flex flex-col overflow-hidden rounded-xl border bg-card/95 shadow-2xl backdrop-blur-xl">
+          {/* Header */}
+          <div className="flex items-center justify-between border-b px-4 py-3">
+            <span className="text-[13px] font-medium">Faculty Explorer AI</span>
+            <div className="flex items-center gap-1">
               <button
                 type="button"
-                onClick={cancel}
-                className="text-muted-foreground hover:text-foreground rounded-md p-1.5 transition-colors"
-                title="Stop"
+                onClick={reset}
+                className="rounded-md p-1 text-muted-foreground transition-colors hover:text-foreground"
+                title="Reset conversation"
               >
-                <Square className="size-4" />
+                <RotateCcw className="size-3.5" />
               </button>
-            ) : (
               <button
-                type="submit"
-                disabled={!input.trim()}
-                className="text-muted-foreground hover:text-primary rounded-md p-1.5 transition-colors disabled:opacity-30"
-                title="Send"
+                type="button"
+                onClick={() => setOpen(false)}
+                className="rounded-md p-1 text-muted-foreground transition-colors hover:text-foreground"
+                title="Close"
               >
-                <Send className="size-4" />
+                <X className="size-3.5" />
               </button>
+            </div>
+          </div>
+
+          {/* Messages */}
+          <div className="max-h-[50vh] min-h-[200px] overflow-y-auto px-4 py-3">
+            {messages.length === 0 ? (
+              <div className="space-y-2">
+                <p className="text-[12px] text-muted-foreground">
+                  Ask questions about SLU faculty research data. I can look up
+                  stats, search for people, and configure the explorer.
+                </p>
+                <div className="flex flex-wrap gap-1.5 pt-1">
+                  {SUGGESTIONS.map((s) => (
+                    <button
+                      key={s}
+                      type="button"
+                      onClick={() => handleSubmit(s)}
+                      className="rounded-full bg-muted px-3 py-1.5 text-[11px] transition-colors hover:bg-muted/80"
+                    >
+                      {s}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <div className="space-y-3">
+                {messages.map((msg, i) => (
+                  <div
+                    key={i}
+                    className={cn(
+                      'text-[13px] leading-relaxed',
+                      msg.role === 'user' && 'text-right',
+                    )}
+                  >
+                    {msg.role === 'user' ? (
+                      <span className="inline-block rounded-2xl rounded-br-sm bg-primary px-3 py-2 text-primary-foreground">
+                        {msg.content}
+                      </span>
+                    ) : (
+                      <div className="prose prose-sm dark:prose-invert max-w-none text-[13px] [&>*:first-child]:mt-0 [&>*:last-child]:mb-0">
+                        <Markdown>{msg.content}</Markdown>
+                      </div>
+                    )}
+                  </div>
+                ))}
+
+                {/* Pending tool badges */}
+                {pendingTools.length > 0 ? (
+                  <div className="flex flex-wrap gap-1.5">
+                    {pendingTools.map((name, i) => (
+                      <span
+                        key={i}
+                        className="animate-pulse rounded-full bg-primary/10 px-2.5 py-1 text-[10px] font-medium text-primary"
+                      >
+                        {TOOL_LABELS[name] ?? name}
+                      </span>
+                    ))}
+                  </div>
+                ) : null}
+
+                {/* Streaming indicator */}
+                {isStreaming && pendingTools.length === 0 ? (
+                  <div className="flex items-center gap-2 text-[12px] text-muted-foreground">
+                    <span className="inline-block size-1.5 animate-pulse rounded-full bg-primary" />
+                    Thinking...
+                  </div>
+                ) : null}
+              </div>
             )}
-          </form>
+            <div ref={messagesEndRef} />
+          </div>
+
+          {/* Input */}
+          <div className="border-t px-3 py-3">
+            <form
+              onSubmit={(e) => {
+                e.preventDefault()
+                handleSubmit(input)
+              }}
+              className="flex items-center gap-2"
+            >
+              <input
+                ref={inputRef}
+                type="text"
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                placeholder="Ask about faculty data..."
+                disabled={isStreaming}
+                className="flex-1 bg-transparent text-[13px] placeholder:text-muted-foreground focus:outline-none disabled:opacity-50"
+              />
+              {isStreaming ? (
+                <button
+                  type="button"
+                  onClick={cancel}
+                  className="rounded-md p-1.5 text-muted-foreground transition-colors hover:text-foreground"
+                  title="Stop"
+                >
+                  <Square className="size-4" />
+                </button>
+              ) : (
+                <button
+                  type="submit"
+                  disabled={!input.trim()}
+                  className="rounded-md p-1.5 text-muted-foreground transition-colors hover:text-primary disabled:opacity-30"
+                  title="Send"
+                >
+                  <Send className="size-4" />
+                </button>
+              )}
+            </form>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   )
 }

@@ -72,4 +72,8 @@ export interface Faculty {
   fieldHPercentile: number | null
   subfieldHPercentile: number | null
   primaryHTier: HTier | null
+
+  // Derived (computed client-side)
+  bestH: number | null
+  mIndex: number | null
 }
