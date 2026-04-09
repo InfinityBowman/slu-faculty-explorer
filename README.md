@@ -34,7 +34,13 @@ pnpm dev
 
 Requires `OPENROUTER_API_KEY` in `.env` for the AI chat feature.
 
-## Data
+## Data Pipeline
 
-- `public/faculty.csv` -- 519 faculty with Scholar + OpenAlex metrics, bio info, field-normalized tiers
-- `public/benchmarks.csv` -- Global field percentile distributions for benchmarking
+The `pipeline/` directory contains the Python pipeline that builds and updates the dataset. Monthly refresh:
+
+```bash
+cd pipeline
+uv run python update.py    # refresh metrics, diff, publish to public/
+```
+
+See [`pipeline/DESIGN.md`](pipeline/DESIGN.md) for full methodology, schema, run order, and data quality notes.
