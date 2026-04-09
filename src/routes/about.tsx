@@ -14,6 +14,16 @@ import { Sources } from '@/components/about/sections/Sources'
 import { TierCaveats } from '@/components/about/sections/TierCaveats'
 
 export const Route = createFileRoute('/about')({
+  head: () => ({
+    meta: [
+      { title: 'About | SLU Faculty Research Explorer' },
+      {
+        name: 'description',
+        content:
+          'Methodology, data sources, and caveats for the SLU Faculty Research Explorer. Learn how h-index, FWCI, field tiers, and m-index are computed and compared.',
+      },
+    ],
+  }),
   component: AboutPage,
 })
 

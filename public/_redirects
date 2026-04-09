@@ -1,0 +1,9 @@
+# Trailing-slash 301 redirects for SEO canonicalization.
+#
+# Cloudflare Workers Static Assets emits HTTP 307 for trailing-slash redirects
+# by default. Search engines treat 307 as temporary and repeatedly probe the
+# slashed variant. These 301 rules permanently canonicalize to the no-slash form.
+
+/schools/              /schools               301
+/insights/             /insights              301
+/about/                /about                 301

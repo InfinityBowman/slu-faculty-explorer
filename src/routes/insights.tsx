@@ -9,6 +9,16 @@ import { CoverageMatrix } from '@/components/insights/CoverageMatrix'
 import { FieldBenchmark } from '@/components/insights/FieldBenchmark'
 
 export const Route = createFileRoute('/insights')({
+  head: () => ({
+    meta: [
+      { title: 'Insights | SLU Faculty Research Explorer' },
+      {
+        name: 'description',
+        content:
+          'Research analytics for SLU leadership. Tier distributions, FWCI analysis, m-index by career stage, admin role impact, field benchmarks, and data coverage.',
+      },
+    ],
+  }),
   component: InsightsPage,
 })
 

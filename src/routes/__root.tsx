@@ -25,11 +25,48 @@ export const Route = createRootRoute({
       {
         name: "description",
         content:
-          "Explore research productivity and impact metrics for Saint Louis University faculty using Google Scholar and OpenAlex data.",
+          "Explore research productivity and impact metrics for Saint Louis University's 519 active PhD faculty using Google Scholar and OpenAlex data. Interactive scatter plots, school comparisons, and AI-powered data exploration.",
       },
+      // Open Graph
+      { property: "og:type", content: "website" },
+      { property: "og:title", content: "SLU Faculty Research Explorer" },
+      {
+        property: "og:description",
+        content:
+          "Interactive bibliometric dashboard for Saint Louis University. Explore h-index, citations, FWCI, and field-normalized rankings across 519 faculty.",
+      },
+      { property: "og:url", content: "https://faculty.jacobmaynard.dev" },
+      {
+        property: "og:image",
+        content: "https://faculty.jacobmaynard.dev/og-image.png",
+      },
+      { property: "og:site_name", content: "SLU Faculty Research Explorer" },
+      // Twitter / X
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "SLU Faculty Research Explorer" },
+      {
+        name: "twitter:description",
+        content:
+          "Interactive bibliometric dashboard for Saint Louis University. Explore h-index, citations, FWCI, and field-normalized rankings across 519 faculty.",
+      },
+      {
+        name: "twitter:image",
+        content: "https://faculty.jacobmaynard.dev/og-image.png",
+      },
+      // Additional SEO
+      { name: "robots", content: "index, follow" },
+      { name: "author", content: "Jacob Maynard" },
+      {
+        name: "keywords",
+        content:
+          "Saint Louis University, SLU, faculty research, bibliometrics, h-index, Google Scholar, OpenAlex, FWCI, citation analysis, research productivity",
+      },
+      { name: "theme-color", content: "#003DA5" },
     ],
     links: [
       { rel: "icon", type: "image/svg+xml", href: "/icon-lens.svg" },
+      { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
+      { rel: "canonical", href: "https://faculty.jacobmaynard.dev" },
       { rel: "stylesheet", href: appCss },
     ],
     scripts: [{ children: themeInitScript }],

@@ -7,6 +7,16 @@ import { Skeleton } from '@/components/ui/skeleton'
 import { useFacultyData, useFilteredFaculty } from '@/hooks/useFaculty'
 
 export const Route = createFileRoute('/')({
+  head: () => ({
+    meta: [
+      { title: 'Explorer | SLU Faculty Research Explorer' },
+      {
+        name: 'description',
+        content:
+          'Filter, search, and visualize research metrics for 519 SLU faculty. Interactive scatter plots with configurable axes, sortable tables, and AI-powered data exploration.',
+      },
+    ],
+  }),
   component: ExplorerPage,
 })
 

@@ -9,6 +9,16 @@ import { useSchoolSummary } from '@/hooks/useSchools'
 import { cn } from '@/lib/utils'
 
 export const Route = createFileRoute('/schools')({
+  head: () => ({
+    meta: [
+      { title: 'Schools | SLU Faculty Research Explorer' },
+      {
+        name: 'description',
+        content:
+          'Compare research productivity across Saint Louis University schools. View field percentile and FWCI distributions, department breakdowns, and top faculty by school.',
+      },
+    ],
+  }),
   component: SchoolsPage,
 })
 
