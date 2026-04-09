@@ -12,6 +12,8 @@ const toStr = (v: string | undefined): string | null => {
   return v
 }
 
+const CURRENT_YEAR = new Date().getFullYear()
+
 const VALID_TIERS: ReadonlySet<string> = new Set([
   'top_1%',
   'top_5%',
@@ -140,5 +142,15 @@ export async function loadFaculty(): Promise<Array<Faculty>> {
       fieldHPercentile: toNum(row.field_h_percentile),
       subfieldHPercentile: toNum(row.subfield_h_percentile),
       primaryHTier: toTier(row.primary_h_tier),
+
+      // Derived
+      bestH: toNum(row.h_index) ?? toNum(row.openalex_h_index),
+      mIndex: (() => {
+        const h = toNum(row.h_index) ?? toNum(row.openalex_h_index)
+        const firstYear = toNum(row.openalex_first_year)
+        if (h == null || firstYear == null) return null
+        const years = CURRENT_YEAR - firstYear
+        return years > 0 ? Math.round((h / years) * 100) / 100 : null
+      })(),
     }))
 }

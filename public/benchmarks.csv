@@ -1,0 +1,145 @@
+level,name,n_authors,p25,p50,p75,p90,p95,p99
+subfield,Accounting,147584,2,4,7,13,18,34
+subfield,Aerospace Engineering,1200995,0,1,5,11,16,34
+subfield,Agronomy and Crop Science,167781,3,6,12,21,28,46
+subfield,Algebra and Number Theory,27919,3,6,10,17,23,37
+subfield,Animal Science and Zoology,152278,4,8,13,22,30,48
+subfield,Anthropology,157919,1,3,6,12,17,33
+subfield,Applied Mathematics,75487,3,6,10,17,23,38
+subfield,Archeology,156827,1,3,6,12,17,31
+subfield,Architecture,17281,1,3,5,9,13,23
+subfield,Artificial Intelligence,606045,3,6,10,18,25,45
+subfield,Astronomy and Astrophysics,262162,4,8,15,28,41,71
+subfield,Atmospheric Science,262568,4,8,15,27,37,62
+subfield,"Atomic and Molecular Physics, and Optics",458375,5,8,15,25,33,54
+subfield,Behavioral Neuroscience,37619,6,10,17,29,41,68
+subfield,Biomaterials,189094,5,9,16,27,36,58
+subfield,Biomedical Engineering,845817,5,8,14,24,33,54
+subfield,Building and Construction,184698,3,6,10,18,25,43
+subfield,Cardiology and Cardiovascular Medicine,511424,4,7,13,23,33,60
+subfield,Cell Biology,233972,5,9,16,27,36,61
+subfield,Ceramics and Composites,61564,4,8,14,23,31,50
+subfield,Civil and Structural Engineering,297339,3,6,10,18,24,42
+subfield,Classics,55868,1,2,4,8,11,21
+subfield,Clinical Psychology,349140,3,6,11,19,28,53
+subfield,Cognitive Neuroscience,302458,5,8,15,26,36,65
+subfield,Communication,79204,2,4,8,14,20,37
+subfield,Computational Mechanics,262378,4,7,12,21,29,49
+subfield,Computer Graphics and Computer-Aided Design,27929,3,5,10,18,25,44
+subfield,Computer Networks and Communications,326867,3,6,10,17,24,43
+subfield,Computer Vision and Pattern Recognition,319325,4,6,10,17,24,42
+subfield,Condensed Matter Physics,135076,5,8,15,26,35,56
+subfield,Developmental and Educational Psychology,149303,3,6,10,18,26,49
+subfield,Discrete Mathematics and Combinatorics,18647,3,6,10,17,23,37
+subfield,Earth-Surface Processes,67685,4,7,13,23,31,50
+subfield,Ecology,406887,5,8,15,25,35,57
+subfield,"Ecology, Evolution, Behavior and Systematics",252173,4,7,13,22,30,52
+subfield,Economics and Econometrics,547565,2,4,9,16,23,46
+subfield,Education,596712,2,3,6,11,15,30
+subfield,Electrical and Electronic Engineering,1188110,4,7,13,22,30,51
+subfield,Emergency Medical Services,86318,3,6,11,18,26,46
+subfield,Epidemiology,948284,4,8,14,24,33,58
+subfield,Experimental and Cognitive Psychology,161466,3,6,12,22,32,61
+subfield,Finance,122673,3,5,10,17,24,42
+subfield,Gender Studies,102552,3,5,9,16,23,41
+subfield,"General Economics, Econometrics and Finance",108426,2,4,8,14,20,39
+subfield,General Health Professions,487922,2,5,10,18,25,47
+subfield,Genetics,783442,5,8,15,27,37,64
+subfield,"Geography, Planning and Development",64090,2,3,6,12,17,33
+subfield,Geometry and Topology,66330,3,6,11,18,24,39
+subfield,Geophysics,166142,4,7,13,23,32,54
+subfield,Global and Planetary Change,359411,4,7,14,24,33,57
+subfield,Hardware and Architecture,71288,4,6,10,17,24,41
+subfield,Health,119705,4,7,12,22,31,57
+subfield,Health Information Management,66141,2,4,7,12,17,32
+subfield,"Health, Toxicology and Mutagenesis",221876,5,8,15,26,35,60
+subfield,Hematology,201152,5,8,15,26,36,63
+subfield,History,186112,1,2,4,8,12,22
+subfield,History and Philosophy of Science,66211,1,2,5,11,16,32
+subfield,Immunology,416063,5,9,16,28,38,65
+subfield,Industrial and Manufacturing Engineering,202361,3,6,10,18,25,43
+subfield,Infectious Diseases,484982,4,8,13,23,31,55
+subfield,Information Systems,395131,2,4,7,12,17,33
+subfield,Information Systems and Management,114958,2,4,7,13,19,35
+subfield,"Issues, ethics and legal aspects",9500,2,5,8,14,19,33
+subfield,Law,137079,1,2,4,8,11,22
+subfield,Library and Information Sciences,21433,1,2,5,8,12,22
+subfield,Linguistics and Language,52048,1,3,6,12,17,32
+subfield,Literature and Literary Theory,236636,1,2,4,8,12,23
+subfield,Management of Technology and Innovation,88816,2,4,8,14,20,37
+subfield,"Management, Monitoring, Policy and Law",208988,2,4,7,13,19,36
+subfield,Marketing,106732,2,5,9,16,22,39
+subfield,Materials Chemistry,922744,5,8,15,26,35,57
+subfield,Mathematical Physics,63375,4,6,11,19,26,43
+subfield,Mechanical Engineering,580139,4,7,12,20,27,46
+subfield,Molecular Biology,1768880,6,9,17,28,38,63
+subfield,Molecular Medicine,80872,5,9,15,25,33,57
+subfield,Music,47789,1,2,4,8,12,24
+subfield,Nature and Landscape Conservation,176842,4,7,13,24,33,55
+subfield,Nephrology,109806,4,7,13,23,33,58
+subfield,Neurology,358774,4,8,14,25,35,62
+subfield,Nuclear and High Energy Physics,331151,5,10,19,39,55,101
+subfield,Obstetrics and Gynecology,142110,4,7,12,22,30,53
+subfield,Occupational Therapy,41672,2,4,8,14,20,38
+subfield,Ocean Engineering,181579,3,6,11,18,25,43
+subfield,Oncology,668135,4,8,15,26,36,64
+subfield,Organic Chemistry,385839,5,8,14,24,33,54
+subfield,Organizational Behavior and Human Resource Management,146755,2,5,9,17,24,46
+subfield,Orthopedics and Sports Medicine,127907,4,7,12,22,30,55
+subfield,Parasitology,79366,4,8,14,24,32,52
+subfield,Pathology and Forensic Medicine,365141,4,7,14,24,34,61
+subfield,"Pediatrics, Perinatology and Child Health",346534,4,7,13,23,32,57
+subfield,Philosophy,183992,1,3,5,11,16,33
+subfield,"Physical Therapy, Sports Therapy and Rehabilitation",54472,2,4,8,16,22,42
+subfield,Physiology,583994,5,8,15,26,36,64
+subfield,Plant Science,671561,4,7,12,22,29,49
+subfield,Political Science and International Relations,493846,1,3,6,10,15,28
+subfield,Psychiatry and Mental health,268280,4,7,14,25,35,65
+subfield,Public Administration,37812,3,5,9,16,22,38
+subfield,"Public Health, Environmental and Occupational Health",682063,3,7,12,22,31,55
+subfield,Pulmonary and Respiratory Medicine,891347,4,7,13,23,32,58
+subfield,Radiation,144880,4,8,14,24,32,52
+subfield,"Radiology, Nuclear Medicine and Imaging",520147,4,8,14,25,34,60
+subfield,Rehabilitation,99985,4,7,13,22,31,53
+subfield,Religious studies,65871,1,2,4,8,11,21
+subfield,"Renewable Energy, Sustainability and the Environment",270409,5,8,16,27,37,62
+subfield,Research and Theory,10452,3,5,9,14,20,34
+subfield,Rheumatology,244321,4,7,13,23,32,58
+subfield,Safety Research,98042,2,5,9,16,22,41
+subfield,"Safety, Risk, Reliability and Quality",103941,3,6,10,17,23,40
+subfield,Small Animals,78151,4,8,13,22,30,48
+subfield,Social Psychology,290200,3,6,11,20,29,53
+subfield,Sociology and Political Science,1809939,0,2,5,10,15,30
+subfield,Spectroscopy,193460,6,9,16,27,35,57
+subfield,Statistics and Probability,66534,4,7,13,23,33,58
+subfield,"Statistics, Probability and Uncertainty",72332,3,6,10,18,26,48
+subfield,Strategy and Management,230255,2,4,8,14,20,37
+subfield,Toxicology,23441,5,9,15,24,32,53
+subfield,Transplantation,40822,5,8,15,25,35,60
+subfield,Transportation,910852,0,0,2,5,8,20
+subfield,Urban Studies,101114,1,3,5,9,13,25
+subfield,Visual Arts and Performing Arts,75731,1,2,4,7,11,20
+field,Agricultural and Biological Sciences,1979499,4,7,12,21,29,49
+field,Arts and Humanities,1154829,1,2,5,9,14,28
+field,"Biochemistry, Genetics and Molecular Biology",3161019,5,9,16,27,37,63
+field,"Business, Management and Accounting",668508,2,4,8,14,20,37
+field,Chemistry,812386,5,8,15,25,33,55
+field,Computer Science,2145333,3,6,10,17,24,43
+field,Decision Sciences,311097,3,5,9,17,23,43
+field,Earth and Planetary Sciences,635510,4,7,13,24,34,58
+field,"Economics, Econometrics and Finance",664564,2,4,8,16,23,44
+field,Energy,297545,5,8,15,26,36,61
+field,Engineering,6396308,3,6,11,20,27,47
+field,Environmental Science,1766570,4,7,13,23,32,54
+field,Health Professions,840112,2,5,10,17,25,46
+field,Immunology and Microbiology,615830,5,9,16,27,36,62
+field,Materials Science,1536090,5,8,15,26,35,58
+field,Mathematics,270337,3,6,11,20,27,48
+field,Medicine,10674629,4,7,14,24,33,59
+field,Neuroscience,727898,5,9,16,27,37,64
+field,Nursing,248777,4,7,13,23,31,54
+field,"Pharmacology, Toxicology and Pharmaceutics",168633,4,8,13,23,30,51
+field,Physics and Astronomy,1188378,4,8,15,28,40,75
+field,Psychology,872466,3,6,11,20,28,52
+field,Social Sciences,5310959,1,2,5,10,15,31
+field,Veterinary,85083,4,8,13,22,29,47
