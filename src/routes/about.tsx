@@ -48,7 +48,7 @@ function AboutPage() {
         <h1 className="text-3xl font-semibold tracking-tight">
           About this data
         </h1>
-        <p className="text-muted-foreground mt-2 text-[14px]">
+        <p className="mt-2 text-[14px] text-muted-foreground">
           Methodology, sources, and caveats for the SLU Faculty Research
           Explorer.
         </p>
@@ -56,7 +56,7 @@ function AboutPage() {
 
       <div className="grid gap-12 lg:grid-cols-[220px_minmax(0,1fr)]">
         <TocSidebar items={TOC} />
-        <article className="min-w-0 max-w-[720px] space-y-12">
+        <article className="max-w-[720px] min-w-0 space-y-12">
           <Overview />
           <Scope />
           <Sources />

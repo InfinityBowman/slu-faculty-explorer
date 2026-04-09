@@ -46,7 +46,9 @@ export function useScatterPoints(
     const sizeField =
       config.sizeId === FIXED_SIZE_ID ? null : findNumericField(config.sizeId)
     const colorField =
-      config.colorId === NO_COLOR_ID ? null : findCategoricalField(config.colorId)
+      config.colorId === NO_COLOR_ID
+        ? null
+        : findCategoricalField(config.colorId)
     return { xField, yField, sizeField, colorField }
   }, [config.xId, config.yId, config.sizeId, config.colorId])
 

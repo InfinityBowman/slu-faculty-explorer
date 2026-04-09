@@ -8,12 +8,12 @@ import type { CategoricalField } from './types'
 // colors are the most distinct (useful for 4-bucket Domain coloring).
 const QUALITATIVE_PALETTE: ReadonlyArray<string> = [
   'oklch(0.50 0.18 259)', // slate blue (SLU primary-ish)
-  'oklch(0.65 0.15 50)',  // warm orange
+  'oklch(0.65 0.15 50)', // warm orange
   'oklch(0.55 0.13 150)', // forest green
   'oklch(0.50 0.15 320)', // plum
-  'oklch(0.62 0.18 25)',  // coral red
+  'oklch(0.62 0.18 25)', // coral red
   'oklch(0.60 0.12 200)', // teal
-  'oklch(0.70 0.13 90)',  // mustard
+  'oklch(0.70 0.13 90)', // mustard
   'oklch(0.45 0.16 280)', // indigo
   'oklch(0.55 0.10 110)', // olive
 ]

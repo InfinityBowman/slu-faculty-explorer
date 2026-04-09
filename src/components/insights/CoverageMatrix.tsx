@@ -1,6 +1,12 @@
 import { useMemo } from 'react'
 import {
-  Bar, BarChart, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis,
+  Bar,
+  BarChart,
+  Legend,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
 } from 'recharts'
 import { ChartTooltip, useChartTooltip } from './ChartTooltip'
 import type { Faculty } from '@/lib/types'
@@ -18,18 +24,25 @@ interface CoverageChartRow {
 export function CoverageMatrix({ faculty }: { faculty: Array<Faculty> }) {
   const data = useMemo(
     () =>
-      coverageMatrix(faculty).map((r): CoverageChartRow => ({
-        school: abbreviate(r.school),
-        Scholar: r.scholar,
-        OpenAlex: r.openalex,
-        Neither: r.neither,
-        total: r.total,
-        pct: r.coveragePct,
-      })),
+      coverageMatrix(faculty).map(
+        (r): CoverageChartRow => ({
+          school: abbreviate(r.school),
+          Scholar: r.scholar,
+          OpenAlex: r.openalex,
+          Neither: r.neither,
+          total: r.total,
+          pct: r.coveragePct,
+        }),
+      ),
     [faculty],
   )
 
-  const { data: hovered, rendered, setData, tooltipRef } = useChartTooltip<CoverageChartRow>()
+  const {
+    data: hovered,
+    rendered,
+    setData,
+    tooltipRef,
+  } = useChartTooltip<CoverageChartRow>()
 
   return (
     <div onMouseLeave={() => setData(null)}>
@@ -45,7 +58,12 @@ export function CoverageMatrix({ faculty }: { faculty: Array<Faculty> }) {
           }}
           onMouseLeave={() => setData(null)}
         >
-          <XAxis type="number" tick={{ fontSize: 10 }} axisLine={false} tickLine={false} />
+          <XAxis
+            type="number"
+            tick={{ fontSize: 10 }}
+            axisLine={false}
+            tickLine={false}
+          />
           <YAxis
             type="category"
             dataKey="school"
@@ -54,15 +72,34 @@ export function CoverageMatrix({ faculty }: { faculty: Array<Faculty> }) {
             axisLine={false}
             tickLine={false}
           />
-          <Tooltip content={() => null} cursor={{ fill: 'var(--color-muted)', fillOpacity: 0.3 }} />
+          <Tooltip
+            content={() => null}
+            cursor={{ fill: 'var(--color-muted)', fillOpacity: 0.3 }}
+          />
           <Legend
             verticalAlign="bottom"
             iconSize={10}
             wrapperStyle={{ fontSize: 11, paddingTop: 8 }}
           />
-          <Bar dataKey="Scholar" stackId="src" fill="oklch(0.35 0.15 259)" barSize={20} />
-          <Bar dataKey="OpenAlex" stackId="src" fill="oklch(0.55 0.19 259)" barSize={20} />
-          <Bar dataKey="Neither" stackId="src" fill="oklch(0.75 0.06 259)" barSize={20} radius={[0, 4, 4, 0]} />
+          <Bar
+            dataKey="Scholar"
+            stackId="src"
+            fill="oklch(0.35 0.15 259)"
+            barSize={20}
+          />
+          <Bar
+            dataKey="OpenAlex"
+            stackId="src"
+            fill="oklch(0.55 0.19 259)"
+            barSize={20}
+          />
+          <Bar
+            dataKey="Neither"
+            stackId="src"
+            fill="oklch(0.75 0.06 259)"
+            barSize={20}
+            radius={[0, 4, 4, 0]}
+          />
         </BarChart>
       </ResponsiveContainer>
 
@@ -70,9 +107,14 @@ export function CoverageMatrix({ faculty }: { faculty: Array<Faculty> }) {
         {rendered && (
           <div>
             <div className="font-medium">{rendered.school}</div>
-            <div className="mt-1 space-y-0.5 tabular">
-              <div>Scholar: {rendered.Scholar} &middot; OpenAlex: {rendered.OpenAlex} &middot; Neither: {rendered.Neither}</div>
-              <div className="font-medium">Coverage: {rendered.pct}% of {rendered.total}</div>
+            <div className="tabular mt-1 space-y-0.5">
+              <div>
+                Scholar: {rendered.Scholar} &middot; OpenAlex:{' '}
+                {rendered.OpenAlex} &middot; Neither: {rendered.Neither}
+              </div>
+              <div className="font-medium">
+                Coverage: {rendered.pct}% of {rendered.total}
+              </div>
             </div>
           </div>
         )}

@@ -25,7 +25,8 @@ export const TIER_LABEL: Record<HTier, string> = {
 
 export const SCHOOL_ABBR: Record<string, string> = {
   'Chaifetz School of Business': 'Chaifetz Business',
-  'College for Public Health and Social Justice': 'Public Health & Social Justice',
+  'College for Public Health and Social Justice':
+    'Public Health & Social Justice',
   'School of Social Work': 'Social Work',
   'School of Science and Engineering': 'Science & Engineering',
   'Doisy College of Health Sciences': 'Doisy Health Sciences',
@@ -52,7 +53,10 @@ export function median(values: Array<number>): number | null {
 
 function quartiles(sorted: Array<number>) {
   const n = sorted.length
-  const med = n % 2 === 0 ? (sorted[n / 2 - 1] + sorted[n / 2]) / 2 : sorted[Math.floor(n / 2)]
+  const med =
+    n % 2 === 0
+      ? (sorted[n / 2 - 1] + sorted[n / 2]) / 2
+      : sorted[Math.floor(n / 2)]
   const lower = sorted.slice(0, Math.floor(n / 2))
   const upper = sorted.slice(Math.ceil(n / 2))
   const q = (arr: Array<number>) =>
@@ -87,7 +91,16 @@ export function tierData(faculty: Array<Faculty>, label: string): TierDatum {
       n++
     }
   }
-  const row: TierDatum = { label, n, 'top_1%': 0, 'top_5%': 0, 'top_10%': 0, 'top_25%': 0, above_median: 0, below_median: 0 }
+  const row: TierDatum = {
+    label,
+    n,
+    'top_1%': 0,
+    'top_5%': 0,
+    'top_10%': 0,
+    'top_25%': 0,
+    above_median: 0,
+    below_median: 0,
+  }
   for (const t of H_TIER_ORDER) {
     row[t] = n > 0 ? Math.round((counts[t] / n) * 1000) / 10 : 0
   }
@@ -104,7 +117,17 @@ export interface HistogramBin {
 
 export function fwciHistogram(faculty: Array<Faculty>) {
   const edges = [0, 0.25, 0.5, 0.75, 1.0, 1.5, 2.0, 3.0, 5.0, Infinity]
-  const labels = ['<0.25', '0.25–0.5', '0.5–0.75', '0.75–1.0', '1.0–1.5', '1.5–2.0', '2.0–3.0', '3.0–5.0', '5.0+']
+  const labels = [
+    '<0.25',
+    '0.25–0.5',
+    '0.5–0.75',
+    '0.75–1.0',
+    '1.0–1.5',
+    '1.5–2.0',
+    '2.0–3.0',
+    '3.0–5.0',
+    '5.0+',
+  ]
   const bins: Array<HistogramBin> = labels.map((label, i) => ({
     label,
     count: 0,
@@ -158,7 +181,15 @@ export function mIndexByDecade(faculty: Array<Faculty>): Array<DecadeGroup> {
     .map(([decade, values]) => {
       const sorted = [...values].sort((a, b) => a - b)
       const { q1, med, q3 } = quartiles(sorted)
-      return { decade, q1, med, q3, min: sorted[0], max: sorted.at(-1)!, n: sorted.length }
+      return {
+        decade,
+        q1,
+        med,
+        q3,
+        min: sorted[0],
+        max: sorted.at(-1)!,
+        n: sorted.length,
+      }
     })
 }
 
@@ -181,12 +212,23 @@ const ROLE_LABELS: Record<string, string> = {
 }
 
 export function adminRoleMetrics(faculty: Array<Faculty>): Array<AdminRoleRow> {
-  return ['Dean', 'Associate Dean', 'Chair', 'Director', 'Coordinator', ''].map((role) => {
-    const members = faculty.filter((f) => (f.adminRole ?? '') === role)
-    const pcts = members.map((f) => f.fieldHPercentile).filter((v): v is number => v != null)
-    const fwcis = members.map((f) => f.openalex2yrFwci).filter((v): v is number => v != null)
-    return { role: ROLE_LABELS[role], n: members.length, medianPercentile: median(pcts), medianFwci: median(fwcis) }
-  })
+  return ['Dean', 'Associate Dean', 'Chair', 'Director', 'Coordinator', ''].map(
+    (role) => {
+      const members = faculty.filter((f) => (f.adminRole ?? '') === role)
+      const pcts = members
+        .map((f) => f.fieldHPercentile)
+        .filter((v): v is number => v != null)
+      const fwcis = members
+        .map((f) => f.openalex2yrFwci)
+        .filter((v): v is number => v != null)
+      return {
+        role: ROLE_LABELS[role],
+        n: members.length,
+        medianPercentile: median(pcts),
+        medianFwci: median(fwcis),
+      }
+    },
+  )
 }
 
 // ── Coverage matrix ────────────────────────────────────────────────────────
@@ -212,14 +254,27 @@ export function coverageMatrix(faculty: Array<Faculty>): Array<CoverageRow> {
   return Array.from(buckets.entries())
     .sort(([a], [b]) => a.localeCompare(b))
     .map(([school, members]) => {
-      let scholar = 0, openalex = 0, either = 0, neither = 0
+      let scholar = 0,
+        openalex = 0,
+        either = 0,
+        neither = 0
       for (const f of members) {
-        const s = f.scholarId != null, o = f.openalexId != null
+        const s = f.scholarId != null,
+          o = f.openalexId != null
         if (s) scholar++
         if (o) openalex++
-        if (s || o) either++; else neither++
+        if (s || o) either++
+        else neither++
       }
-      return { school, total: members.length, scholar, openalex, either, neither, coveragePct: Math.round((either / members.length) * 100) }
+      return {
+        school,
+        total: members.length,
+        scholar,
+        openalex,
+        either,
+        neither,
+        coveragePct: Math.round((either / members.length) * 100),
+      }
     })
 }
 

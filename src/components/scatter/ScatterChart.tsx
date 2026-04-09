@@ -65,10 +65,7 @@ function computeTooltipPosition(
     top = vh - TOOLTIP_HEIGHT - TOOLTIP_PAD
   }
   // Clamp horizontally
-  left = Math.max(
-    TOOLTIP_PAD,
-    Math.min(vw - TOOLTIP_WIDTH - TOOLTIP_PAD, left),
-  )
+  left = Math.max(TOOLTIP_PAD, Math.min(vw - TOOLTIP_WIDTH - TOOLTIP_PAD, left))
 
   return { left, top }
 }
@@ -162,8 +159,20 @@ export function ScatterChart({ result }: ScatterChartProps) {
     }
 
     // ── Base scales ─────────────────────────────────────────────────────
-    const xBase = buildScale(fields.xField, points, 'x', innerWidth, innerHeight)
-    const yBase = buildScale(fields.yField, points, 'y', innerWidth, innerHeight)
+    const xBase = buildScale(
+      fields.xField,
+      points,
+      'x',
+      innerWidth,
+      innerHeight,
+    )
+    const yBase = buildScale(
+      fields.yField,
+      points,
+      'y',
+      innerWidth,
+      innerHeight,
+    )
 
     const maxSize = points.reduce((m, p) => Math.max(m, p.size ?? 0), 1)
     const rScale = scaleSqrt().domain([0, maxSize]).range(SIZE_RANGE)
@@ -421,10 +430,7 @@ export function ScatterChart({ result }: ScatterChartProps) {
     // Override d3-zoom's default "zoom in 2x on dblclick" — for an analytical
     // dashboard, smooth-reset is much more useful.
     svg.on('dblclick', () => {
-      svg
-        .transition()
-        .duration(400)
-        .call(zoomBehavior.transform, zoomIdentity)
+      svg.transition().duration(400).call(zoomBehavior.transform, zoomIdentity)
     })
 
     // Sync d3-zoom's internal __zoom state with our preserved transform so
@@ -440,7 +446,7 @@ export function ScatterChart({ result }: ScatterChartProps) {
     return (
       <div
         ref={containerRef}
-        className="text-muted-foreground flex items-center justify-center text-sm"
+        className="flex items-center justify-center text-sm text-muted-foreground"
         style={{ height: HEIGHT }}
       >
         No faculty with values for both axes in the current filters.
@@ -461,7 +467,7 @@ export function ScatterChart({ result }: ScatterChartProps) {
         <button
           type="button"
           onClick={resetZoom}
-          className="bg-card hover:bg-muted animate-in fade-in-0 absolute top-2 right-2 inline-flex items-center gap-1.5 rounded-md border px-2.5 py-1.5 text-[11px] font-medium shadow-sm transition-colors duration-150"
+          className="absolute top-2 right-2 inline-flex animate-in items-center gap-1.5 rounded-md border bg-card px-2.5 py-1.5 text-[11px] font-medium shadow-sm transition-colors duration-150 fade-in-0 hover:bg-muted"
         >
           <Maximize2 className="size-3" />
           Reset zoom
@@ -469,7 +475,7 @@ export function ScatterChart({ result }: ScatterChartProps) {
       ) : null}
 
       {!isZoomed ? (
-        <div className="text-muted-foreground pointer-events-none absolute top-2 right-3 text-[10px] tracking-wide uppercase select-none">
+        <div className="pointer-events-none absolute top-2 right-3 text-[10px] tracking-wide text-muted-foreground uppercase select-none">
           Scroll to zoom · drag to pan
         </div>
       ) : null}
@@ -541,7 +547,10 @@ function buildScale(
     } else {
       // Nice first, then pad — .nice() can shrink the domain back toward
       // round numbers, eating into proportional padding applied beforehand.
-      const niced = scaleLinear().domain([minObs, maxObs]).nice().domain() as [number, number]
+      const niced = scaleLinear().domain([minObs, maxObs]).nice().domain() as [
+        number,
+        number,
+      ]
       const span = Math.max(1, niced[1] - niced[0])
       const pad = span * 0.08
       domain = [niced[0] - pad, niced[1] + pad]
@@ -625,7 +634,7 @@ function Tooltip({ point, fields, pos, isOpen }: TooltipProps) {
     <div
       data-state={isOpen ? 'open' : 'closed'}
       className={cn(
-        'bg-popover text-popover-foreground pointer-events-none fixed z-50 max-w-[280px] min-w-[180px] rounded-md border p-2.5 shadow-md',
+        'pointer-events-none fixed z-50 max-w-[280px] min-w-[180px] rounded-md border bg-popover p-2.5 text-popover-foreground shadow-md',
         'data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95',
         'data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95',
         'duration-150 ease-out',
@@ -633,7 +642,7 @@ function Tooltip({ point, fields, pos, isOpen }: TooltipProps) {
       style={{ left: pos.left, top: pos.top }}
     >
       <div className="text-[13px] font-medium">{point.name}</div>
-      <div className="text-muted-foreground mt-0.5 text-[11px]">
+      <div className="mt-0.5 text-[11px] text-muted-foreground">
         {point.department}
       </div>
       <div className="mt-2 flex gap-4 border-t pt-2 text-[11px]">
@@ -659,7 +668,7 @@ function Tooltip({ point, fields, pos, isOpen }: TooltipProps) {
 function TooltipStat({ label, value }: { label: string; value: string }) {
   return (
     <div>
-      <div className="text-muted-foreground text-[9px] tracking-wider uppercase">
+      <div className="text-[9px] tracking-wider text-muted-foreground uppercase">
         {label}
       </div>
       <div className="tabular font-medium">{value}</div>
@@ -668,11 +677,13 @@ function TooltipStat({ label, value }: { label: string; value: string }) {
 }
 
 function formatTooltipValue(
-  field: { formatValue?: (n: number) => string; formatTick?: (n: number) => string },
+  field: {
+    formatValue?: (n: number) => string
+    formatTick?: (n: number) => string
+  },
   value: number,
 ): string {
   if (field.formatValue) return field.formatValue(value)
   if (field.formatTick) return field.formatTick(value)
   return value.toString()
 }
-

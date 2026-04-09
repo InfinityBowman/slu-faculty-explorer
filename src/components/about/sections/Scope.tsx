@@ -19,13 +19,13 @@ export function Scope() {
       </Bullets>
       <P>
         These exclusions are about matching the dataset to its purpose
-        (cross-field research-output comparison among research faculty), not
-        a judgment on the excluded groups.
+        (cross-field research-output comparison among research faculty), not a
+        judgment on the excluded groups.
       </P>
       <P>
-        If a faculty member you expect to find isn't in the explorer, the
-        most likely reasons are: (1) their primary degree isn't a Ph.D.,
-        (2) they're emeritus, or (3) they're affiliated with SLU-Madrid.
+        If a faculty member you expect to find isn't in the explorer, the most
+        likely reasons are: (1) their primary degree isn't a Ph.D., (2) they're
+        emeritus, or (3) they're affiliated with SLU-Madrid.
       </P>
     </Section>
   )

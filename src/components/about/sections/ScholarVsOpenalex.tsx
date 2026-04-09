@@ -77,17 +77,17 @@ export function ScholarVsOpenalex() {
       <Subhead>Why the numbers differ</Subhead>
       <P>
         Of the 152 faculty who appear in both sources, Scholar&apos;s h-index is
-        higher 82% of the time. The gap is typically 1 to 5 points (median of 2).
-        This reflects the different scope of what each system counts as a
+        higher 82% of the time. The gap is typically 1 to 5 points (median of
+        2). This reflects the different scope of what each system counts as a
         citation, not a data quality problem in either source.
       </P>
 
       <Callout tone="info">
-        <Strong>Which should I trust?</Strong> Neither is more &ldquo;correct&rdquo;
-        than the other. Scholar tends to be the number faculty recognize because
-        it is the one on their own profile. OpenAlex provides the broader
-        coverage and the field context needed for cross-discipline comparisons.
-        This tool shows both when available.
+        <Strong>Which should I trust?</Strong> Neither is more
+        &ldquo;correct&rdquo; than the other. Scholar tends to be the number
+        faculty recognize because it is the one on their own profile. OpenAlex
+        provides the broader coverage and the field context needed for
+        cross-discipline comparisons. This tool shows both when available.
       </Callout>
     </Section>
   )

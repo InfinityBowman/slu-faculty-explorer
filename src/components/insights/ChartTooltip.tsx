@@ -27,8 +27,10 @@ export function useChartTooltip<T>() {
       if (!el) return
       const { clientX: cx, clientY: cy } = e
       const { width, height } = el.getBoundingClientRect()
-      const left = cx + GAP + width > window.innerWidth ? cx - width - GAP : cx + GAP
-      const top = cy + GAP + height > window.innerHeight ? cy - height - GAP : cy + GAP
+      const left =
+        cx + GAP + width > window.innerWidth ? cx - width - GAP : cx + GAP
+      const top =
+        cy + GAP + height > window.innerHeight ? cy - height - GAP : cy + GAP
       el.style.left = `${left}px`
       el.style.top = `${top}px`
     }

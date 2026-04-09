@@ -16,7 +16,7 @@ export function TocSidebar({ items }: TocSidebarProps) {
   return (
     <aside className="hidden lg:block">
       <nav className="sticky top-8">
-        <div className="text-muted-foreground mb-3 text-[10px] font-medium tracking-[0.08em] uppercase">
+        <div className="mb-3 text-[10px] font-medium tracking-[0.08em] text-muted-foreground uppercase">
           On this page
         </div>
         <ul className="space-y-1">
@@ -27,8 +27,8 @@ export function TocSidebar({ items }: TocSidebarProps) {
                 className={cn(
                   'block border-l-2 py-1 pl-3 text-[12px] transition-colors',
                   activeId === item.id
-                    ? 'border-primary text-foreground font-medium'
-                    : 'text-muted-foreground hover:text-foreground hover:border-border border-transparent',
+                    ? 'border-primary font-medium text-foreground'
+                    : 'border-transparent text-muted-foreground hover:border-border hover:text-foreground',
                 )}
               >
                 {item.label}

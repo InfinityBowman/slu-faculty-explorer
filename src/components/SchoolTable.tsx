@@ -49,11 +49,11 @@ export function SchoolTable({ schools }: SchoolTableProps) {
         header: 'School',
         cell: ({ row }) => (
           <div className="flex min-w-0 flex-col">
-            <span className="text-foreground truncate text-[13px] leading-tight font-medium">
+            <span className="truncate text-[13px] leading-tight font-medium text-foreground">
               {row.original.school}
             </span>
             {row.original.topField ? (
-              <span className="text-muted-foreground mt-0.5 truncate text-[11px]">
+              <span className="mt-0.5 truncate text-[11px] text-muted-foreground">
                 Primarily {row.original.topField}
               </span>
             ) : null}
@@ -66,7 +66,7 @@ export function SchoolTable({ schools }: SchoolTableProps) {
         header: 'Faculty',
         cell: ({ row }) => (
           <div className="flex flex-col items-end">
-            <span className="tabular text-foreground text-[13px] font-medium">
+            <span className="tabular text-[13px] font-medium text-foreground">
               {row.original.n}
             </span>
             {row.original.nWithData < row.original.n ? (
@@ -138,8 +138,7 @@ export function SchoolTable({ schools }: SchoolTableProps) {
     'nTop25',
   ])
 
-  const headerCellBase =
-    'bg-muted shadow-[inset_0_-1px_0_var(--color-border)]'
+  const headerCellBase = 'bg-muted shadow-[inset_0_-1px_0_var(--color-border)]'
 
   const sortedRows = table.getRowModel().rows
   const totalColumns = columns.length + 1
@@ -157,7 +156,7 @@ export function SchoolTable({ schools }: SchoolTableProps) {
                 key={header.id}
                 className={cn(
                   headerCellBase,
-                  'text-muted-foreground px-4 py-2.5 text-[10px] font-medium tracking-[0.08em] uppercase',
+                  'px-4 py-2.5 text-[10px] font-medium tracking-[0.08em] text-muted-foreground uppercase',
                   isNumeric ? 'text-right' : 'text-left',
                   header.column.id === 'school' && 'pl-6',
                   header.column.id === 'nTop25' && 'pr-6',
@@ -168,7 +167,7 @@ export function SchoolTable({ schools }: SchoolTableProps) {
                     type="button"
                     onClick={header.column.getToggleSortingHandler()}
                     className={cn(
-                      'hover:text-foreground inline-flex items-center gap-1 transition-colors',
+                      'inline-flex items-center gap-1 transition-colors hover:text-foreground',
                       isNumeric && 'flex-row-reverse',
                       sorted && 'text-foreground',
                     )}
@@ -202,7 +201,7 @@ export function SchoolTable({ schools }: SchoolTableProps) {
           <tr>
             <td
               colSpan={totalColumns}
-              className="text-muted-foreground h-24 text-center text-sm"
+              className="h-24 text-center text-sm text-muted-foreground"
             >
               No schools to display.
             </td>
@@ -217,7 +216,7 @@ export function SchoolTable({ schools }: SchoolTableProps) {
                     setExpanded(isExpanded ? null : row.original.school)
                   }
                   className={cn(
-                    'hover:bg-primary/[0.025] cursor-pointer border-b transition-colors hover:shadow-[inset_3px_0_0_var(--color-primary)]',
+                    'cursor-pointer border-b transition-colors hover:bg-primary/[0.025] hover:shadow-[inset_3px_0_0_var(--color-primary)]',
                     isExpanded &&
                       'bg-primary/[0.04] shadow-[inset_3px_0_0_var(--color-primary)]',
                   )}
@@ -230,8 +229,7 @@ export function SchoolTable({ schools }: SchoolTableProps) {
                         className={cn(
                           'px-4 py-3 align-middle',
                           isNumeric && 'text-right',
-                          cell.column.id === 'school' &&
-                            'max-w-[340px] pl-6',
+                          cell.column.id === 'school' && 'max-w-[340px] pl-6',
                           cell.column.id === 'nTop25' && 'pr-6',
                         )}
                       >
@@ -245,14 +243,14 @@ export function SchoolTable({ schools }: SchoolTableProps) {
                   <td className="pr-6 text-right">
                     <ChevronRight
                       className={cn(
-                        'text-muted-foreground inline size-3.5 transition-transform',
+                        'inline size-3.5 text-muted-foreground transition-transform',
                         isExpanded && 'rotate-90',
                       )}
                     />
                   </td>
                 </tr>
                 {isExpanded ? (
-                  <tr className="bg-primary/[0.02] border-b">
+                  <tr className="border-b bg-primary/[0.02]">
                     <td colSpan={totalColumns} className="px-6 py-4">
                       <SchoolDetail summary={row.original} />
                     </td>
@@ -274,19 +272,19 @@ interface PercentileBarProps {
 function PercentileBar({ value }: PercentileBarProps) {
   if (value == null) {
     return (
-      <span className="text-muted-foreground/50 tabular text-[11px]">—</span>
+      <span className="tabular text-[11px] text-muted-foreground/50">—</span>
     )
   }
   const pct = Math.round(value)
   return (
     <div className="flex flex-col items-end gap-1">
-      <div className="tabular text-foreground text-[13px] font-medium">
+      <div className="tabular text-[13px] font-medium text-foreground">
         {pct}
-        <span className="text-muted-foreground ml-0.5 text-[10px]">/100</span>
+        <span className="ml-0.5 text-[10px] text-muted-foreground">/100</span>
       </div>
-      <div className="bg-muted h-1 w-24 overflow-hidden rounded-full">
+      <div className="h-1 w-24 overflow-hidden rounded-full bg-muted">
         <div
-          className="bg-primary h-full rounded-full"
+          className="h-full rounded-full bg-primary"
           style={{ width: `${pct}%` }}
         />
       </div>
@@ -301,7 +299,7 @@ interface FwciCellProps {
 function FwciCell({ value }: FwciCellProps) {
   if (value == null) {
     return (
-      <span className="text-muted-foreground/50 tabular text-[11px]">—</span>
+      <span className="tabular text-[11px] text-muted-foreground/50">—</span>
     )
   }
   const aboveAverage = value >= 1
@@ -309,9 +307,7 @@ function FwciCell({ value }: FwciCellProps) {
     <span
       className={cn(
         'tabular text-[13px]',
-        aboveAverage
-          ? 'text-foreground font-medium'
-          : 'text-muted-foreground',
+        aboveAverage ? 'font-medium text-foreground' : 'text-muted-foreground',
       )}
       title="Field-Weighted Citation Impact (1.0 = field average)"
     >
@@ -332,13 +328,13 @@ function CountCell({ n, of }: CountCellProps) {
       <span
         className={cn(
           'tabular text-[13px]',
-          n > 0 ? 'text-foreground font-medium' : 'text-muted-foreground/50',
+          n > 0 ? 'font-medium text-foreground' : 'text-muted-foreground/50',
         )}
       >
         {n}
       </span>
       {n > 0 && pct != null ? (
-        <span className="text-muted-foreground tabular mt-0.5 text-[10px]">
+        <span className="tabular mt-0.5 text-[10px] text-muted-foreground">
           {pct}%
         </span>
       ) : null}
@@ -373,9 +369,7 @@ function SchoolDetail({ summary }: SchoolDetailProps) {
         {/* Top faculty */}
         {summary.topFaculty.length > 0 ? (
           <div className="min-w-0">
-            <SectionLabel>
-              Top faculty by global field rank
-            </SectionLabel>
+            <SectionLabel>Top faculty by global field rank</SectionLabel>
             <ul className="mt-2 space-y-1.5">
               {summary.topFaculty.map((tf) => (
                 <li
@@ -383,17 +377,17 @@ function SchoolDetail({ summary }: SchoolDetailProps) {
                   className="flex items-center justify-between gap-3 text-[12px]"
                 >
                   <div className="min-w-0 flex-1">
-                    <div className="text-foreground truncate font-medium">
+                    <div className="truncate font-medium text-foreground">
                       {tf.name}
                     </div>
-                    <div className="text-muted-foreground truncate text-[11px]">
+                    <div className="truncate text-[11px] text-muted-foreground">
                       {tf.department}
                     </div>
                   </div>
                   <div className="flex items-center gap-2 whitespace-nowrap">
                     {tf.tier ? <TierBadge tier={tf.tier} /> : null}
                     {tf.openalexHIndex != null ? (
-                      <span className="text-muted-foreground tabular text-[11px]">
+                      <span className="tabular text-[11px] text-muted-foreground">
                         h={tf.openalexHIndex}
                       </span>
                     ) : null}
@@ -417,18 +411,18 @@ function SchoolDetail({ summary }: SchoolDetailProps) {
                   className="flex items-center justify-between gap-3 text-[12px]"
                 >
                   <div className="min-w-0 flex-1">
-                    <div className="text-foreground truncate font-medium">
+                    <div className="truncate font-medium text-foreground">
                       {d.department}
                     </div>
-                    <div className="text-muted-foreground tabular text-[10px]">
+                    <div className="tabular text-[10px] text-muted-foreground">
                       {d.n} faculty
                       {d.noisy ? (
-                        <span className="text-amber-600 dark:text-amber-500 ml-1">
+                        <span className="ml-1 text-amber-600 dark:text-amber-500">
                           · small
                         </span>
                       ) : null}
                       {d.lowCoverage && !d.noisy ? (
-                        <span className="text-amber-600 dark:text-amber-500 ml-1">
+                        <span className="ml-1 text-amber-600 dark:text-amber-500">
                           · limited data
                         </span>
                       ) : null}
@@ -436,19 +430,19 @@ function SchoolDetail({ summary }: SchoolDetailProps) {
                   </div>
                   <div className="flex items-center gap-3 whitespace-nowrap">
                     {d.medianFieldPercentile != null ? (
-                      <span className="text-foreground tabular text-[11px] font-medium">
+                      <span className="tabular text-[11px] font-medium text-foreground">
                         {Math.round(d.medianFieldPercentile)}
-                        <span className="text-muted-foreground ml-0.5 text-[9px]">
+                        <span className="ml-0.5 text-[9px] text-muted-foreground">
                           /100
                         </span>
                       </span>
                     ) : (
-                      <span className="text-muted-foreground/50 text-[11px]">
+                      <span className="text-[11px] text-muted-foreground/50">
                         —
                       </span>
                     )}
                     {d.nTop5 > 0 ? (
-                      <span className="text-primary tabular text-[10px]">
+                      <span className="tabular text-[10px] text-primary">
                         {d.nTop5} top-5%
                       </span>
                     ) : null}
@@ -465,7 +459,7 @@ function SchoolDetail({ summary }: SchoolDetailProps) {
         <Link
           to="/"
           onClick={handleViewAll}
-          className="border-primary/20 bg-primary/5 text-primary hover:bg-primary/10 inline-flex items-center gap-1.5 rounded-md border px-2.5 py-1.5 text-[11px] font-medium transition-colors"
+          className="inline-flex items-center gap-1.5 rounded-md border border-primary/20 bg-primary/5 px-2.5 py-1.5 text-[11px] font-medium text-primary transition-colors hover:bg-primary/10"
         >
           View all {summary.n} faculty in Explorer
           <ArrowRight className="size-3" />
@@ -491,7 +485,7 @@ function TierBadge({ tier }: { tier: HTier }) {
 
 function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
-    <div className="text-muted-foreground text-[10px] font-medium tracking-[0.08em] uppercase">
+    <div className="text-[10px] font-medium tracking-[0.08em] text-muted-foreground uppercase">
       {children}
     </div>
   )

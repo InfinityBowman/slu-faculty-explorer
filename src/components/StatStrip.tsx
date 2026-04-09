@@ -47,7 +47,7 @@ export function StatStrip({ rows, total }: StatStripProps) {
     stats.count > 0 ? Math.round((stats.withProfile / stats.count) * 100) : 0
 
   return (
-    <section className="bg-card rounded-lg border">
+    <section className="rounded-lg border bg-card">
       <div className="grid grid-cols-2 md:grid-cols-4">
         <Stat
           label="Faculty"
@@ -91,13 +91,13 @@ interface StatProps {
 function Stat({ label, value, hint }: StatProps) {
   return (
     <div className="relative px-6 py-5 not-first:border-l">
-      <div className="text-muted-foreground text-[10px] font-medium tracking-[0.08em] uppercase">
+      <div className="text-[10px] font-medium tracking-[0.08em] text-muted-foreground uppercase">
         {label}
       </div>
       <div className="tabular mt-1.5 text-3xl leading-none font-semibold tracking-tight">
         {value}
       </div>
-      <div className="text-muted-foreground tabular mt-2 text-[11px]">
+      <div className="tabular mt-2 text-[11px] text-muted-foreground">
         {hint}
       </div>
     </div>

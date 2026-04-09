@@ -83,16 +83,11 @@ export function FacultyTable({ rows }: FacultyTableProps) {
 
   const tableData = useMemo<Array<Row>>(() => {
     return rows.map((f) => {
-      const hIndex =
-        metricSource === 'scholar' ? f.hIndex : f.openalexHIndex
+      const hIndex = metricSource === 'scholar' ? f.hIndex : f.openalexHIndex
       const years =
-        f.openalexFirstYear != null
-          ? CURRENT_YEAR - f.openalexFirstYear
-          : null
+        f.openalexFirstYear != null ? CURRENT_YEAR - f.openalexFirstYear : null
       const mIndex =
-        hIndex != null && years != null && years > 0
-          ? hIndex / years
-          : null
+        hIndex != null && years != null && years > 0 ? hIndex / years : null
       return {
         faculty: f,
         hIndex,
@@ -119,7 +114,7 @@ export function FacultyTable({ rows }: FacultyTableProps) {
             <span className="truncate text-[13px] leading-tight font-medium">
               {row.original.faculty.name}
             </span>
-            <span className="text-muted-foreground mt-0.5 truncate text-[11px]">
+            <span className="mt-0.5 truncate text-[11px] text-muted-foreground">
               {row.original.faculty.department || '—'}
             </span>
           </div>
@@ -130,7 +125,7 @@ export function FacultyTable({ rows }: FacultyTableProps) {
         accessorFn: (r) => r.faculty.school,
         header: 'School',
         cell: ({ row }) => (
-          <span className="text-muted-foreground line-clamp-2 text-[11px] leading-tight">
+          <span className="line-clamp-2 text-[11px] leading-tight text-muted-foreground">
             {abbreviateSchool(row.original.faculty.school)}
           </span>
         ),
@@ -154,7 +149,7 @@ export function FacultyTable({ rows }: FacultyTableProps) {
         accessorFn: (r) => r.hIndex,
         header: 'h-index',
         cell: ({ row }) => (
-          <span className="tabular text-foreground text-[13px] font-medium">
+          <span className="tabular text-[13px] font-medium text-foreground">
             {fmt(row.original.hIndex)}
           </span>
         ),
@@ -164,7 +159,7 @@ export function FacultyTable({ rows }: FacultyTableProps) {
         accessorFn: (r) => r.mIndex,
         header: 'm-index',
         cell: ({ row }) => (
-          <span className="tabular text-muted-foreground text-[12px]">
+          <span className="tabular text-[12px] text-muted-foreground">
             {row.original.mIndex == null ? (
               <span className="text-muted-foreground/50">—</span>
             ) : (
@@ -178,7 +173,7 @@ export function FacultyTable({ rows }: FacultyTableProps) {
         accessorFn: (r) => r.i10,
         header: 'i10',
         cell: ({ row }) => (
-          <span className="tabular text-muted-foreground text-[12px]">
+          <span className="tabular text-[12px] text-muted-foreground">
             {fmt(row.original.i10)}
           </span>
         ),
@@ -204,7 +199,7 @@ export function FacultyTable({ rows }: FacultyTableProps) {
         accessorFn: (r) => r.works,
         header: 'Works',
         cell: ({ row }) => (
-          <span className="tabular text-muted-foreground text-[12px]">
+          <span className="tabular text-[12px] text-muted-foreground">
             {fmt(row.original.works)}
           </span>
         ),
@@ -286,7 +281,7 @@ export function FacultyTable({ rows }: FacultyTableProps) {
                   key={header.id}
                   className={cn(
                     headerCellBase,
-                    'text-muted-foreground px-4 py-2.5 text-[10px] font-medium tracking-[0.08em] uppercase',
+                    'px-4 py-2.5 text-[10px] font-medium tracking-[0.08em] text-muted-foreground uppercase',
                     isNumeric ? 'text-right' : 'text-left',
                     header.column.id === 'name' && 'pl-6',
                     header.column.id === 'works' && 'pr-6',
@@ -297,7 +292,7 @@ export function FacultyTable({ rows }: FacultyTableProps) {
                       type="button"
                       onClick={header.column.getToggleSortingHandler()}
                       className={cn(
-                        'hover:text-foreground inline-flex items-center gap-1 transition-colors',
+                        'inline-flex items-center gap-1 transition-colors hover:text-foreground',
                         isNumeric && 'flex-row-reverse',
                         sorted && 'text-foreground',
                       )}
@@ -331,7 +326,7 @@ export function FacultyTable({ rows }: FacultyTableProps) {
             <tr>
               <td
                 colSpan={totalColumns}
-                className="text-muted-foreground h-24 text-center text-sm"
+                className="h-24 text-center text-sm text-muted-foreground"
               >
                 No faculty match the current filters.
               </td>
@@ -350,12 +345,10 @@ export function FacultyTable({ rows }: FacultyTableProps) {
                   <Fragment key={vi.key}>
                     <tr
                       onClick={() =>
-                        setExpanded(
-                          isExpanded ? null : row.original.faculty.id,
-                        )
+                        setExpanded(isExpanded ? null : row.original.faculty.id)
                       }
                       className={cn(
-                        'hover:bg-primary/[0.025] cursor-pointer border-b transition-colors hover:shadow-[inset_3px_0_0_var(--color-primary)]',
+                        'cursor-pointer border-b transition-colors hover:bg-primary/[0.025] hover:shadow-[inset_3px_0_0_var(--color-primary)]',
                         isExpanded &&
                           'bg-primary/[0.04] shadow-[inset_3px_0_0_var(--color-primary)]',
                       )}
@@ -368,8 +361,7 @@ export function FacultyTable({ rows }: FacultyTableProps) {
                             className={cn(
                               'px-4 py-3 align-middle',
                               isNumeric && 'text-right',
-                              cell.column.id === 'name' &&
-                                'max-w-[280px] pl-6',
+                              cell.column.id === 'name' && 'max-w-[280px] pl-6',
                               cell.column.id === 'school' && 'max-w-[200px]',
                               cell.column.id === 'field' && 'max-w-[160px]',
                               cell.column.id === 'works' && 'pr-6',
@@ -385,14 +377,14 @@ export function FacultyTable({ rows }: FacultyTableProps) {
                       <td className="pr-6 text-right">
                         <ChevronRight
                           className={cn(
-                            'text-muted-foreground inline size-3.5 transition-transform',
+                            'inline size-3.5 text-muted-foreground transition-transform',
                             isExpanded && 'rotate-90',
                           )}
                         />
                       </td>
                     </tr>
                     {isExpanded ? (
-                      <tr className="bg-primary/[0.02] border-b">
+                      <tr className="border-b bg-primary/[0.02]">
                         <td colSpan={totalColumns} className="px-6 py-4">
                           <RowDetail row={row.original} />
                         </td>
@@ -423,7 +415,9 @@ interface TierBadgeProps {
 
 function TierBadge({ tier }: TierBadgeProps) {
   if (!tier) {
-    return <span className="text-muted-foreground/50 tabular text-[11px]">—</span>
+    return (
+      <span className="tabular text-[11px] text-muted-foreground/50">—</span>
+    )
   }
   return (
     <span
@@ -447,14 +441,16 @@ interface FwciCellProps {
 // "above field average" pop without being garish.
 function FwciCell({ value }: FwciCellProps) {
   if (value == null) {
-    return <span className="text-muted-foreground/50 tabular text-[11px]">—</span>
+    return (
+      <span className="tabular text-[11px] text-muted-foreground/50">—</span>
+    )
   }
   const aboveAverage = value >= 1
   return (
     <span
       className={cn(
         'tabular text-[12px]',
-        aboveAverage ? 'text-foreground font-medium' : 'text-muted-foreground',
+        aboveAverage ? 'font-medium text-foreground' : 'text-muted-foreground',
       )}
       title={`Field-Weighted Citation Impact (1.0 = field average)`}
     >
@@ -469,11 +465,13 @@ interface FieldCellProps {
 
 function FieldCell({ value }: FieldCellProps) {
   if (!value) {
-    return <span className="text-muted-foreground/50 tabular text-[11px]">—</span>
+    return (
+      <span className="tabular text-[11px] text-muted-foreground/50">—</span>
+    )
   }
   return (
     <span
-      className="text-muted-foreground line-clamp-2 text-[11px] leading-tight"
+      className="line-clamp-2 text-[11px] leading-tight text-muted-foreground"
       title={value}
     >
       {value}
@@ -510,12 +508,12 @@ function RowDetail({ row }: RowDetailProps) {
         {f.bioTitle != null || f.adminRole != null ? (
           <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
             {f.bioTitle ? (
-              <span className="text-foreground text-[13px] leading-snug font-medium">
+              <span className="text-[13px] leading-snug font-medium text-foreground">
                 {f.bioTitle}
               </span>
             ) : null}
             {f.adminRole ? (
-              <span className="border-primary/30 bg-primary/10 text-primary inline-flex items-center rounded-full border px-2 py-0.5 text-[10px] font-medium tracking-tight whitespace-nowrap">
+              <span className="inline-flex items-center rounded-full border border-primary/30 bg-primary/10 px-2 py-0.5 text-[10px] font-medium tracking-tight whitespace-nowrap text-primary">
                 {f.adminRole}
               </span>
             ) : null}
@@ -527,7 +525,7 @@ function RowDetail({ row }: RowDetailProps) {
         {f.researchInterests ? (
           <div>
             <SectionLabel>Research interests</SectionLabel>
-            <p className="text-foreground/90 mt-1 line-clamp-3 text-[12px] leading-relaxed">
+            <p className="mt-1 line-clamp-3 text-[12px] leading-relaxed text-foreground/90">
               {f.researchInterests}
             </p>
           </div>
@@ -577,7 +575,7 @@ function RowDetail({ row }: RowDetailProps) {
               <a
                 href={`mailto:${f.bioEmail}`}
                 onClick={(e) => e.stopPropagation()}
-                className="text-primary mt-0.5 block hover:underline"
+                className="mt-0.5 block text-primary hover:underline"
               >
                 {f.bioEmail}
               </a>
@@ -601,9 +599,7 @@ function RowDetail({ row }: RowDetailProps) {
             label="OpenAlex"
           />
         ) : null}
-        {f.sluUrl ? (
-          <EvidenceLink href={f.sluUrl} label="SLU profile" />
-        ) : null}
+        {f.sluUrl ? <EvidenceLink href={f.sluUrl} label="SLU profile" /> : null}
       </div>
     </div>
   )
@@ -611,7 +607,7 @@ function RowDetail({ row }: RowDetailProps) {
 
 function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
-    <div className="text-muted-foreground text-[10px] font-medium tracking-[0.08em] uppercase">
+    <div className="text-[10px] font-medium tracking-[0.08em] text-muted-foreground uppercase">
       {children}
     </div>
   )
@@ -625,7 +621,7 @@ function MetricBlock({
   children: React.ReactNode
 }) {
   return (
-    <div className="bg-muted/30 rounded-md border p-3">
+    <div className="rounded-md border bg-muted/30 p-3">
       <SectionLabel>{title}</SectionLabel>
       <div className="mt-2">{children}</div>
     </div>
@@ -642,25 +638,25 @@ function PctStat({ label, sublabel, pct }: PctStatProps) {
   const rounded = pct == null ? null : Math.round(pct)
   return (
     <div className="min-w-0">
-      <div className="text-muted-foreground truncate text-[10px] font-medium tracking-[0.04em] uppercase">
+      <div className="truncate text-[10px] font-medium tracking-[0.04em] text-muted-foreground uppercase">
         {label}
       </div>
       {rounded == null ? (
-        <div className="text-muted-foreground/50 mt-1 text-[13px]">—</div>
+        <div className="mt-1 text-[13px] text-muted-foreground/50">—</div>
       ) : (
         // flex + items-baseline keeps "75" and "th" tight on a shared baseline
         // — without it the size differential and tabular-nums width create a
         // visible gap that reads as "75 th" instead of "75th".
-        <div className="text-foreground mt-1 flex items-baseline leading-none">
+        <div className="mt-1 flex items-baseline leading-none text-foreground">
           <span className="tabular text-[18px] font-semibold">{rounded}</span>
-          <span className="text-muted-foreground text-[11px] font-normal">
+          <span className="text-[11px] font-normal text-muted-foreground">
             {ordinalSuffix(rounded)}
           </span>
         </div>
       )}
       {sublabel ? (
         <div
-          className="text-muted-foreground/70 mt-1 truncate text-[10px]"
+          className="mt-1 truncate text-[10px] text-muted-foreground/70"
           title={sublabel}
         >
           {sublabel}
@@ -683,7 +679,7 @@ function Field({ label, value }: { label: string; value: string }) {
   return (
     <div className="min-w-0">
       <SectionLabel>{label}</SectionLabel>
-      <div className="text-foreground/90 mt-0.5">{value}</div>
+      <div className="mt-0.5 text-foreground/90">{value}</div>
     </div>
   )
 }
@@ -695,7 +691,7 @@ function EvidenceLink({ href, label }: { href: string; label: string }) {
       target="_blank"
       rel="noreferrer"
       onClick={(e) => e.stopPropagation()}
-      className="border-primary/20 bg-primary/5 text-primary hover:bg-primary/10 inline-flex items-center gap-1.5 rounded-md border px-2.5 py-1.5 text-[11px] font-medium transition-colors"
+      className="inline-flex items-center gap-1.5 rounded-md border border-primary/20 bg-primary/5 px-2.5 py-1.5 text-[11px] font-medium text-primary transition-colors hover:bg-primary/10"
     >
       {label}
       <ExternalLink className="size-3" />
@@ -721,7 +717,8 @@ function ordinalSuffix(n: number): string {
 function abbreviateSchool(school: string): string {
   const abbr: Record<string, string> = {
     'Chaifetz School of Business': 'Chaifetz Business',
-    'College for Public Health and Social Justice': 'Public Health & Social Justice',
+    'College for Public Health and Social Justice':
+      'Public Health & Social Justice',
     'School of Social Work': 'Social Work',
     'School of Science and Engineering': 'Science & Engineering',
     'Doisy College of Health Sciences': 'Doisy Health Sciences',

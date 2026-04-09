@@ -13,6 +13,7 @@ Two pre-computed CSV files power the entire application. No live external APIs.
 **benchmarks.csv** provides global h-index percentile benchmarks (P25 through P99) for ~200 research fields and subfields, sourced from OpenAlex's active-author population (10+ publications).
 
 Two metrics are derived client-side at load time:
+
 - **bestH** — the higher of Scholar or OpenAlex h-index
 - **mIndex** — h-index divided by years since first publication (Hirsch's productivity-normalized metric)
 
@@ -61,6 +62,7 @@ Documentation of methodology, data sources, scope, and caveats. Table of content
 Cmd+K opens a floating chat panel backed by the Claude API. Context-aware: the system prompt adapts based on which page the user is on.
 
 Eight tool-use capabilities let the AI manipulate the UI directly:
+
 - Set search query, school filter, department filter, tier filter
 - Configure scatter chart axes, size, and color encodings
 - Run data analysis queries
@@ -70,16 +72,16 @@ Streams responses with markdown rendering and shows real-time tool execution bad
 
 ## Tech Stack
 
-| Layer | Choice |
-|-------|--------|
-| Framework | React 19.2 + TanStack Start (SSR) |
-| Routing | TanStack Router (file-based) |
-| State | Zustand |
-| Charts | Recharts (bar/composed charts) + D3 (scatter, benchmarks) |
-| Search | Fuse.js (fuzzy, weighted, extended syntax) |
-| CSV | PapaParse |
-| UI | shadcn/ui + Radix primitives + Tailwind CSS 4 |
-| Deploy | Cloudflare Workers |
+| Layer     | Choice                                                    |
+| --------- | --------------------------------------------------------- |
+| Framework | React 19.2 + TanStack Start (SSR)                         |
+| Routing   | TanStack Router (file-based)                              |
+| State     | Zustand                                                   |
+| Charts    | Recharts (bar/composed charts) + D3 (scatter, benchmarks) |
+| Search    | Fuse.js (fuzzy, weighted, extended syntax)                |
+| CSV       | PapaParse                                                 |
+| UI        | shadcn/ui + Radix primitives + Tailwind CSS 4             |
+| Deploy    | Cloudflare Workers                                        |
 
 ## Color System
 

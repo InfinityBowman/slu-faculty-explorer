@@ -15,7 +15,7 @@ function Th({
   return (
     <th
       className={cn(
-        'text-muted-foreground px-3 py-2 text-[10px] font-medium tracking-[0.06em] uppercase',
+        'px-3 py-2 text-[10px] font-medium tracking-[0.06em] text-muted-foreground uppercase',
         align === 'right' ? 'text-right' : 'text-left',
       )}
     >
@@ -34,7 +34,7 @@ function Td({
   return (
     <td
       className={cn(
-        'text-foreground/90 px-3 py-2',
+        'px-3 py-2 text-foreground/90',
         align === 'right' ? 'text-right' : 'text-left',
       )}
     >
@@ -72,7 +72,7 @@ export function SourceTable() {
     <div className="overflow-hidden rounded-md border">
       <table className="w-full text-[13px]">
         <thead>
-          <tr className="bg-muted text-muted-foreground text-left">
+          <tr className="bg-muted text-left text-muted-foreground">
             <Th>Source</Th>
             <Th>What it provides</Th>
             <Th>Coverage</Th>
@@ -126,7 +126,7 @@ export function UsageTable() {
     <div className="overflow-hidden rounded-md border">
       <table className="w-full text-[13px]">
         <thead>
-          <tr className="bg-muted text-muted-foreground text-left">
+          <tr className="bg-muted text-left text-muted-foreground">
             <Th>Question</Th>
             <Th>Where to look</Th>
           </tr>
@@ -158,13 +158,61 @@ const HIRSCH_ROWS: ReadonlyArray<{
   p95: number
   p99: number
 }> = [
-  { field: 'Business, Mgmt & Accounting', n: '668k', p50: 4, p75: 8, p90: 14, p95: 20, p99: 37 },
-  { field: 'Economics & Finance', n: '665k', p50: 4, p75: 8, p90: 16, p95: 23, p99: 44 },
-  { field: 'Psychology', n: '872k', p50: 6, p75: 11, p90: 20, p95: 28, p99: 52 },
-  { field: 'Social Sciences', n: '5.3M', p50: 2, p75: 5, p90: 10, p95: 15, p99: 31 },
+  {
+    field: 'Business, Mgmt & Accounting',
+    n: '668k',
+    p50: 4,
+    p75: 8,
+    p90: 14,
+    p95: 20,
+    p99: 37,
+  },
+  {
+    field: 'Economics & Finance',
+    n: '665k',
+    p50: 4,
+    p75: 8,
+    p90: 16,
+    p95: 23,
+    p99: 44,
+  },
+  {
+    field: 'Psychology',
+    n: '872k',
+    p50: 6,
+    p75: 11,
+    p90: 20,
+    p95: 28,
+    p99: 52,
+  },
+  {
+    field: 'Social Sciences',
+    n: '5.3M',
+    p50: 2,
+    p75: 5,
+    p90: 10,
+    p95: 15,
+    p99: 31,
+  },
   { field: 'Medicine', n: '10.7M', p50: 7, p75: 14, p90: 24, p95: 33, p99: 59 },
-  { field: 'Physics & Astronomy', n: '1.2M', p50: 8, p75: 15, p90: 28, p95: 40, p99: 75 },
-  { field: 'Arts & Humanities', n: '1.2M', p50: 2, p75: 5, p90: 9, p95: 14, p99: 28 },
+  {
+    field: 'Physics & Astronomy',
+    n: '1.2M',
+    p50: 8,
+    p75: 15,
+    p90: 28,
+    p95: 40,
+    p99: 75,
+  },
+  {
+    field: 'Arts & Humanities',
+    n: '1.2M',
+    p50: 2,
+    p75: 5,
+    p90: 9,
+    p95: 14,
+    p99: 28,
+  },
 ]
 
 export function HirschTable() {

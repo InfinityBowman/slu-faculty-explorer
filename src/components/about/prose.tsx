@@ -15,7 +15,7 @@ export function Section({
 }) {
   return (
     <section id={id} className="scroll-mt-24">
-      <h2 className="text-foreground mb-4 text-[20px] font-semibold tracking-tight">
+      <h2 className="mb-4 text-[20px] font-semibold tracking-tight text-foreground">
         {title}
       </h2>
       <div className="space-y-4">{children}</div>
@@ -25,7 +25,7 @@ export function Section({
 
 export function Subhead({ children }: { children: React.ReactNode }) {
   return (
-    <h3 className="text-foreground mt-6 mb-2 text-[14px] font-semibold tracking-tight">
+    <h3 className="mt-6 mb-2 text-[14px] font-semibold tracking-tight text-foreground">
       {children}
     </h3>
   )
@@ -33,20 +33,20 @@ export function Subhead({ children }: { children: React.ReactNode }) {
 
 export function P({ children }: { children: React.ReactNode }) {
   return (
-    <p className="text-foreground/85 text-[14px] leading-relaxed">{children}</p>
+    <p className="text-[14px] leading-relaxed text-foreground/85">{children}</p>
   )
 }
 
 export function Bullets({ children }: { children: React.ReactNode }) {
   return (
-    <ul className="text-foreground/85 marker:text-muted-foreground/60 list-disc space-y-1 pl-5 text-[14px] leading-relaxed">
+    <ul className="list-disc space-y-1 pl-5 text-[14px] leading-relaxed text-foreground/85 marker:text-muted-foreground/60">
       {children}
     </ul>
   )
 }
 
 export function Strong({ children }: { children: React.ReactNode }) {
-  return <strong className="text-foreground font-semibold">{children}</strong>
+  return <strong className="font-semibold text-foreground">{children}</strong>
 }
 
 export function Anchor({

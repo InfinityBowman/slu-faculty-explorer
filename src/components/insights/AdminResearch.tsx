@@ -1,6 +1,11 @@
 import { useMemo } from 'react'
 import {
-  Bar, BarChart, ResponsiveContainer, Tooltip, XAxis, YAxis,
+  Bar,
+  BarChart,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
 } from 'recharts'
 import { ChartTooltip, useChartTooltip } from './ChartTooltip'
 import type { Faculty } from '@/lib/types'
@@ -9,7 +14,12 @@ import { adminRoleMetrics } from '@/lib/insights'
 
 export function AdminResearch({ faculty }: { faculty: Array<Faculty> }) {
   const roles = useMemo(() => adminRoleMetrics(faculty), [faculty])
-  const { data: hovered, rendered, setData, tooltipRef } = useChartTooltip<AdminRoleRow>()
+  const {
+    data: hovered,
+    rendered,
+    setData,
+    tooltipRef,
+  } = useChartTooltip<AdminRoleRow>()
 
   return (
     <div onMouseLeave={() => setData(null)}>
@@ -41,13 +51,22 @@ export function AdminResearch({ faculty }: { faculty: Array<Faculty> }) {
             axisLine={false}
             tickLine={false}
           />
-          <Tooltip content={() => null} cursor={{ fill: 'var(--color-muted)', fillOpacity: 0.3 }} />
+          <Tooltip
+            content={() => null}
+            cursor={{ fill: 'var(--color-muted)', fillOpacity: 0.3 }}
+          />
           <Bar
             dataKey="medianPercentile"
             fill="oklch(0.41 0.17 259)"
             radius={[0, 4, 4, 0]}
             barSize={22}
-            label={{ position: 'right', fontSize: 10, fill: 'var(--color-muted-foreground)', formatter: (v: unknown) => typeof v === 'number' ? Math.round(v) : '' }}
+            label={{
+              position: 'right',
+              fontSize: 10,
+              fill: 'var(--color-muted-foreground)',
+              formatter: (v: unknown) =>
+                typeof v === 'number' ? Math.round(v) : '',
+            }}
           />
         </BarChart>
       </ResponsiveContainer>
@@ -55,10 +74,17 @@ export function AdminResearch({ faculty }: { faculty: Array<Faculty> }) {
       <ChartTooltip visible={hovered != null} tooltipRef={tooltipRef}>
         {rendered && (
           <div>
-            <div className="font-medium">{rendered.role} <span className="text-muted-foreground">n={rendered.n}</span></div>
-            <div className="mt-1 tabular">
-              {rendered.medianPercentile != null ? `Field percentile: ${Math.round(rendered.medianPercentile)}` : 'No data'}
-              {rendered.medianFwci != null ? ` \u00b7 FWCI: ${rendered.medianFwci.toFixed(2)}` : ''}
+            <div className="font-medium">
+              {rendered.role}{' '}
+              <span className="text-muted-foreground">n={rendered.n}</span>
+            </div>
+            <div className="tabular mt-1">
+              {rendered.medianPercentile != null
+                ? `Field percentile: ${Math.round(rendered.medianPercentile)}`
+                : 'No data'}
+              {rendered.medianFwci != null
+                ? ` \u00b7 FWCI: ${rendered.medianFwci.toFixed(2)}`
+                : ''}
             </div>
           </div>
         )}

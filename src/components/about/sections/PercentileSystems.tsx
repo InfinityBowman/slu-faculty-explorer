@@ -12,24 +12,23 @@ export function PercentileSystems() {
 
       <Subhead>Within SLU department</Subhead>
       <P>
-        The <Strong>Dept percentile</Strong> column on the table, along with
-        the three side-by-side numbers in the row detail's "Within SLU
-        department" block, all answer the same question: where does this
-        person sit compared to their SLU peers in the same department? A
-        value of 0 means the bottom of the department and 100 means the top.
-        Three versions are shown (by h-index, by FWCI, and by publication
-        count) because a faculty member can be productive on one measure
-        and average on another.
+        The <Strong>Dept percentile</Strong> column on the table, along with the
+        three side-by-side numbers in the row detail's "Within SLU department"
+        block, all answer the same question: where does this person sit compared
+        to their SLU peers in the same department? A value of 0 means the bottom
+        of the department and 100 means the top. Three versions are shown (by
+        h-index, by FWCI, and by publication count) because a faculty member can
+        be productive on one measure and average on another.
       </P>
       <P>
-        Best for internal allocation, committee reviews, and "where does
-        Dr. X stand against the rest of our department" questions.
+        Best for internal allocation, committee reviews, and "where does Dr. X
+        stand against the rest of our department" questions.
       </P>
       <P>
         <Strong>Caveat:</Strong> in small departments (under five people) the
-        percentile is mathematically degenerate, since everyone tends to land
-        at the extremes. See{' '}
-        <Anchor href="#small-depts">Small departments</Anchor>.
+        percentile is mathematically degenerate, since everyone tends to land at
+        the extremes. See <Anchor href="#small-depts">Small departments</Anchor>
+        .
       </P>
 
       <Subhead>Global field tier</Subhead>

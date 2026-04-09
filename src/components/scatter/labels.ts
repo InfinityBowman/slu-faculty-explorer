@@ -72,8 +72,7 @@ export function drawLabels(input: LabelPlacementInput): void {
     const dotY = yPx(p)
     const radius = radiusOf(p)
     // Anchor to the left of the dot if we're in the right 35% of the plot.
-    const anchor: 'start' | 'end' =
-      dotX > innerWidth * 0.65 ? 'end' : 'start'
+    const anchor: 'start' | 'end' = dotX > innerWidth * 0.65 ? 'end' : 'start'
     const labelOffset = radius + 5
     const labelX = anchor === 'end' ? dotX - labelOffset : dotX + labelOffset
     let labelY = dotY

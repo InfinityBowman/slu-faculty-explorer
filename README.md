@@ -13,15 +13,15 @@ Interactive bibliometric dashboard for Saint Louis University's 519 active PhD f
 
 ## Stack
 
-| Layer | Tech |
-|-------|------|
-| Framework | React 19, TanStack Start, TanStack Router |
-| Hosting | Cloudflare Workers |
-| State | Zustand |
-| Visualization | D3 (scatter), Recharts (insights) |
-| AI | TanStack AI + OpenRouter (GPT 5.4 Mini / DeepSeek V3.2) |
-| Styling | Tailwind CSS 4, shadcn/ui |
-| Build | Vite 7, pnpm |
+| Layer         | Tech                                                    |
+| ------------- | ------------------------------------------------------- |
+| Framework     | React 19, TanStack Start, TanStack Router               |
+| Hosting       | Cloudflare Workers                                      |
+| State         | Zustand                                                 |
+| Visualization | D3 (scatter), Recharts (insights)                       |
+| AI            | TanStack AI + OpenRouter (GPT 5.4 Mini / DeepSeek V3.2) |
+| Styling       | Tailwind CSS 4, shadcn/ui                               |
+| Build         | Vite 7, pnpm                                            |
 
 ## Development
 

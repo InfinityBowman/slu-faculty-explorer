@@ -190,10 +190,7 @@ const searchFacultyDef = toolDefinition({
       .describe(
         'Search query (matched against name, department, research interests, OpenAlex field/topic)',
       ),
-    limit: z
-      .number()
-      .optional()
-      .describe('Max results (default: 10, max: 25)'),
+    limit: z.number().optional().describe('Max results (default: 10, max: 25)'),
   }),
 })
 
@@ -288,7 +285,10 @@ const setScatterClient = setScatterDef.client((args) => {
     updates.colorId = args.color
     descriptions.push(`Color: ${args.color}`)
   }
-  if (args.size && (args.size === 'fixed' || VALID_NUMERIC_IDS.has(args.size))) {
+  if (
+    args.size &&
+    (args.size === 'fixed' || VALID_NUMERIC_IDS.has(args.size))
+  ) {
     updates.sizeId = args.size
     descriptions.push(`Size: ${args.size}`)
   }

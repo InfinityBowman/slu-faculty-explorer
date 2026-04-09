@@ -122,7 +122,7 @@
       'ss01' 1;
   }
   body {
-    @apply bg-background text-foreground font-sans antialiased;
+    @apply bg-background font-sans text-foreground antialiased;
     font-feature-settings:
       'cv11' 1,
       'ss01' 1;

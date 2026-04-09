@@ -54,7 +54,7 @@ function ControlField({
 }) {
   return (
     <div className="flex min-w-[140px] flex-col gap-1.5">
-      <label className="text-muted-foreground text-[10px] font-medium tracking-[0.08em] uppercase">
+      <label className="text-[10px] font-medium tracking-[0.08em] text-muted-foreground uppercase">
         {label}
       </label>
       {children}

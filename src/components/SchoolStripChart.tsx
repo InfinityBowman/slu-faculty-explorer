@@ -46,7 +46,10 @@ const TOOLTIP_HEIGHT = 130
 const TOOLTIP_GAP = 14
 const TOOLTIP_PAD = 8
 
-function computeTooltipPosition(x: number, y: number): {
+function computeTooltipPosition(
+  x: number,
+  y: number,
+): {
   left: number
   top: number
 } {
@@ -57,10 +60,7 @@ function computeTooltipPosition(x: number, y: number): {
   if (top < TOOLTIP_PAD) top = y + TOOLTIP_GAP
   if (top + TOOLTIP_HEIGHT > vh - TOOLTIP_PAD)
     top = vh - TOOLTIP_HEIGHT - TOOLTIP_PAD
-  left = Math.max(
-    TOOLTIP_PAD,
-    Math.min(vw - TOOLTIP_WIDTH - TOOLTIP_PAD, left),
-  )
+  left = Math.max(TOOLTIP_PAD, Math.min(vw - TOOLTIP_WIDTH - TOOLTIP_PAD, left))
   return { left, top }
 }
 
@@ -188,7 +188,10 @@ export function SchoolStripChart({
     // Scale construction. Log for FWCI (distribution is heavy-tailed with
     // 1.0 as the meaningful reference); linear for field percentile.
     const x = isFwci
-      ? scaleLog().domain([FWCI_FLOOR, FWCI_CEIL]).range([0, innerWidth]).clamp(true)
+      ? scaleLog()
+          .domain([FWCI_FLOOR, FWCI_CEIL])
+          .range([0, innerWidth])
+          .clamp(true)
       : scaleLinear().domain([0, 100]).range([0, innerWidth])
 
     // Defensive clamp for FWCI log scale (raw 0 would map to -Infinity)
@@ -286,10 +289,7 @@ export function SchoolStripChart({
       .attr('x2', (d) => xSafe(d))
       .attr('y1', 0)
       .attr('y2', innerHeight)
-    refEnter
-      .transition('ref')
-      .duration(dur)
-      .attr('stroke-opacity', 0.4)
+    refEnter.transition('ref').duration(dur).attr('stroke-opacity', 0.4)
     refLines
       .transition('pos')
       .duration(dur)
@@ -302,12 +302,7 @@ export function SchoolStripChart({
     const refLabels = plot
       .selectAll<SVGTextElement, number>('text.ref-label')
       .data(refLabelData)
-    refLabels
-      .exit()
-      .transition('ref')
-      .duration(dur)
-      .attr('opacity', 0)
-      .remove()
+    refLabels.exit().transition('ref').duration(dur).attr('opacity', 0).remove()
     const refLabelEnter = refLabels
       .enter()
       .append('text')
@@ -555,13 +550,21 @@ export function SchoolStripChart({
       .duration(dur)
       .attr('x', (d) => xSafe(d.value) + 6)
       .attr('y', (d) => yFor(d.schoolIdx) - ROW_HEIGHT * 0.3)
-  }, [sortedSchools, schoolIndex, points, pointsPerSchool, width, metric, isFwci])
+  }, [
+    sortedSchools,
+    schoolIndex,
+    points,
+    pointsPerSchool,
+    width,
+    metric,
+    isFwci,
+  ])
 
   if (sortedSchools.length === 0) {
     return (
       <div
         ref={containerRef}
-        className="text-muted-foreground flex items-center justify-center text-sm"
+        className="flex items-center justify-center text-sm text-muted-foreground"
         style={{ height: 300 }}
       >
         No schools in the current filters.
@@ -582,17 +585,17 @@ export function SchoolStripChart({
             const pos = computeTooltipPosition(hover.x, hover.y)
             return (
               <div
-                className="bg-popover text-popover-foreground animate-in fade-in-0 zoom-in-95 pointer-events-none fixed z-50 min-w-[200px] max-w-[280px] rounded-md border p-2.5 shadow-md duration-150 ease-out"
+                className="pointer-events-none fixed z-50 max-w-[280px] min-w-[200px] animate-in rounded-md border bg-popover p-2.5 text-popover-foreground shadow-md duration-150 ease-out fade-in-0 zoom-in-95"
                 style={{ left: pos.left, top: pos.top }}
               >
                 <div className="text-[13px] font-medium">
                   {hover.point.name}
                 </div>
-                <div className="text-muted-foreground mt-0.5 text-[11px]">
+                <div className="mt-0.5 text-[11px] text-muted-foreground">
                   {hover.point.department}
                 </div>
                 {hover.point.openalexField ? (
-                  <div className="text-muted-foreground mt-0.5 text-[10px] italic">
+                  <div className="mt-0.5 text-[10px] text-muted-foreground italic">
                     Field: {hover.point.openalexField}
                   </div>
                 ) : null}
@@ -606,14 +609,12 @@ export function SchoolStripChart({
                     />
                   )}
                   {isFwci ? (
-                    <FieldPctTooltipCell
-                      value={hover.point.fieldPercentile}
-                    />
+                    <FieldPctTooltipCell value={hover.point.fieldPercentile} />
                   ) : (
                     <FwciTooltipCell value={hover.point.fwci} />
                   )}
                   <div>
-                    <div className="text-muted-foreground text-[9px] tracking-wider uppercase">
+                    <div className="text-[9px] tracking-wider text-muted-foreground uppercase">
                       Tier
                     </div>
                     <div className="text-[11px] font-medium">
@@ -637,14 +638,14 @@ interface TooltipCellProps {
 function FieldPctTooltipCell({ value, primary }: TooltipCellProps) {
   return (
     <div>
-      <div className="text-muted-foreground text-[9px] tracking-wider uppercase">
+      <div className="text-[9px] tracking-wider text-muted-foreground uppercase">
         Field %
       </div>
       <div
         className={
           primary
-            ? 'text-primary tabular text-[13px] font-semibold'
-            : 'text-foreground tabular text-[11px] font-medium'
+            ? 'tabular text-[13px] font-semibold text-primary'
+            : 'tabular text-[11px] font-medium text-foreground'
         }
       >
         {value == null ? '—' : Math.round(value)}
@@ -657,14 +658,14 @@ function FwciTooltipCell({ value, primary }: TooltipCellProps) {
   if (value == null) {
     return (
       <div>
-        <div className="text-muted-foreground text-[9px] tracking-wider uppercase">
+        <div className="text-[9px] tracking-wider text-muted-foreground uppercase">
           FWCI
         </div>
         <div
           className={
             primary
               ? 'tabular text-[13px] font-semibold'
-              : 'text-muted-foreground tabular text-[11px]'
+              : 'tabular text-[11px] text-muted-foreground'
           }
         >
           —
@@ -675,14 +676,14 @@ function FwciTooltipCell({ value, primary }: TooltipCellProps) {
   const aboveAverage = value >= 1
   return (
     <div>
-      <div className="text-muted-foreground text-[9px] tracking-wider uppercase">
+      <div className="text-[9px] tracking-wider text-muted-foreground uppercase">
         FWCI
       </div>
       <div
         className={
           primary
             ? `tabular text-[13px] font-semibold ${aboveAverage ? 'text-primary' : 'text-muted-foreground'}`
-            : `tabular text-[11px] ${aboveAverage ? 'text-foreground font-medium' : 'text-muted-foreground'}`
+            : `tabular text-[11px] ${aboveAverage ? 'font-medium text-foreground' : 'text-muted-foreground'}`
         }
       >
         {value.toFixed(2)}

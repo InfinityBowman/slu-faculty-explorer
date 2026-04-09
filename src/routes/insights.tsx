@@ -32,8 +32,8 @@ function InsightsPage() {
           Research insights
         </h2>
         <p className="mt-1 max-w-180 text-[13px] text-muted-foreground">
-          Presentation-ready analytics for SLU leadership. All h-index
-          metrics are field-normalized. See{' '}
+          Presentation-ready analytics for SLU leadership. All h-index metrics
+          are field-normalized. See{' '}
           <Link to="/about" className="underline hover:text-foreground">
             About
           </Link>{' '}

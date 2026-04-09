@@ -1,6 +1,12 @@
 import { useMemo } from 'react'
 import {
-  Bar, BarChart, Cell, ResponsiveContainer, Tooltip, XAxis, YAxis,
+  Bar,
+  BarChart,
+  Cell,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
 } from 'recharts'
 import { ChartTooltip, useChartTooltip } from './ChartTooltip'
 import type { Faculty, HTier } from '@/lib/types'
@@ -13,10 +19,16 @@ const BAR_SIZE = 18
 const ROW_H = 40
 const Y_WIDTH = 190
 
-function edgeRadius(row: TierDatum, tier: HTier): number | [number, number, number, number] {
+function edgeRadius(
+  row: TierDatum,
+  tier: HTier,
+): number | [number, number, number, number] {
   const tIdx = H_TIER_ORDER.indexOf(tier)
   const firstIdx = H_TIER_ORDER.findIndex((t) => row[t] > 0)
-  const lastIdx = H_TIER_ORDER.length - 1 - [...H_TIER_ORDER].reverse().findIndex((t) => row[t] > 0)
+  const lastIdx =
+    H_TIER_ORDER.length -
+    1 -
+    [...H_TIER_ORDER].reverse().findIndex((t) => row[t] > 0)
   const isFirst = tIdx === firstIdx
   const isLast = tIdx === lastIdx
   if (isFirst && isLast) return [R, R, R, R]
@@ -67,7 +79,8 @@ export function TierOverview({ faculty }: { faculty: Array<Faculty> }) {
           layout="vertical"
           margin={{ left: 10, right: 20, top: 5, bottom: 5 }}
           onMouseMove={(state) => {
-            if (state.isTooltipActive) setData(uniRow); else setData(null)
+            if (state.isTooltipActive) setData(uniRow)
+            else setData(null)
           }}
           onMouseLeave={() => setData(null)}
         >
@@ -80,9 +93,19 @@ export function TierOverview({ faculty }: { faculty: Array<Faculty> }) {
             axisLine={false}
             tickLine={false}
           />
-          <Tooltip content={() => null} cursor={{ fill: 'var(--color-muted)', fillOpacity: 0.5 }} />
+          <Tooltip
+            content={() => null}
+            cursor={{ fill: 'var(--color-muted)', fillOpacity: 0.5 }}
+          />
           {H_TIER_ORDER.map((tier) => (
-            <Bar key={tier} dataKey={tier} stackId="tier" fill={TIER_FILL[tier]} radius={0} barSize={BAR_SIZE}>
+            <Bar
+              key={tier}
+              dataKey={tier}
+              stackId="tier"
+              fill={TIER_FILL[tier]}
+              radius={0}
+              barSize={BAR_SIZE}
+            >
               <Cell radius={edgeRadius(uniRow, tier) as unknown as number} />
             </Bar>
           ))}
@@ -91,7 +114,10 @@ export function TierOverview({ faculty }: { faculty: Array<Faculty> }) {
 
       {/* Schools */}
       <div className="mt-1">
-        <ResponsiveContainer width="100%" height={schoolRows.length * ROW_H + 40}>
+        <ResponsiveContainer
+          width="100%"
+          height={schoolRows.length * ROW_H + 40}
+        >
           <BarChart
             data={schoolRows}
             layout="vertical"
@@ -112,11 +138,24 @@ export function TierOverview({ faculty }: { faculty: Array<Faculty> }) {
               axisLine={false}
               tickLine={false}
             />
-            <Tooltip content={() => null} cursor={{ fill: 'var(--color-muted)', fillOpacity: 0.5 }} />
+            <Tooltip
+              content={() => null}
+              cursor={{ fill: 'var(--color-muted)', fillOpacity: 0.5 }}
+            />
             {H_TIER_ORDER.map((tier) => (
-              <Bar key={tier} dataKey={tier} stackId="tier" fill={TIER_FILL[tier]} radius={0} barSize={BAR_SIZE}>
+              <Bar
+                key={tier}
+                dataKey={tier}
+                stackId="tier"
+                fill={TIER_FILL[tier]}
+                radius={0}
+                barSize={BAR_SIZE}
+              >
                 {schoolRows.map((row, idx) => (
-                  <Cell key={idx} radius={edgeRadius(row, tier) as unknown as number} />
+                  <Cell
+                    key={idx}
+                    radius={edgeRadius(row, tier) as unknown as number}
+                  />
                 ))}
               </Bar>
             ))}
@@ -128,8 +167,13 @@ export function TierOverview({ faculty }: { faculty: Array<Faculty> }) {
       <div className="flex flex-wrap justify-center gap-x-4 gap-y-1 pt-2">
         {H_TIER_ORDER.map((t) => (
           <div key={t} className="flex items-center gap-1.5">
-            <div className="h-2.5 w-2.5 rounded-sm" style={{ background: TIER_FILL[t] }} />
-            <span className="text-[10px] text-muted-foreground">{TIER_LABEL[t]}</span>
+            <div
+              className="h-2.5 w-2.5 rounded-sm"
+              style={{ background: TIER_FILL[t] }}
+            />
+            <span className="text-[10px] text-muted-foreground">
+              {TIER_LABEL[t]}
+            </span>
           </div>
         ))}
       </div>
@@ -137,13 +181,21 @@ export function TierOverview({ faculty }: { faculty: Array<Faculty> }) {
       <ChartTooltip visible={data != null} tooltipRef={tooltipRef}>
         {rendered && (
           <>
-            <div className="font-medium">{rendered.label} <span className="text-muted-foreground">n={rendered.n}</span></div>
+            <div className="font-medium">
+              {rendered.label}{' '}
+              <span className="text-muted-foreground">n={rendered.n}</span>
+            </div>
             <div className="mt-1.5 space-y-0.5">
               {H_TIER_ORDER.filter((t) => rendered[t] > 0).map((t) => (
                 <div key={t} className="flex items-center gap-2">
-                  <div className="h-2 w-2 rounded-sm" style={{ background: TIER_FILL[t] }} />
+                  <div
+                    className="h-2 w-2 rounded-sm"
+                    style={{ background: TIER_FILL[t] }}
+                  />
                   <span>{TIER_LABEL[t]}</span>
-                  <span className="ml-auto tabular font-medium">{rendered[t]}%</span>
+                  <span className="tabular ml-auto font-medium">
+                    {rendered[t]}%
+                  </span>
                 </div>
               ))}
             </div>

@@ -30,7 +30,9 @@ export function buildSystemPrompt(
   const withOpenalex =
     faculty?.filter((f) => f.openalexHIndex != null).length ?? 0
 
-  const pageContext = PAGE_CONTEXT[currentPage] ?? 'The user is on an unknown page. Data tools still work but UI tools may not apply.'
+  const pageContext =
+    PAGE_CONTEXT[currentPage] ??
+    'The user is on an unknown page. Data tools still work but UI tools may not apply.'
 
   return `You are an assistant for the SLU Faculty Research Explorer, a bibliometric dashboard for Saint Louis University's ${totalFaculty} active Ph.D. faculty.
 

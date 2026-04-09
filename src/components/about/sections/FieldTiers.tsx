@@ -23,8 +23,8 @@ export function FieldTiers() {
           <Strong>Top 25%</Strong> — top 25%
         </li>
         <li>
-          <Strong>Above median</Strong> — above the field median, but below
-          the top quartile
+          <Strong>Above median</Strong> — above the field median, but below the
+          top quartile
         </li>
         <li>
           <Strong>Below median</Strong> — below the field median
@@ -33,25 +33,25 @@ export function FieldTiers() {
 
       <Subhead>The reference population: active researchers only</Subhead>
       <P>
-        The reference population is filtered to researchers with at least
-        ten indexed publications. Every tier in the explorer depends on this
-        filter, so it is worth understanding what it does.
+        The reference population is filtered to researchers with at least ten
+        indexed publications. Every tier in the explorer depends on this filter,
+        so it is worth understanding what it does.
       </P>
       <P>
         Without it, the global researcher population is dominated by
-        single-paper authors and graduate students, whose median h-index is
-        0 or 1 in most fields. Computing percentiles against that population
-        would make any tenured faculty member look elite. With the filter
-        applied, the field landmarks line up with published Hirsch and
-        Bornmann benchmarks for active research careers:
+        single-paper authors and graduate students, whose median h-index is 0 or
+        1 in most fields. Computing percentiles against that population would
+        make any tenured faculty member look elite. With the filter applied, the
+        field landmarks line up with published Hirsch and Bornmann benchmarks
+        for active research careers:
       </P>
       <HirschTable />
       <P>
         So when you see "Top 10%" on a faculty member, the comparison is{' '}
         <Strong>against active researchers in the field</Strong>, not against
         every person who has ever published a paper. This is the right
-        comparison for promotion-style evaluation, and it is more generous
-        than what the phrase "top 10%" might suggest at first reading.
+        comparison for promotion-style evaluation, and it is more generous than
+        what the phrase "top 10%" might suggest at first reading.
       </P>
     </Section>
   )

@@ -35,10 +35,10 @@ export const Route = createFileRoute('/api/chat')({
         const { messages, data } = body
 
         if (!Array.isArray(messages) || messages.length > 100) {
-          return new Response(
-            JSON.stringify({ error: 'Invalid messages' }),
-            { status: 400, headers: { 'Content-Type': 'application/json' } },
-          )
+          return new Response(JSON.stringify({ error: 'Invalid messages' }), {
+            status: 400,
+            headers: { 'Content-Type': 'application/json' },
+          })
         }
 
         const systemPrompt = data?.context ?? ''

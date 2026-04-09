@@ -1,6 +1,13 @@
 import { useMemo } from 'react'
 import {
-  Bar, BarChart, Cell, ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis,
+  Bar,
+  BarChart,
+  Cell,
+  ReferenceLine,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
 } from 'recharts'
 import { ChartTooltip, useChartTooltip } from './ChartTooltip'
 import type { Faculty } from '@/lib/types'
@@ -13,7 +20,12 @@ export function FwciDistribution({ faculty }: { faculty: Array<Faculty> }) {
     [faculty],
   )
 
-  const { data: hovered, rendered, setData, tooltipRef } = useChartTooltip<HistogramBin>()
+  const {
+    data: hovered,
+    rendered,
+    setData,
+    tooltipRef,
+  } = useChartTooltip<HistogramBin>()
 
   return (
     <div onMouseLeave={() => setData(null)}>
@@ -34,13 +46,42 @@ export function FwciDistribution({ faculty }: { faculty: Array<Faculty> }) {
           }}
           onMouseLeave={() => setData(null)}
         >
-          <XAxis dataKey="label" tick={{ fontSize: 10 }} axisLine={false} tickLine={false} />
-          <YAxis tick={{ fontSize: 10 }} axisLine={false} tickLine={false} width={35} />
-          <Tooltip content={() => null} cursor={{ fill: 'var(--color-muted)', fillOpacity: 0.4 }} />
-          <ReferenceLine x="1.0–1.5" stroke="var(--color-foreground)" strokeDasharray="4 3" strokeOpacity={0.5} label={{ value: '1.0 = field avg', position: 'top', fontSize: 9, fill: 'var(--color-muted-foreground)' }} />
+          <XAxis
+            dataKey="label"
+            tick={{ fontSize: 10 }}
+            axisLine={false}
+            tickLine={false}
+          />
+          <YAxis
+            tick={{ fontSize: 10 }}
+            axisLine={false}
+            tickLine={false}
+            width={35}
+          />
+          <Tooltip
+            content={() => null}
+            cursor={{ fill: 'var(--color-muted)', fillOpacity: 0.4 }}
+          />
+          <ReferenceLine
+            x="1.0–1.5"
+            stroke="var(--color-foreground)"
+            strokeDasharray="4 3"
+            strokeOpacity={0.5}
+            label={{
+              value: '1.0 = field avg',
+              position: 'top',
+              fontSize: 9,
+              fill: 'var(--color-muted-foreground)',
+            }}
+          />
           <Bar dataKey="count" radius={[3, 3, 0, 0]}>
             {bins.map((bin, i) => (
-              <Cell key={i} fill={bin.aboveAvg ? 'oklch(0.41 0.17 259)' : 'oklch(0.82 0.05 259)'} />
+              <Cell
+                key={i}
+                fill={
+                  bin.aboveAvg ? 'oklch(0.41 0.17 259)' : 'oklch(0.82 0.05 259)'
+                }
+              />
             ))}
           </Bar>
         </BarChart>
@@ -49,7 +90,8 @@ export function FwciDistribution({ faculty }: { faculty: Array<Faculty> }) {
       <ChartTooltip visible={hovered != null} tooltipRef={tooltipRef}>
         {rendered && (
           <div>
-            FWCI {rendered.label}: <span className="font-medium">{rendered.count}</span> faculty
+            FWCI {rendered.label}:{' '}
+            <span className="font-medium">{rendered.count}</span> faculty
           </div>
         )}
       </ChartTooltip>
@@ -60,7 +102,7 @@ export function FwciDistribution({ faculty }: { faculty: Array<Faculty> }) {
 function Stat({ value, label }: { value: string; label: string }) {
   return (
     <div>
-      <div className="text-2xl font-semibold tabular">{value}</div>
+      <div className="tabular text-2xl font-semibold">{value}</div>
       <div className="text-[11px] text-muted-foreground">{label}</div>
     </div>
   )

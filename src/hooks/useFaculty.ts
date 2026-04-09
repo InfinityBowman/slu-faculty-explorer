@@ -53,7 +53,8 @@ export function useFacultyData() {
         if (!cancelled) setData(rows)
       })
       .catch((err: unknown) => {
-        if (!cancelled) setError(err instanceof Error ? err.message : String(err))
+        if (!cancelled)
+          setError(err instanceof Error ? err.message : String(err))
       })
     return () => {
       cancelled = true
@@ -124,10 +125,10 @@ export function useDepartmentOptions(
 ): Array<string> {
   return useMemo(() => {
     if (!all) return []
-    const scoped = school === 'all' ? all : all.filter((f) => f.school === school)
+    const scoped =
+      school === 'all' ? all : all.filter((f) => f.school === school)
     return Array.from(
       new Set(scoped.map((f) => f.department).filter((d) => d.length > 0)),
     ).sort()
   }, [all, school])
 }
-

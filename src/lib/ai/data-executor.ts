@@ -170,7 +170,10 @@ export function buildSchoolSummary(school: string, faculty: Array<Faculty>) {
   }
 }
 
-export function buildDepartmentSummary(department: string, faculty: Array<Faculty>) {
+export function buildDepartmentSummary(
+  department: string,
+  faculty: Array<Faculty>,
+) {
   if (!department) return { error: 'No department provided' }
 
   const depts = [...new Set(faculty.map((f) => f.department))]
@@ -283,7 +286,11 @@ export function buildRankings(
   }
 }
 
-export function buildSearch(query: string, limit: number, faculty: Array<Faculty>) {
+export function buildSearch(
+  query: string,
+  limit: number,
+  faculty: Array<Faculty>,
+) {
   if (!query) return { error: 'No query provided' }
 
   const lower = query.toLowerCase()

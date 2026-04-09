@@ -2,7 +2,15 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import Markdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import { fetchServerSentEvents, useChat } from '@tanstack/ai-react'
-import { Brain, MessageSquare, RotateCcw, Send, Square, X, Zap } from 'lucide-react'
+import {
+  Brain,
+  MessageSquare,
+  RotateCcw,
+  Send,
+  Square,
+  X,
+  Zap,
+} from 'lucide-react'
 import type { Faculty } from '@/lib/types'
 import { CLIENT_TOOLS, setFacultyData } from '@/lib/ai/tools'
 import { buildSystemPrompt } from '@/lib/ai/system-prompt'
@@ -301,8 +309,7 @@ export function CommandBar({ faculty, currentPage }: CommandBarProps) {
                             )
                           }
                           if (part.type === 'tool-call') {
-                            const label =
-                              TOOL_LABELS[part.name]
+                            const label = TOOL_LABELS[part.name]
                             const isDone =
                               part.state === 'input-complete' &&
                               part.output !== undefined
@@ -332,8 +339,7 @@ export function CommandBar({ faculty, currentPage }: CommandBarProps) {
                 !messages
                   .at(-1)
                   ?.parts.some(
-                    (p) =>
-                      p.type === 'tool-call' && p.output === undefined,
+                    (p) => p.type === 'tool-call' && p.output === undefined,
                   ) ? (
                   <div className="flex items-center gap-2 text-[12px] text-muted-foreground">
                     <span className="inline-block size-1.5 animate-pulse rounded-full bg-primary" />
