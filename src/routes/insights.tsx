@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { Link, createFileRoute } from '@tanstack/react-router'
 import { Skeleton } from '@/components/ui/skeleton'
 import { useFacultyData } from '@/hooks/useFaculty'
 import { TierOverview } from '@/components/insights/TierOverview'
@@ -24,9 +24,9 @@ function InsightsPage() {
         <p className="mt-1 max-w-180 text-[13px] text-muted-foreground">
           Presentation-ready analytics for SLU leadership. All h-index
           metrics are field-normalized. See{' '}
-          <a href="/about" className="underline hover:text-foreground">
+          <Link to="/about" className="underline hover:text-foreground">
             About
-          </a>{' '}
+          </Link>{' '}
           for methodology.
         </p>
       </div>

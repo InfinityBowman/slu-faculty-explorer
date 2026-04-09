@@ -11,13 +11,50 @@ import { DATA_TOOL_NAMES } from '@/lib/ai/tools'
 import { useAppStore } from '@/store/appStore'
 import { cn } from '@/lib/utils'
 
-const SUGGESTIONS = [
-  'Who has the highest h-index?',
-  'Show me the top 5 faculty by m-index',
-  'Tell me about Chaifetz School of Business',
-  'Search for faculty studying machine learning',
-  'Plot h-index vs citations colored by school',
-]
+const PAGE_SUGGESTIONS: Record<string, { description: string; suggestions: Array<string> }> = {
+  '/': {
+    description: 'Ask questions about faculty data. I can look up stats, search for people, and configure the scatter chart.',
+    suggestions: [
+      'Who has the highest h-index?',
+      'Top 5 faculty by m-index',
+      'Tell me about Chaifetz Business',
+      'Search for machine learning researchers',
+      'Plot h-index vs citations colored by school',
+    ],
+  },
+  '/schools': {
+    description: 'Ask about school-level comparisons, tier distributions, or specific schools.',
+    suggestions: [
+      'Which school has the most top-5% faculty?',
+      'Tell me about the School of Social Work',
+      'How does Nursing compare to Education?',
+      'What fields does Arts & Sciences cover?',
+    ],
+  },
+  '/insights': {
+    description: 'Ask about the analytics shown on this page or dig into the underlying data.',
+    suggestions: [
+      'Summarize the tier distribution',
+      'Which schools have the highest FWCI?',
+      'How does m-index vary by career stage?',
+      'Do administrators publish less?',
+    ],
+  },
+  '/about': {
+    description: 'Ask about methodology, data sources, or how metrics are computed.',
+    suggestions: [
+      'How is field tier calculated?',
+      'Why is Scholar coverage so low?',
+      'What does m-index measure?',
+      'How many faculty have no data?',
+    ],
+  },
+}
+
+const DEFAULT_PAGE_INFO = {
+  description: 'Ask questions about SLU faculty research data.',
+  suggestions: ['Who has the highest h-index?', 'Tell me about Chaifetz Business'],
+}
 
 const TOOL_LABELS: Record<string, string> = {
   get_dataset_summary: 'Getting dataset stats',
@@ -26,6 +63,7 @@ const TOOL_LABELS: Record<string, string> = {
   get_department_summary: 'Fetching department data',
   get_rankings: 'Building rankings',
   search_faculty: 'Searching faculty',
+  run_analysis: 'Running analysis',
   set_filters: 'Updating filters',
   set_scatter: 'Configuring chart',
   clear_filters: 'Resetting filters',
@@ -39,7 +77,7 @@ interface CommandBarProps {
 export function CommandBar({ faculty, currentPage }: CommandBarProps) {
   const [open, setOpen] = useState(false)
   const [input, setInput] = useState('')
-  const inputRef = useRef<HTMLInputElement>(null)
+  const inputRef = useRef<HTMLTextAreaElement>(null)
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const {
     messages,
@@ -106,6 +144,7 @@ export function CommandBar({ faculty, currentPage }: CommandBarProps) {
     async (text: string) => {
       if (!text.trim() || isStreaming) return
       setInput('')
+      if (inputRef.current) inputRef.current.style.height = 'auto'
       const context = buildSystemPrompt(
         { search, school, department, tier, metricSource },
         faculty,
@@ -143,6 +182,7 @@ export function CommandBar({ faculty, currentPage }: CommandBarProps) {
         <MessageSquare className="size-4" />
         Ask about faculty
         <kbd className="ml-1 rounded bg-primary-foreground/20 px-1.5 py-0.5 text-[10px]">
+          {/* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- navigator.platform is undefined in Cloudflare Workers SSR */}
           {typeof navigator !== 'undefined' && navigator.platform?.includes('Mac') ? '\u2318' : 'Ctrl'}K
         </kbd>
       </button>
@@ -186,11 +226,10 @@ export function CommandBar({ faculty, currentPage }: CommandBarProps) {
             {messages.length === 0 ? (
               <div className="space-y-2">
                 <p className="text-[12px] text-muted-foreground">
-                  Ask questions about SLU faculty research data. I can look up
-                  stats, search for people, and configure the explorer.
+                  {(PAGE_SUGGESTIONS[currentPage] ?? DEFAULT_PAGE_INFO).description}
                 </p>
                 <div className="flex flex-wrap gap-1.5 pt-1">
-                  {SUGGESTIONS.map((s) => (
+                  {(PAGE_SUGGESTIONS[currentPage] ?? DEFAULT_PAGE_INFO).suggestions.map((s) => (
                     <button
                       key={s}
                       type="button"
@@ -257,16 +296,29 @@ export function CommandBar({ faculty, currentPage }: CommandBarProps) {
                 e.preventDefault()
                 handleSubmit(input)
               }}
-              className="flex items-center gap-2"
+              className="flex items-end gap-2"
             >
-              <input
+              <textarea
                 ref={inputRef}
-                type="text"
                 value={input}
-                onChange={(e) => setInput(e.target.value)}
+                onChange={(e) => {
+                  setInput(e.target.value)
+                  // Auto-resize: reset height then set to scrollHeight
+                  e.target.style.height = 'auto'
+                  e.target.style.height = `${e.target.scrollHeight}px`
+                }}
+                onKeyDown={(e) => {
+                  // Enter submits, Shift+Enter inserts newline
+                  if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault()
+                    handleSubmit(input)
+                  }
+                }}
                 placeholder="Ask about faculty data..."
                 disabled={isStreaming}
-                className="flex-1 bg-transparent text-[13px] placeholder:text-muted-foreground focus:outline-none disabled:opacity-50"
+                rows={1}
+                className="min-w-0 flex-1 resize-none bg-transparent text-[13px] leading-relaxed placeholder:text-muted-foreground focus:outline-none disabled:opacity-50"
+                style={{ maxHeight: 120 }}
               />
               {isStreaming ? (
                 <button

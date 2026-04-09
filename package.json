@@ -23,6 +23,7 @@
   "dependencies": {
     "@cloudflare/vite-plugin": "^1.31.1",
     "@fontsource-variable/geist": "^5.2.8",
+    "@jitl/quickjs-singlefile-browser-release-sync": "^0.32.0",
     "@tailwindcss/vite": "^4.2.2",
     "@tanstack/react-router": "^1.168.10",
     "@tanstack/react-start": "^1.167.16",
@@ -39,6 +40,7 @@
     "fuse.js": "^7.3.0",
     "lucide-react": "^1.8.0",
     "papaparse": "^5.5.3",
+    "quickjs-emscripten-core": "^0.32.0",
     "radix-ui": "^1.4.3",
     "react": "^19.2.5",
     "react-dom": "^19.2.5",

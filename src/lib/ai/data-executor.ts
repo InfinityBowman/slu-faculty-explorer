@@ -1,3 +1,4 @@
+import { executeCode } from './code-executor'
 import type { Faculty } from '@/lib/types'
 import type { ToolCall } from './use-chat'
 
@@ -77,10 +78,10 @@ function facultyDetail(f: Faculty) {
   }
 }
 
-export function executeDataTool(
+export async function executeDataTool(
   toolCall: ToolCall,
   faculty: Array<Faculty>,
-): DataToolResult {
+): Promise<DataToolResult> {
   const args = toolCall.arguments
   let content: unknown
 
@@ -118,6 +119,15 @@ export function executeDataTool(
         Math.min(Number(args.limit) || 10, 25),
         faculty,
       )
+      break
+    }
+    case 'run_analysis': {
+      try {
+        const result = await executeCode(args.code as string, faculty)
+        content = { result }
+      } catch (err) {
+        content = { error: err instanceof Error ? err.message : String(err) }
+      }
       break
     }
     default:

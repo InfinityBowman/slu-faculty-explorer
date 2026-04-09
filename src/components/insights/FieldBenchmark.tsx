@@ -2,6 +2,7 @@ import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import { select } from 'd3-selection'
 import { scaleLinear } from 'd3-scale'
 import { axisBottom } from 'd3-axis'
+import { ChartTooltip, useChartTooltip } from './ChartTooltip'
 import type { Faculty } from '@/lib/types'
 import type { Benchmark } from '@/lib/insights'
 import { abbreviate, loadBenchmarks, median } from '@/lib/insights'
@@ -27,11 +28,18 @@ const ROW_H = 48
 
 export function FieldBenchmark({ faculty }: { faculty: Array<Faculty> }) {
   const [benchmarks, setBenchmarks] = useState<Array<Benchmark>>([])
+  const [loadError, setLoadError] = useState(false)
   const containerRef = useRef<HTMLDivElement>(null)
   const svgRef = useRef<SVGSVGElement>(null)
   const [width, setWidth] = useState(700)
+  const { data: hovered, rendered, setData, tooltipRef, trackPosition } = useChartTooltip<SchoolBenchmark>()
 
-  useEffect(() => { loadBenchmarks().then(setBenchmarks) }, [])
+  useEffect(() => {
+    loadBenchmarks().then((b) => {
+      setBenchmarks(b)
+      if (b.length === 0) setLoadError(true)
+    })
+  }, [])
 
   useEffect(() => {
     const el = containerRef.current
@@ -109,12 +117,14 @@ export function FieldBenchmark({ faculty }: { faculty: Array<Faculty> }) {
       .attr('class', 'row')
       .attr('transform', (_, i) => `translate(0,${yFor(i)})`)
 
-    // Stripe
-    rowG.selectAll('rect.stripe').data((d) => [d]).join('rect')
-      .attr('class', 'stripe')
-      .attr('x', 0).attr('y', -ROW_H / 2).attr('width', innerW).attr('height', ROW_H)
-      .attr('fill', (_, i) => i % 2 === 0 ? 'var(--color-muted)' : 'transparent')
-      .attr('fill-opacity', 0.3)
+    // Stripe — use parent row index via closure
+    rowG.each(function (_, i) {
+      select(this).selectAll('rect.stripe').data([null]).join('rect')
+        .attr('class', 'stripe')
+        .attr('x', 0).attr('y', -ROW_H / 2).attr('width', innerW).attr('height', ROW_H)
+        .attr('fill', i % 2 === 0 ? 'var(--color-muted)' : 'transparent')
+        .attr('fill-opacity', 0.3)
+    })
 
     // Global range bar (P25–P90) — fully rounded
     rowG.selectAll('rect.range').data((d) => [d]).join('rect')
@@ -162,22 +172,63 @@ export function FieldBenchmark({ faculty }: { faculty: Array<Faculty> }) {
       .attr('font-size', 9)
       .attr('fill', 'var(--color-muted-foreground)')
       .text((d) => `${d.field} · n=${d.n}`)
-  }, [rows, svgWidth])
+
+    // Hover hit areas — transparent rects covering full row for consistent hover
+    rowG.selectAll('rect.hit').data((d) => [d]).join('rect')
+      .attr('class', 'hit')
+      .attr('x', -MARGIN.left).attr('y', -ROW_H / 2)
+      .attr('width', innerW + MARGIN.left).attr('height', ROW_H)
+      .attr('fill', 'transparent')
+      .style('cursor', 'default')
+      .on('mouseenter', (_event: MouseEvent, d: SchoolBenchmark) => setData(d))
+      .on('mouseleave', () => setData(null))
+  }, [rows, svgWidth, setData])
+
+  if (loadError) {
+    return <div className="flex h-32 items-center justify-center text-sm text-muted-foreground">Failed to load benchmark data.</div>
+  }
 
   if (!rows.length) {
     return <div className="flex h-32 items-center justify-center text-sm text-muted-foreground">Loading benchmarks...</div>
   }
 
   return (
-    <div ref={containerRef} className="relative overflow-hidden">
+    <div ref={containerRef} className="relative overflow-hidden" onMouseMove={trackPosition}>
       <svg ref={svgRef} width={svgWidth} height={height} className="mx-auto block" />
       <div className="mt-3 flex flex-wrap items-center gap-4 text-[10px] text-muted-foreground">
-        <span className="flex items-center gap-1.5"><span className="inline-block h-3 w-5 rounded-full bg-muted-foreground/12" /> Global P25–P90</span>
+        <span className="flex items-center gap-1.5"><span className="inline-block h-3 w-5 rounded-full bg-muted-foreground/12" /> Global P25&ndash;P90</span>
         <span className="flex items-center gap-1.5"><span className="inline-block h-3 w-px bg-muted-foreground/50" /> Global median</span>
         <span className="flex items-center gap-1.5"><span className="inline-block h-3 w-3 rounded-full" style={{ background: DOT_ABOVE_P75 }} /> SLU above P75</span>
-        <span className="flex items-center gap-1.5"><span className="inline-block h-3 w-3 rounded-full" style={{ background: DOT_MID }} /> SLU at P50–P75</span>
+        <span className="flex items-center gap-1.5"><span className="inline-block h-3 w-3 rounded-full" style={{ background: DOT_MID }} /> SLU at P50&ndash;P75</span>
         <span className="flex items-center gap-1.5"><span className="inline-block h-3 w-3 rounded-full" style={{ background: DOT_BELOW_P50 }} /> SLU below P50</span>
       </div>
+
+      <ChartTooltip visible={hovered != null} tooltipRef={tooltipRef}>
+        {rendered && (
+          <div>
+            <div className="text-[13px] font-medium">{rendered.school}</div>
+            <div className="mt-0.5 text-[11px] text-muted-foreground">{rendered.field} &middot; n={rendered.n}</div>
+            <div className="mt-2 flex gap-4 border-t pt-2 text-[11px]">
+              <div>
+                <div className="text-[9px] uppercase tracking-wider text-muted-foreground">SLU median</div>
+                <div className="tabular font-medium">{Math.round(rendered.sluMedian)}</div>
+              </div>
+              <div>
+                <div className="text-[9px] uppercase tracking-wider text-muted-foreground">Global P50</div>
+                <div className="tabular font-medium">{Math.round(rendered.p50)}</div>
+              </div>
+              <div>
+                <div className="text-[9px] uppercase tracking-wider text-muted-foreground">Global P75</div>
+                <div className="tabular font-medium">{Math.round(rendered.p75)}</div>
+              </div>
+              <div>
+                <div className="text-[9px] uppercase tracking-wider text-muted-foreground">Global P90</div>
+                <div className="tabular font-medium">{Math.round(rendered.p90)}</div>
+              </div>
+            </div>
+          </div>
+        )}
+      </ChartTooltip>
     </div>
   )
 }

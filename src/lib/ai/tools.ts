@@ -277,6 +277,51 @@ export const TOOL_DEFINITIONS: Array<ToolDefinition> = [
       },
     },
   },
+  {
+    type: 'function',
+    function: {
+      name: 'run_analysis',
+      description: `Execute JavaScript code against the faculty dataset for custom computations (correlations, statistical tests, complex filtering, group comparisons). The code receives \`data\` — an array of faculty objects — and must return a JSON-serializable value. Runs in a sandboxed worker with a 5-second timeout.
+
+Each element in \`data\` has these properties (all nullable except id/name/school/department):
+  id, name, school, department,
+  hIndex, hIndex5y, i10Index, i10Index5y, citations, citations5y,
+  openalexHIndex, openalexCitations, openalexWorksCount, openalex2yrFwci,
+  openalexFirstYear, openalexLastYear,
+  openalexField, openalexSubfield, openalexTopTopic,
+  primaryHTier, fieldHPercentile, subfieldHPercentile, deptHPercentile,
+  adminRole, phdYear, phdInstitution
+
+Example: compute average h-index by school:
+  const bySchool = {};
+  for (const f of data) {
+    const h = f.hIndex ?? f.openalexHIndex;
+    if (h == null) continue;
+    (bySchool[f.school] ??= []).push(h);
+  }
+  const result = {};
+  for (const [s, vals] of Object.entries(bySchool)) {
+    result[s] = { mean: vals.reduce((a,b) => a+b, 0) / vals.length, n: vals.length };
+  }
+  return result;`,
+      parameters: {
+        type: 'object',
+        properties: {
+          code: {
+            type: 'string',
+            description:
+              'JavaScript function body. Has access to `data` (Array of faculty objects). Must `return` a JSON-serializable value.',
+          },
+          description: {
+            type: 'string',
+            description:
+              'Brief human-readable description of what this code computes (shown to the user while running)',
+          },
+        },
+        required: ['code', 'description'],
+      },
+    },
+  },
 ]
 
 export const DATA_TOOL_NAMES = new Set([
@@ -286,4 +331,5 @@ export const DATA_TOOL_NAMES = new Set([
   'get_department_summary',
   'get_rankings',
   'search_faculty',
+  'run_analysis',
 ])
