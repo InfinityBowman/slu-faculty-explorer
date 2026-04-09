@@ -76,6 +76,8 @@ const fmt = (n: number | null) =>
 
 export function FacultyTable({ rows }: FacultyTableProps) {
   const metricSource = useAppStore((s) => s.metricSource)
+  const search = useAppStore((s) => s.search)
+  const hasSearch = search.trim().length > 0
   const [sorting, setSorting] = useState<SortingState>([
     { id: 'hIndex', desc: true },
   ])
@@ -208,10 +210,17 @@ export function FacultyTable({ rows }: FacultyTableProps) {
     [],
   )
 
+  // When the user is searching, rows arrive pre-sorted by Fuse relevance.
+  // Applying column sorting would bury the best matches, so we disable it.
+  const activeSorting = useMemo<SortingState>(
+    () => (hasSearch ? [] : sorting),
+    [hasSearch, sorting],
+  )
+
   const table = useReactTable({
     data: tableData,
     columns,
-    state: { sorting },
+    state: { sorting: activeSorting },
     onSortingChange: setSorting,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
