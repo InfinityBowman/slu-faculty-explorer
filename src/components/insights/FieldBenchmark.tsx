@@ -3,8 +3,8 @@ import { select } from 'd3-selection'
 import { scaleLinear } from 'd3-scale'
 import { axisBottom } from 'd3-axis'
 import type { Faculty } from '@/lib/types'
-import { abbreviate, loadBenchmarks, median } from '@/lib/insights'
 import type { Benchmark } from '@/lib/insights'
+import { abbreviate, loadBenchmarks, median } from '@/lib/insights'
 
 interface SchoolBenchmark {
   school: string
@@ -17,7 +17,12 @@ interface SchoolBenchmark {
   n: number
 }
 
-const MARGIN = { top: 10, right: 24, bottom: 32, left: 160 }
+// SLU dot colors — enough contrast to read at a glance
+const DOT_ABOVE_P75 = 'oklch(0.28 0.16 259)'  // darkest navy
+const DOT_MID = 'oklch(0.48 0.19 259)'          // SLU primary
+const DOT_BELOW_P50 = 'oklch(0.74 0.09 259)'    // noticeably lighter
+
+const MARGIN = { top: 10, right: 24, bottom: 32, left: 260 }
 const ROW_H = 48
 
 export function FieldBenchmark({ faculty }: { faculty: Array<Faculty> }) {
@@ -71,11 +76,12 @@ export function FieldBenchmark({ faculty }: { faculty: Array<Faculty> }) {
     return out.sort((a, b) => b.sluMedian - a.sluMedian)
   }, [faculty, benchmarks])
 
+  const svgWidth = Math.min(width, 950)
   const height = rows.length * ROW_H + MARGIN.top + MARGIN.bottom
 
   useLayoutEffect(() => {
     if (!svgRef.current || !rows.length) return
-    const innerW = width - MARGIN.left - MARGIN.right
+    const innerW = svgWidth - MARGIN.left - MARGIN.right
     if (innerW <= 0) return
 
     const maxH = Math.max(...rows.map((r) => Math.max(r.sluMedian, r.p90))) * 1.1
@@ -110,12 +116,12 @@ export function FieldBenchmark({ faculty }: { faculty: Array<Faculty> }) {
       .attr('fill', (_, i) => i % 2 === 0 ? 'var(--color-muted)' : 'transparent')
       .attr('fill-opacity', 0.3)
 
-    // Global range bar (P25–P90)
+    // Global range bar (P25–P90) — fully rounded
     rowG.selectAll('rect.range').data((d) => [d]).join('rect')
       .attr('class', 'range')
       .attr('x', (d) => x(d.p25))
       .attr('width', (d) => Math.max(0, x(d.p90) - x(d.p25)))
-      .attr('y', -8).attr('height', 16).attr('rx', 3)
+      .attr('y', -8).attr('height', 16).attr('rx', 8)
       .attr('fill', 'var(--color-muted-foreground)').attr('fill-opacity', 0.12)
 
     // P50 tick
@@ -128,47 +134,49 @@ export function FieldBenchmark({ faculty }: { faculty: Array<Faculty> }) {
     // SLU median marker
     rowG.selectAll('circle.slu').data((d) => [d]).join('circle')
       .attr('class', 'slu')
-      .attr('cx', (d) => x(d.sluMedian)).attr('cy', 0).attr('r', 5)
-      .attr('fill', (d) => d.sluMedian >= d.p75 ? 'oklch(0.28 0.16 259)' : d.sluMedian >= d.p50 ? 'oklch(0.41 0.17 259)' : 'oklch(0.64 0.13 259)')
-      .attr('stroke', 'white').attr('stroke-width', 1.5)
+      .attr('cx', (d) => x(d.sluMedian)).attr('cy', 0).attr('r', 6)
+      .attr('fill', (d) => d.sluMedian >= d.p75 ? DOT_ABOVE_P75 : d.sluMedian >= d.p50 ? DOT_MID : DOT_BELOW_P50)
+      .attr('stroke', 'white').attr('stroke-width', 2)
 
     // SLU label
     rowG.selectAll('text.slu-label').data((d) => [d]).join('text')
       .attr('class', 'slu-label')
-      .attr('x', (d) => x(d.sluMedian)).attr('y', -14)
-      .attr('text-anchor', 'middle').attr('font-size', 9).attr('font-weight', 600)
+      .attr('x', (d) => x(d.sluMedian)).attr('y', -16)
+      .attr('text-anchor', 'middle').attr('font-size', 10).attr('font-weight', 600)
       .attr('fill', 'var(--color-foreground)')
       .text((d) => Math.round(d.sluMedian))
 
     // Row labels (left side)
     rowG.selectAll('text.school-name').data((d) => [d]).join('text')
       .attr('class', 'school-name')
-      .attr('x', -12).attr('y', -4)
-      .attr('text-anchor', 'end').attr('font-size', 11).attr('font-weight', 500)
+      .attr('x', -16).attr('y', -4)
+      .attr('text-anchor', 'end')
+      .attr('font-size', 11).attr('font-weight', 500)
       .attr('fill', 'var(--color-foreground)')
       .text((d) => d.school)
 
     rowG.selectAll('text.school-sub').data((d) => [d]).join('text')
       .attr('class', 'school-sub')
-      .attr('x', -12).attr('y', 10)
-      .attr('text-anchor', 'end').attr('font-size', 9)
+      .attr('x', -16).attr('y', 10)
+      .attr('text-anchor', 'end')
+      .attr('font-size', 9)
       .attr('fill', 'var(--color-muted-foreground)')
       .text((d) => `${d.field} · n=${d.n}`)
-  }, [rows, width])
+  }, [rows, svgWidth])
 
   if (!rows.length) {
     return <div className="flex h-32 items-center justify-center text-sm text-muted-foreground">Loading benchmarks...</div>
   }
 
   return (
-    <div ref={containerRef} className="relative min-w-0">
-      <svg ref={svgRef} width={width} height={height} className="block overflow-visible" />
+    <div ref={containerRef} className="relative overflow-hidden">
+      <svg ref={svgRef} width={svgWidth} height={height} className="mx-auto block" />
       <div className="mt-3 flex flex-wrap items-center gap-4 text-[10px] text-muted-foreground">
-        <span className="flex items-center gap-1.5"><span className="inline-block h-3 w-5 rounded-sm bg-muted-foreground/15" /> Global P25–P90</span>
-        <span className="flex items-center gap-1.5"><span className="inline-block h-3 w-px bg-muted-foreground/50" /> Global P50</span>
-        <span className="flex items-center gap-1.5"><span className="inline-block h-3 w-3 rounded-full" style={{ background: 'oklch(0.28 0.16 259)' }} /> Above P75</span>
-        <span className="flex items-center gap-1.5"><span className="inline-block h-3 w-3 rounded-full" style={{ background: 'oklch(0.41 0.17 259)' }} /> P50–P75</span>
-        <span className="flex items-center gap-1.5"><span className="inline-block h-3 w-3 rounded-full" style={{ background: 'oklch(0.64 0.13 259)' }} /> Below P50</span>
+        <span className="flex items-center gap-1.5"><span className="inline-block h-3 w-5 rounded-full bg-muted-foreground/12" /> Global P25–P90</span>
+        <span className="flex items-center gap-1.5"><span className="inline-block h-3 w-px bg-muted-foreground/50" /> Global median</span>
+        <span className="flex items-center gap-1.5"><span className="inline-block h-3 w-3 rounded-full" style={{ background: DOT_ABOVE_P75 }} /> SLU above P75</span>
+        <span className="flex items-center gap-1.5"><span className="inline-block h-3 w-3 rounded-full" style={{ background: DOT_MID }} /> SLU at P50–P75</span>
+        <span className="flex items-center gap-1.5"><span className="inline-block h-3 w-3 rounded-full" style={{ background: DOT_BELOW_P50 }} /> SLU below P50</span>
       </div>
     </div>
   )

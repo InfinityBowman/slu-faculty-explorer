@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import {
-  BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer,
+  Bar, BarChart, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis,
 } from 'recharts'
 import type { Faculty } from '@/lib/types'
 import { abbreviate, coverageMatrix } from '@/lib/insights'
@@ -33,7 +33,7 @@ export function CoverageMatrix({ faculty }: { faculty: Array<Faculty> }) {
         />
         <Tooltip
           content={({ active, payload }) => {
-            if (!active || !payload?.length) return null
+            if (!active || !payload.length) return null
             const d = payload[0].payload as { school: string; Scholar: number; OpenAlex: number; Neither: number; total: number; pct: number }
             return (
               <div className="rounded-md border bg-popover px-3 py-2 text-xs shadow-md">

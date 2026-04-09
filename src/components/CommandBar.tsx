@@ -33,9 +33,10 @@ const TOOL_LABELS: Record<string, string> = {
 
 interface CommandBarProps {
   faculty: Array<Faculty> | null
+  currentPage: string
 }
 
-export function CommandBar({ faculty }: CommandBarProps) {
+export function CommandBar({ faculty, currentPage }: CommandBarProps) {
   const [open, setOpen] = useState(false)
   const [input, setInput] = useState('')
   const inputRef = useRef<HTMLInputElement>(null)
@@ -108,6 +109,7 @@ export function CommandBar({ faculty }: CommandBarProps) {
       const context = buildSystemPrompt(
         { search, school, department, tier, metricSource },
         faculty,
+        currentPage,
       )
       await sendMessage(text.trim(), context, resolveDataTools)
     },
@@ -119,6 +121,7 @@ export function CommandBar({ faculty }: CommandBarProps) {
       tier,
       metricSource,
       faculty,
+      currentPage,
       sendMessage,
       resolveDataTools,
     ],
@@ -140,7 +143,7 @@ export function CommandBar({ faculty }: CommandBarProps) {
         <MessageSquare className="size-4" />
         Ask about faculty
         <kbd className="ml-1 rounded bg-primary-foreground/20 px-1.5 py-0.5 text-[10px]">
-          {navigator.platform.includes('Mac') ? '\u2318' : 'Ctrl'}K
+          {typeof navigator !== 'undefined' && navigator.platform?.includes('Mac') ? '\u2318' : 'Ctrl'}K
         </kbd>
       </button>
 

@@ -1,13 +1,29 @@
 import { useMemo } from 'react'
 import {
-  BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer, Cell,
+  Bar, BarChart, Cell, ResponsiveContainer, Tooltip, XAxis, YAxis,
 } from 'recharts'
 import type { Faculty, HTier } from '@/lib/types'
+import type { TierDatum } from '@/lib/insights'
 import { H_TIER_ORDER } from '@/lib/types'
 import { TIER_FILL, TIER_LABEL, abbreviate, tierData } from '@/lib/insights'
 
+// Compute rounded corners for a cell based on whether this tier is the
+// leftmost or rightmost visible segment in that row.
+const R = 4
+function edgeRadius(row: TierDatum, tier: HTier): number | [number, number, number, number] {
+  const tIdx = H_TIER_ORDER.indexOf(tier)
+  const firstIdx = H_TIER_ORDER.findIndex((t) => row[t] > 0)
+  const lastIdx = H_TIER_ORDER.length - 1 - [...H_TIER_ORDER].reverse().findIndex((t) => row[t] > 0)
+  const isFirst = tIdx === firstIdx
+  const isLast = tIdx === lastIdx
+  if (isFirst && isLast) return [R, R, R, R]
+  if (isFirst) return [R, 0, 0, R]
+  if (isLast) return [0, R, R, 0]
+  return 0
+}
+
 export function TierOverview({ faculty }: { faculty: Array<Faculty> }) {
-  const data = useMemo(() => {
+  const { uniRow, schoolRows } = useMemo(() => {
     const uni = tierData(faculty, 'All SLU')
     const buckets = new Map<string, Array<Faculty>>()
     for (const f of faculty) {
@@ -24,57 +40,84 @@ export function TierOverview({ faculty }: { faculty: Array<Faculty> }) {
         const topB = b['top_1%'] + b['top_5%'] + b['top_10%'] + b['top_25%']
         return topB - topA
       })
-    return [uni, ...schools]
+    return { uniRow: uni, schoolRows: schools }
   }, [faculty])
 
   return (
-    <ResponsiveContainer width="100%" height={data.length * 44 + 60}>
-      <BarChart data={data} layout="vertical" margin={{ left: 130, right: 20, top: 10, bottom: 10 }}>
-        <XAxis
-          type="number"
-          domain={[0, 100]}
-          tickFormatter={(v: number) => `${v}%`}
-          tick={{ fontSize: 11 }}
-          axisLine={false}
-          tickLine={false}
-        />
-        <YAxis
-          type="category"
-          dataKey="label"
-          width={120}
-          tick={{ fontSize: 11 }}
-          axisLine={false}
-          tickLine={false}
-        />
-        <Tooltip content={<TierTooltip />} cursor={{ fill: 'var(--color-muted)', fillOpacity: 0.5 }} />
-        <Legend
-          content={() => (
-            <div className="flex flex-wrap justify-center gap-x-4 gap-y-1 pt-2">
-              {H_TIER_ORDER.map((t) => (
-                <div key={t} className="flex items-center gap-1.5">
-                  <div className="h-2.5 w-2.5 rounded-sm" style={{ background: TIER_FILL[t] }} />
-                  <span className="text-[10px] text-muted-foreground">{TIER_LABEL[t]}</span>
-                </div>
+    <div className="space-y-5">
+      {/* University-wide headline bar */}
+      <div>
+        <div className="mb-1.5 flex items-baseline gap-2 text-[11px]">
+          <span className="font-semibold">All SLU</span>
+          <span className="tabular text-muted-foreground">n={uniRow.n}</span>
+        </div>
+        <div className="flex h-8 overflow-hidden rounded">
+          {H_TIER_ORDER.map((t) => {
+            const pct = uniRow[t]
+            if (pct <= 0) return null
+            return (
+              <div
+                key={t}
+                style={{ width: `${pct}%`, background: TIER_FILL[t] }}
+                className="relative"
+                title={`${TIER_LABEL[t]}: ${Math.round(pct)}%`}
+              >
+                {pct >= 7 ? (
+                  <span className="absolute inset-0 flex items-center justify-center text-[10px] font-medium text-white/90">
+                    {Math.round(pct)}%
+                  </span>
+                ) : null}
+              </div>
+            )
+          })}
+        </div>
+      </div>
+
+      {/* Per-school chart */}
+      <ResponsiveContainer width="100%" height={schoolRows.length * 40 + 50}>
+        <BarChart data={schoolRows} layout="vertical" margin={{ left: 10, right: 20, top: 0, bottom: 10 }}>
+          <XAxis
+            type="number"
+            domain={[0, 100]}
+            allowDataOverflow
+            tickFormatter={(v: number) => `${v}%`}
+            tick={{ fontSize: 11 }}
+            axisLine={false}
+            tickLine={false}
+          />
+          <YAxis
+            type="category"
+            dataKey="label"
+            width={190}
+            tick={{ fontSize: 11 }}
+            axisLine={false}
+            tickLine={false}
+          />
+          <Tooltip content={<TierTooltip />} cursor={{ fill: 'var(--color-muted)', fillOpacity: 0.5 }} />
+          {H_TIER_ORDER.map((tier) => (
+            <Bar key={tier} dataKey={tier} stackId="tier" fill={TIER_FILL[tier]} radius={0} barSize={18}>
+              {schoolRows.map((row, idx) => (
+                <Cell key={idx} radius={edgeRadius(row, tier) as unknown as number} />
               ))}
-            </div>
-          )}
-        />
-        {H_TIER_ORDER.map((tier) => (
-          <Bar key={tier} dataKey={tier} stackId="tier" fill={TIER_FILL[tier]} radius={0} barSize={20}>
-            {data.map((_, idx) => (
-              <Cell key={idx} radius={
-                tier === 'top_1%' ? [4, 0, 0, 4] as unknown as number :
-                tier === 'below_median' ? [0, 4, 4, 0] as unknown as number : 0
-              } />
-            ))}
-          </Bar>
+            </Bar>
+          ))}
+        </BarChart>
+      </ResponsiveContainer>
+
+      {/* Legend */}
+      <div className="flex flex-wrap justify-center gap-x-4 gap-y-1">
+        {H_TIER_ORDER.map((t) => (
+          <div key={t} className="flex items-center gap-1.5">
+            <div className="h-2.5 w-2.5 rounded-sm" style={{ background: TIER_FILL[t] }} />
+            <span className="text-[10px] text-muted-foreground">{TIER_LABEL[t]}</span>
+          </div>
         ))}
-      </BarChart>
-    </ResponsiveContainer>
+      </div>
+    </div>
   )
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+ 
 function TierTooltip({ active, payload }: { active?: boolean; payload?: Array<any> }) {
   if (!active || !payload?.length) return null
   const row = payload[0]?.payload as { label: string; n: number } | undefined

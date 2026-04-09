@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import {
-  ComposedChart, Bar, XAxis, YAxis, Tooltip, ReferenceLine,
-  ResponsiveContainer, ErrorBar,
+  Bar, ComposedChart, ErrorBar, ReferenceLine, ResponsiveContainer, Tooltip,
+  XAxis, YAxis,
 } from 'recharts'
 import type { Faculty } from '@/lib/types'
 import { mIndexByDecade } from '@/lib/insights'
@@ -47,7 +47,7 @@ export function MIndexOverview({ faculty }: { faculty: Array<Faculty> }) {
           <YAxis tick={{ fontSize: 10 }} axisLine={false} tickLine={false} width={30} domain={[0, 'auto']} />
           <Tooltip
             content={({ active, payload }) => {
-              if (!active || !payload?.length) return null
+              if (!active || !payload.length) return null
               const d = payload[0].payload as { decade: string; median: number; q1: number; q3: number; n: number }
               return (
                 <div className="rounded-md border bg-popover px-3 py-2 text-xs shadow-md">

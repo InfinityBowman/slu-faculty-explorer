@@ -4,9 +4,12 @@ import {
   Outlet,
   Scripts,
   createRootRoute,
+  useLocation,
 } from "@tanstack/react-router"
 import appCss from "../index.css?url"
+import { CommandBar } from "@/components/CommandBar"
 import { ThemeProvider } from "@/components/theme-provider"
+import { useFacultyData } from "@/hooks/useFaculty"
 import { cn } from "@/lib/utils"
 
 // Runs inline in <head> before React hydrates so the correct theme class is
@@ -52,11 +55,15 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 }
 
 function RootComponent() {
+  const { data } = useFacultyData()
+  const { pathname } = useLocation()
+
   return (
     <div className="min-h-svh">
       <Header />
       <Outlet />
       <Footer />
+      <CommandBar faculty={data} currentPage={pathname} />
     </div>
   )
 }

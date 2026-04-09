@@ -1,5 +1,5 @@
-import type { Faculty, HTier } from './types'
 import { H_TIER_ORDER } from './types'
+import type { Faculty, HTier } from './types'
 
 // ── Shared constants ───────────────────────────────────────────────────────
 

@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import {
-  BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer,
+  Bar, BarChart, ResponsiveContainer, Tooltip, XAxis, YAxis,
 } from 'recharts'
 import type { Faculty } from '@/lib/types'
 import { adminRoleMetrics } from '@/lib/insights'
@@ -29,7 +29,7 @@ export function AdminResearch({ faculty }: { faculty: Array<Faculty> }) {
         />
         <Tooltip
           content={({ active, payload }) => {
-            if (!active || !payload?.length) return null
+            if (!active || !payload.length) return null
             const d = payload[0].payload as { role: string; n: number; medianPercentile: number | null; medianFwci: number | null }
             return (
               <div className="rounded-md border bg-popover px-3 py-2 text-xs shadow-md">

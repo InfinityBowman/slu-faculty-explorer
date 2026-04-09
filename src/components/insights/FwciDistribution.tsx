@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import {
-  BarChart, Bar, XAxis, YAxis, Tooltip, ReferenceLine, ResponsiveContainer, Cell,
+  Bar, BarChart, Cell, ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis,
 } from 'recharts'
 import type { Faculty } from '@/lib/types'
 import { fwciHistogram } from '@/lib/insights'
@@ -25,7 +25,7 @@ export function FwciDistribution({ faculty }: { faculty: Array<Faculty> }) {
           <YAxis tick={{ fontSize: 10 }} axisLine={false} tickLine={false} width={35} />
           <Tooltip
             content={({ active, payload }) => {
-              if (!active || !payload?.length) return null
+              if (!active || !payload.length) return null
               const d = payload[0].payload as { label: string; count: number }
               return (
                 <div className="rounded-md border bg-popover px-3 py-1.5 text-xs shadow-md">
