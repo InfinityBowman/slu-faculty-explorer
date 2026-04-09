@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
+  <!-- White outlines behind main shapes -->
+  <circle cx="14" cy="14" r="9" stroke="white" stroke-width="4.5"/>
+  <line x1="21" y1="21" x2="28" y2="28" stroke="white" stroke-width="4.8" stroke-linecap="round"/>
+  <!-- Magnifying glass -->
+  <circle cx="14" cy="14" r="9" stroke="#003DA5" stroke-width="2.5" fill="#EBF0FA"/>
+  <line x1="21" y1="21" x2="28" y2="28" stroke="#003DA5" stroke-width="2.8" stroke-linecap="round"/>
+  <!-- Bar chart inside lens -->
+  <rect x="9" y="16" width="3" height="4" rx="0.5" fill="#003DA5" opacity="0.5"/>
+  <rect x="13" y="12" width="3" height="8" rx="0.5" fill="#003DA5" opacity="0.7"/>
+  <rect x="17" y="9" width="3" height="11" rx="0.5" fill="#003DA5"/>
+</svg>

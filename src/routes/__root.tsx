@@ -29,7 +29,7 @@ export const Route = createRootRoute({
       },
     ],
     links: [
-      { rel: "icon", type: "image/svg+xml", href: "/vite.svg" },
+      { rel: "icon", type: "image/svg+xml", href: "/icon-lens.svg" },
       { rel: "stylesheet", href: appCss },
     ],
     scripts: [{ children: themeInitScript }],

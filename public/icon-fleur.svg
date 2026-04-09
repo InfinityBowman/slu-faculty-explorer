@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a5fc7"/>
+      <stop offset="100%" stop-color="#003DA5"/>
+    </linearGradient>
+  </defs>
+  <!-- White outline behind F -->
+  <path d="M8 4h16v5H14v4h8v5h-8v10H8V4z" stroke="white" stroke-width="2" stroke-linejoin="round" fill="none"/>
+  <!-- Bold F letterform -->
+  <path d="M8 4h16v5H14v4h8v5h-8v10H8V4z" fill="url(#g)"/>
+  <!-- Data dots with white outline -->
+  <circle cx="25" cy="18" r="2" fill="#003DA5" opacity="0.4" stroke="white" stroke-width="1"/>
+  <circle cx="27" cy="23" r="1.5" fill="#003DA5" opacity="0.6" stroke="white" stroke-width="1"/>
+  <circle cx="24" cy="27" r="1.8" fill="#003DA5" opacity="0.8" stroke="white" stroke-width="1"/>
+</svg>
