@@ -515,7 +515,14 @@ function buildScale(
 
   let domain: [number, number]
   if (field.domain) {
-    domain = field.domain
+    // Explicit domains still need breathing room so dots at the boundary
+    // aren't clipped by the clip rect. Convert max dot radius + stroke to
+    // data-space so padding scales with the axis pixel length — tighter on
+    // the wide X axis, more generous on the short Y axis.
+    const [lo, hi] = field.domain
+    const axisLen = axis === 'x' ? innerWidth : innerHeight
+    const pad = ((SIZE_RANGE[1] + 2) / axisLen) * (hi - lo)
+    domain = [lo - pad, hi + pad]
   } else {
     const values = points.map(accessor)
     const minObs = values.length > 0 ? Math.min(...values) : 0
