@@ -9,6 +9,7 @@ import { Overview } from '@/components/about/sections/Overview'
 import { PercentileSystems } from '@/components/about/sections/PercentileSystems'
 import { Scope } from '@/components/about/sections/Scope'
 import { SmallDepts } from '@/components/about/sections/SmallDepts'
+import { ScholarVsOpenalex } from '@/components/about/sections/ScholarVsOpenalex'
 import { Sources } from '@/components/about/sections/Sources'
 import { TierCaveats } from '@/components/about/sections/TierCaveats'
 
@@ -20,6 +21,7 @@ const TOC: ReadonlyArray<TocItem> = [
   { id: 'overview', label: 'Overview' },
   { id: 'scope', label: "Who's included" },
   { id: 'sources', label: 'Where the numbers come from' },
+  { id: 'scholar-vs-openalex', label: 'Google Scholar vs OpenAlex' },
   { id: 'percentile-systems', label: 'Two percentile systems' },
   { id: 'fwci', label: 'What FWCI is' },
   { id: 'field-tiers', label: 'Field tiers explained' },
@@ -48,6 +50,7 @@ function AboutPage() {
           <Overview />
           <Scope />
           <Sources />
+          <ScholarVsOpenalex />
           <PercentileSystems />
           <Fwci />
           <FieldTiers />

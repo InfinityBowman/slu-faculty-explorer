@@ -27,21 +27,22 @@ function SchoolsPage() {
       : 'Each dot is one faculty member · thick tick marks the median'
 
   return (
-    <main className="mx-auto max-w-[1400px] px-6 py-8">
+    <main className="mx-auto max-w-350 px-6 py-8">
       <div className="mb-6">
         <h2 className="text-[19px] leading-tight font-semibold tracking-tight">
           School strength
         </h2>
-        <p className="text-muted-foreground mt-1 max-w-[720px] text-[13px]">
-          SLU&apos;s nine schools ranked on a field-fair basis. Toggle between
-          global field h-index percentile (overall ranking) and FWCI (impact
-          per paper). Click a table row to see the department drill-down and
-          top faculty.
+        <p className="mt-1 max-w-180 text-[13px] text-muted-foreground">
+          Important to note that h-index scores are relative to a field. A high
+          h-index in one field might be average in another. Additionally, the
+          field chosen by OpenAlex for a given faculty member might not reflect
+          their actual research area, which can greatly skew percentile
+          rankings.
         </p>
       </div>
 
       {error ? (
-        <div className="border-destructive/30 bg-destructive/5 text-destructive rounded-md border px-4 py-3 text-sm">
+        <div className="rounded-md border border-destructive/30 bg-destructive/5 px-4 py-3 text-sm text-destructive">
           Failed to load faculty data: {error}
         </div>
       ) : null}
@@ -55,13 +56,13 @@ function SchoolsPage() {
 
       {data ? (
         <div className="space-y-8">
-          <section className="bg-card rounded-lg border">
+          <section className="rounded-lg border bg-card">
             <div className="flex flex-wrap items-start justify-between gap-3 border-b px-6 py-4">
               <div className="min-w-0">
                 <h3 className="text-sm font-medium tracking-tight">
                   {headerTitle}
                 </h3>
-                <p className="text-muted-foreground mt-0.5 text-xs">
+                <p className="mt-0.5 text-xs text-muted-foreground">
                   {headerSubtitle}
                 </p>
               </div>
@@ -76,15 +77,15 @@ function SchoolsPage() {
             </div>
           </section>
 
-          <section className="bg-card rounded-lg border">
+          <section className="rounded-lg border bg-card">
             <div className="flex items-baseline justify-between border-b px-6 py-4">
               <h3 className="text-sm font-medium tracking-tight">
                 All schools
-                <span className="text-muted-foreground tabular ml-2 font-normal">
+                <span className="tabular ml-2 font-normal text-muted-foreground">
                   {schools.length.toLocaleString()}
                 </span>
               </h3>
-              <p className="text-muted-foreground text-xs">
+              <p className="text-xs text-muted-foreground">
                 Click a row for departments and top faculty
               </p>
             </div>
@@ -103,17 +104,14 @@ interface MetricToggleProps {
 
 function MetricToggle({ value, onChange }: MetricToggleProps) {
   return (
-    <div className="bg-muted inline-flex h-9 items-center rounded-md border p-0.5">
+    <div className="inline-flex h-9 items-center rounded-md border bg-muted p-0.5">
       <ToggleButton
         active={value === 'fieldPercentile'}
         onClick={() => onChange('fieldPercentile')}
       >
         Field %
       </ToggleButton>
-      <ToggleButton
-        active={value === 'fwci'}
-        onClick={() => onChange('fwci')}
-      >
+      <ToggleButton active={value === 'fwci'} onClick={() => onChange('fwci')}>
         FWCI
       </ToggleButton>
     </div>

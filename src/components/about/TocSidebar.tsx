@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { cn } from '@/lib/utils'
 
 export interface TocItem {
@@ -41,13 +41,17 @@ export function TocSidebar({ items }: TocSidebarProps) {
   )
 }
 
-// Tracks which section heading is currently active in the viewport. The
-// rootMargin shrinks the "active" band so a section becomes active when its
-// heading crosses ~25% from the top — feels right at typical reading speeds.
+// Tracks which section is currently active in the viewport by maintaining a
+// persistent set of visible section IDs. IntersectionObserver callbacks only
+// include entries whose state *changed*, so we accumulate into a Set and pick
+// the topmost visible section on every callback.
 function useScrollSpy(ids: ReadonlyArray<string>): string | null {
   const [activeId, setActiveId] = useState<string | null>(ids[0] ?? null)
+  const visibleRef = useRef(new Set<string>())
 
   useEffect(() => {
+    visibleRef.current.clear()
+
     const elements = ids
       .map((id) => document.getElementById(id))
       .filter((el): el is HTMLElement => el != null)
@@ -56,15 +60,21 @@ function useScrollSpy(ids: ReadonlyArray<string>): string | null {
 
     const observer = new IntersectionObserver(
       (entries) => {
-        // Pick the topmost intersecting entry on each tick.
-        const visible = entries
-          .filter((e) => e.isIntersecting)
-          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)
-        if (visible.length > 0) {
-          setActiveId(visible[0].target.id)
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            visibleRef.current.add(entry.target.id)
+          } else {
+            visibleRef.current.delete(entry.target.id)
+          }
+        }
+
+        // Pick the first section (in document order) that is currently visible
+        const first = ids.find((id) => visibleRef.current.has(id))
+        if (first) {
+          setActiveId(first)
         }
       },
-      { rootMargin: '-25% 0px -65% 0px', threshold: 0 },
+      { rootMargin: '0px 0px -60% 0px', threshold: 0 },
     )
 
     elements.forEach((el) => observer.observe(el))

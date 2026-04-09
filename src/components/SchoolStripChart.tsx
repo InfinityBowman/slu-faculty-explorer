@@ -25,6 +25,7 @@ interface StripPoint {
   fieldPercentile: number | null
   fwci: number | null
   tier: HTier | null
+  openalexField: string | null
 }
 
 interface HoverState {
@@ -138,6 +139,7 @@ export function SchoolStripChart({
         fieldPercentile: f.fieldHPercentile,
         fwci: f.openalex2yrFwci,
         tier: f.primaryHTier,
+        openalexField: f.openalexField,
       })
     }
     return out
@@ -589,6 +591,11 @@ export function SchoolStripChart({
                 <div className="text-muted-foreground mt-0.5 text-[11px]">
                   {hover.point.department}
                 </div>
+                {hover.point.openalexField ? (
+                  <div className="text-muted-foreground mt-0.5 text-[10px] italic">
+                    Field: {hover.point.openalexField}
+                  </div>
+                ) : null}
                 <div className="mt-2 grid grid-cols-3 gap-2 border-t pt-2 text-[11px]">
                   {isFwci ? (
                     <FwciTooltipCell value={hover.point.fwci} primary />
