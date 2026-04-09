@@ -4,6 +4,8 @@ Interactive bibliometric dashboard for Saint Louis University's 519 active PhD f
 
 **Live:** [faculty.jacobmaynard.dev](https://faculty.jacobmaynard.dev)
 
+![SLU Faculty Research Explorer](public/screenshot.png)
+
 ## Features
 
 - **Explorer** -- Filterable scatter chart and sortable faculty table. Search by name, department, or research interests. Toggle between Scholar and OpenAlex metrics.

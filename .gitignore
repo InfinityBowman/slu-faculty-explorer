@@ -10,3 +10,10 @@ dist
 routeTree.gen.ts
 .tanstack/*
 .wrangler/
+
+# Pipeline intermediate files
+pipeline/__pycache__/
+pipeline/*.log
+pipeline/snapshots/
+pipeline/changes_*.csv
+pipeline/backup/

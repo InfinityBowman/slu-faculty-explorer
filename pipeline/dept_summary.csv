@@ -1,0 +1,62 @@
+school,department,n_faculty,n_with_scholar,n_with_openalex,median_h,mean_h,max_h,median_fwci,mean_fwci,median_works,total_scholar_citations,total_openalex_citations,noisy
+Chaifetz School of Business,Accounting,7,3,6,9,7.3,11,1.64,1.93,27,5257,4991,
+Chaifetz School of Business,Economics,6,5,5,7,7.6,11,0.51,0.51,38,3051,4868,
+Chaifetz School of Business,Finance,7,5,6,7,9.0,23,3.97,7.49,22,4622,3537,
+Chaifetz School of Business,International Business,5,4,4,8,15.0,40,1.83,2.04,24,8350,4317,
+Chaifetz School of Business,Management,10,6,6,27,25.2,39,1.00,1.29,78,35763,17501,
+Chaifetz School of Business,Marketing,6,4,4,16,18.2,28,2.00,1.98,25,22535,12210,
+Chaifetz School of Business,Office of the Dean,2,1,1,35,35.0,35,2.38,2.38,68,13811,3805,yes
+Chaifetz School of Business,Operations & Information Technology Management,8,6,4,8,8.8,17,1.12,1.12,30,6255,2166,
+College for Public Health and Social Justice,Behavioral Science and Health Equity,7,4,5,26,22.5,30,0.83,0.98,69,10660,10531,
+College for Public Health and Social Justice,Epidemiology and Biostatistics,12,7,9,32,39.3,72,1.43,2.42,93,56420,60955,
+College for Public Health and Social Justice,Health Management and Policy,8,1,8,29,29.0,29,1.34,1.67,98,5952,16167,
+College of Arts and Sciences,African American Studies,4,0,2,,,,1.91,1.91,36,,483,yes
+College of Arts and Sciences,American Studies,5,0,2,,,,,,28,,533,
+College of Arts and Sciences,Biology,32,13,25,22,22.3,39,1.86,3.09,33,34587,45177,
+College of Arts and Sciences,Communication,12,4,10,9,10.5,21,1.62,1.71,16,2958,2590,
+College of Arts and Sciences,English,21,5,13,10,10.8,18,0.50,0.50,28,5166,4586,
+College of Arts and Sciences,Health Care Ethics,6,2,5,6,6.0,8,2.06,2.06,26,398,1113,
+College of Arts and Sciences,History,19,1,13,9,9.0,9,0.82,0.82,36,334,1707,
+College of Arts and Sciences,"Linguistics, Literatures and Cultures",12,4,5,6,6.0,8,1.60,1.31,16,596,551,
+College of Arts and Sciences,Mathematics and Statistics,24,5,17,9,10.8,16,0.42,1.12,26,2090,4057,
+College of Arts and Sciences,Philosophy,22,8,17,15,20.1,48,1.00,1.78,33,22212,12930,
+College of Arts and Sciences,Political Science,13,5,10,10,10.2,13,0.83,0.78,31,2281,2267,
+College of Arts and Sciences,Psychology,27,5,23,28,26.0,45,0.79,1.14,47,21739,51504,
+College of Arts and Sciences,Sociology and Anthropology,14,5,9,6,6.8,10,1.00,1.45,35,2589,7114,
+College of Arts and Sciences,Theological Studies,22,2,11,7,7.0,10,0.42,0.40,32,806,859,
+College of Arts and Sciences,Visual and Performing Arts,4,0,2,,,,,,8,,64,yes
+College of Arts and Sciences,Women's and Gender Studies,5,2,4,11,11.0,20,0.33,0.33,15,1438,1303,
+College of Philosophy and Letters,,1,0,1,,,,,,2,,,yes
+College of Philosophy and Letters,Catholic Studies Program,2,0,1,,,,,,4,,2,yes
+College of Philosophy and Letters,Center for Ignatian Service,2,0,1,,,,,,22,,180,yes
+College of Philosophy and Letters,Systematic Theology,1,0,0,,,,,,,,,yes
+Doisy College of Health Sciences,Clinical Health Sciences,6,0,5,6,6.0,6,1.61,1.61,48,162,2375,
+Doisy College of Health Sciences,Nutrition and Dietetics,6,1,5,12,11.5,18,2.16,2.53,41,1344,1939,
+Doisy College of Health Sciences,Occupational Science and Occupational Therapy,5,0,4,6,6.0,6,0.94,1.37,36,138,2249,
+Doisy College of Health Sciences,Physical Therapy and Athletic Training,12,4,10,22,22.2,32,1.64,1.72,45,7344,7421,
+Doisy College of Health Sciences,"Speech, Language and Hearing Sciences",7,1,6,8,8.0,8,0.90,0.88,16,262,6245,
+School of Education,Educational Leadership,2,0,1,,,,0.67,0.67,3,,9,yes
+School of Education,Educational Studies,8,3,4,15,15.0,22,1.25,1.25,34,4861,2460,
+School of Education,Herrmann Center for Innovative Catholic Education,1,0,0,,,,,,,,,yes
+School of Education,Higher Education Administration,2,1,2,17,17.0,17,,,31,1319,519,yes
+School of Education,Higher Education Faculty,1,0,1,,,,,,1,,4,yes
+School of Education,Office of School and Community Partnerships,1,0,0,,,,,,,,,yes
+School of Education,Office of the Dean,3,0,2,,,,0.33,0.33,146,,1461,yes
+School of Education,Teacher Education,1,0,1,,,,,,1,,8,yes
+School of Education,Teacher Education Faculty,1,0,1,,,,,,10,,168,yes
+School of Science and Engineering,Aerospace and Mechanical Engineering,10,7,8,14,12.4,19,0.67,1.23,66,5468,3322,
+School of Science and Engineering,Aviation Science,3,1,3,6,6.0,6,1.00,1.00,14,123,147,yes
+School of Science and Engineering,Biomedical Engineering,8,4,6,22,26.0,49,2.08,1.88,55,15709,17629,
+School of Science and Engineering,Chemistry,28,10,19,24,28.2,57,1.44,1.63,76,34755,61360,
+School of Science and Engineering,Civil Engineering,5,3,4,16,17.0,22,2.07,2.60,67,3854,2875,
+School of Science and Engineering,Computer Science,16,13,11,16,18.8,51,1.61,2.56,51,36029,16503,
+School of Science and Engineering,"Earth, Environmental and Geospatial Sciences",13,7,7,27,31.7,51,2.00,1.91,60,35165,24636,
+School of Science and Engineering,Electrical and Computer Engineering,12,4,9,20,22.8,46,3.70,3.10,41,28594,24607,
+School of Science and Engineering,Office of the Dean,1,0,0,,,,,,24,,578,yes
+School of Social Work,Criminology and Criminal Justice,3,1,2,5,5.0,5,2.42,2.42,12,86,76,yes
+School of Social Work,Gerontology,1,1,1,16,16.0,16,2.00,2.00,94,2147,1914,yes
+School of Social Work,Office of the Dean,3,2,3,70,69.5,95,1.00,1.17,124,40573,30177,yes
+School of Social Work,Social Work Faculty,11,8,10,20,19.1,29,0.85,1.70,66,19835,15719,
+Trudy Busch Valentine School of Nursing,Administration,3,0,2,,,,0.50,2.48,27,,2817,yes
+Trudy Busch Valentine School of Nursing,Faculty,15,2,11,16,16.0,20,1.49,2.95,64,2138,10451,
+Trudy Busch Valentine School of Nursing,Program Option Coordinators and Directors,5,0,2,,,,,,12,,842,

@@ -154,9 +154,19 @@ function NavLink({
 
 function Footer() {
   return (
-    <footer className="mx-auto max-w-[1400px] px-6 py-8 text-xs text-muted-foreground">
-      Sources: Google Scholar &amp; OpenAlex ·{' '}
-      <span className="tabular">Saint Louis University</span>
+    <footer className="mx-auto flex max-w-[1400px] items-center justify-between px-6 py-8 text-xs text-muted-foreground">
+      <span>
+        Sources: Google Scholar &amp; OpenAlex ·{' '}
+        <span className="tabular">Saint Louis University</span>
+      </span>
+      <a
+        href="https://github.com/InfinityBowman/slu-faculty-explorer"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="transition-colors hover:text-foreground"
+      >
+        View on GitHub
+      </a>
     </footer>
   )
 }

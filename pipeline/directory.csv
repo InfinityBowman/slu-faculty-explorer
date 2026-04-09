@@ -1,0 +1,752 @@
+school,department,raw_name,norm_name,slu_url,is_madrid,is_emeritus,bio_h1,degree
+Chaifetz School of Business,(unknown),"Scott Duellman, Ph.D.",scott duellman,https://www.slu.edu/business/about/faculty/duellman-scott.php,False,False,,Ph.D.
+Chaifetz School of Business,(unknown),"Helen Hurwitz, Ph.D.",helen hurwitz,https://www.slu.edu/business/about/faculty/hurwitz-helen.php,False,False,,Ph.D.
+Chaifetz School of Business,(unknown),Neil Jansen,neil jansen,https://www.slu.edu/business/about/faculty/jansen-neil.php,False,False,"Neil Jansen, MPA, CPA",
+Chaifetz School of Business,(unknown),"Mindy Kim, Ph.D.",mindy kim,https://www.slu.edu/business/about/faculty/kim-mindy.php,False,False,,Ph.D.
+Chaifetz School of Business,(unknown),Debbie Pike,debbie pike,https://www.slu.edu/business/about/faculty/pike-debbie.php,False,False,"Debbie Pike, MBA",
+Chaifetz School of Business,(unknown),"Yan Sun, Ph.D.",yan sun,https://www.slu.edu/business/about/faculty/sun-yan.php,False,False,,Ph.D.
+Chaifetz School of Business,(unknown),"Weimin Wang, Ph.D.",weimin wang,https://www.slu.edu/business/about/faculty/wang-weimin.php,False,False,,Ph.D.
+Chaifetz School of Business,(unknown),"Xu (Frank) Wang, Ph.D.",xu wang,https://www.slu.edu/business/about/faculty/wang-xu-frank.php,False,False,,Ph.D.
+Chaifetz School of Business,(unknown),"Lei Zhao, Ph.D.",lei zhao,https://www.slu.edu/business/about/faculty/zhao-lei.php,False,False,,Ph.D.
+Chaifetz School of Business,Emeritus,"John Keithley, Ph.D.",john keithley,https://www.slu.edu/business/about/faculty/keithley-john.php,False,True,,Ph.D.
+Chaifetz School of Business,Emeritus,"Heather Bednarek, Ph.D.",heather bednarek,https://www.slu.edu/business/about/faculty/bednarek-heather.php,False,True,,Ph.D.
+Chaifetz School of Business,Emeritus,"Muhammad Islam, Ph.D.",muhammad islam,https://www.slu.edu/business/about/faculty/islam-muhammad.php,False,True,,Ph.D.
+Chaifetz School of Business,Emeritus,"Fei Jia, Ph.D.",fei jia,https://www.slu.edu/business/about/faculty/jia-fei.php,False,True,,Ph.D.
+Chaifetz School of Business,Emeritus,"Hailong Qian, Ph.D.",hailong qian,https://www.slu.edu/business/about/faculty/qian-hailong.php,False,True,,Ph.D.
+Chaifetz School of Business,Emeritus,David Sanders,david sanders,https://www.slu.edu/business/about/faculty/sanders-david.php,False,True,David Sanders,
+Chaifetz School of Business,Emeritus,"Fei Tan, Ph.D.",fei tan,https://www.slu.edu/business/about/faculty/tan-fei.php,False,True,,Ph.D.
+Chaifetz School of Business,Emeritus,"Bonnie Wilson, Ph.D.",bonnie wilson,https://www.slu.edu/business/about/faculty/wilson-bonnie.php,False,True,,Ph.D.
+Chaifetz School of Business,Emeritus,"Naresh Bansal, Ph.D.",naresh bansal,https://www.slu.edu/business/about/faculty/bansal-naresh.php,False,True,,Ph.D.
+Chaifetz School of Business,Emeritus,"Bidisha Chakrabarty, Ph.D.",bidisha chakrabarty,https://www.slu.edu/business/about/faculty/chakrabarty-bidisha.php,False,True,,Ph.D.
+Chaifetz School of Business,Emeritus,"Thomas Doellman, Ph.D.",thomas doellman,https://www.slu.edu/business/about/faculty/doellman-thomas.php,False,True,,Ph.D.
+Chaifetz School of Business,Emeritus,"Norman Guo, Ph.D.",norman guo,https://www.slu.edu/business/about/faculty/guo-norman.php,False,True,,Ph.D.
+Chaifetz School of Business,Emeritus,"Cathy Mai, Ph.D.",cathy mai,https://www.slu.edu/business/about/faculty/liuqing-mai.php,False,True,,Ph.D.
+Chaifetz School of Business,Emeritus,"Marcus Painter, Ph.D.",marcus painter,https://www.slu.edu/business/about/faculty/painter-marcus.php,False,True,,Ph.D.
+Chaifetz School of Business,Emeritus,"Olgun Sahin, Ph.D.",olgun sahin,https://www.slu.edu/business/about/faculty/sahin-olgun.php,False,True,,Ph.D.
+Chaifetz School of Business,Emeritus,"Ali Nasseh, Ph.D.",ali nasseh,https://www.slu.edu/business/about/faculty/nasseh-alireza.php,False,True,,Ph.D.
+Chaifetz School of Business,Emeritus,"Neil E. Seitz, Ph.D.",neil e seitz,https://www.slu.edu/business/about/faculty/seitz-neil.php,False,True,,Ph.D.
+Chaifetz School of Business,Emeritus,"Hadi Alhorr, Ph.D.",hadi alhorr,https://www.slu.edu/business/about/faculty/alhorr-hadi.php,False,True,,Ph.D.
+Chaifetz School of Business,Emeritus,"Mamoun Benmamoun, Ph.D.",mamoun benmamoun,https://www.slu.edu/business/about/faculty/benmamoun-mamoun.php,False,True,,Ph.D.
+Chaifetz School of Business,Emeritus,"Minjung Lee, Ph.D.",minjung lee,https://www.slu.edu/business/about/faculty/lee-minjung.php,False,True,,Ph.D.
+Chaifetz School of Business,Emeritus,"Dasol Sim, Ph.D.",dasol sim,https://www.slu.edu/business/about/faculty/sim-dasol.php,False,True,,Ph.D.
+Chaifetz School of Business,Emeritus,"Nitish Singh, Ph.D.",nitish singh,https://www.slu.edu/business/about/faculty/singh-nitish.php,False,True,,Ph.D.
+Chaifetz School of Business,Emeritus,"Seung Kim, Ph.D.",seung kim,https://www.slu.edu/business/about/faculty/kim-seung.php,False,True,,Ph.D.
+Chaifetz School of Business,Emeritus,"Hongxin Zhao, Ph.D.",hongxin zhao,https://www.slu.edu/business/about/faculty/zhao-hongxin.php,False,True,,Ph.D.
+Chaifetz School of Business,Emeritus,"Rob Boyle, Ph.D.",rob boyle,https://www.slu.edu/business/about/faculty/boyle-rob.php,False,True,,Ph.D.
+Chaifetz School of Business,Emeritus,"Toschia M. Hogan, Ph.D.",toschia m hogan,https://www.slu.edu/business/about/faculty/hogan-toschia.php,False,True,,Ph.D.
+Chaifetz School of Business,Emeritus,"Tracy James, J.D.",tracy james,https://www.slu.edu/business/about/faculty/james-tracy.php,False,True,,J.D.
+Chaifetz School of Business,Emeritus,"Anastasios Kaburakis, J.D., Ph.D.",anastasios kaburakis,https://www.slu.edu/business/about/faculty/kaburakis-anastasios.php,False,True,,Ph.D.
+Chaifetz School of Business,Emeritus,"David Kaplan, Ph.D.",david kaplan,https://www.slu.edu/business/about/faculty/kaplan-david.php,False,True,,Ph.D.
+Chaifetz School of Business,Emeritus,"Jerome Katz, Ph.D.",jerome katz,https://www.slu.edu/business/about/faculty/katz-jerome.php,False,True,,Ph.D.
+Chaifetz School of Business,Emeritus,"Elouise Mintz, Ph.D.",elouise mintz,https://www.slu.edu/business/about/faculty/mintz-elouise.php,False,True,,Ph.D.
+Chaifetz School of Business,Emeritus,"Fred Niederman, Ph.D.",fred niederman,https://www.slu.edu/business/about/faculty/niederman-fred.php,False,True,,Ph.D.
+Chaifetz School of Business,Emeritus,"Jintong Tang, Ph.D.",jintong tang,https://www.slu.edu/business/about/faculty/tang-jintong.php,False,True,,Ph.D.
+Chaifetz School of Business,Emeritus,"Christopher H. Thomas, Ph.D.",christopher h thomas,https://www.slu.edu/business/about/faculty/thomas-christopher.php,False,True,,Ph.D.
+Chaifetz School of Business,Emeritus,"Vincent Volpe, J.D.",vincent volpe,https://www.slu.edu/business/about/faculty/volpe-vincent.php,False,True,,J.D.
+Chaifetz School of Business,Emeritus,"Noni Zaharia, Ph.D.",noni zaharia,https://www.slu.edu/business/about/faculty/zaharia-noni.php,False,True,,Ph.D.
+Chaifetz School of Business,Emeritus,"Scott Safranski, Ph.D.",scott safranski,https://www.slu.edu/business/about/faculty/safranski-scott.php,False,True,,Ph.D.
+Chaifetz School of Business,Emeritus,"Michael Shaner, Ph.D.",michael shaner,https://www.slu.edu/business/about/faculty/shaner-michael.php,False,True,,Ph.D.
+Chaifetz School of Business,Emeritus,"Mark Arnold, Ph.D.",mark arnold,https://www.slu.edu/business/about/faculty/arnold-mark.php,False,True,,Ph.D.
+Chaifetz School of Business,Emeritus,"Brett Boyle, Ph.D.",brett boyle,https://www.slu.edu/business/about/faculty/boyle-brett.php,False,True,,Ph.D.
+Chaifetz School of Business,Emeritus,"Brad Carlson, Ph.D.",brad carlson,https://www.slu.edu/business/about/faculty/carlson-brad.php,False,True,,Ph.D.
+Chaifetz School of Business,Emeritus,"James Fisher, Ph.D.",james fisher,https://www.slu.edu/business/about/faculty/fisher-james.php,False,True,,Ph.D.
+Chaifetz School of Business,Emeritus,"Andrew Kaikati, Ph.D.",andrew kaikati,https://www.slu.edu/business/about/faculty/kaikati-andrew.php,False,True,,Ph.D.
+Chaifetz School of Business,Emeritus,"Katie Kelting, Ph.D.",katie kelting,https://www.slu.edu/business/about/faculty/kelting-katie.php,False,True,,Ph.D.
+Chaifetz School of Business,Emeritus,Jill Politte,jill politte,https://www.slu.edu/business/about/faculty/politte-jill.php,False,True,Jill Politte,
+Chaifetz School of Business,Emeritus,"Lyn Amine, Ph.D.",lyn amine,https://www.slu.edu/business/about/faculty/amine-lyn.php,False,True,,Ph.D.
+Chaifetz School of Business,Emeritus,"Paul Boughton, Ph.D.",paul boughton,https://www.slu.edu/business/about/faculty/boughton-paul.php,False,True,,Ph.D.
+Chaifetz School of Business,Emeritus,Stephen Miller,stephen miller,https://www.slu.edu/business/about/faculty/miller-stephen.php,False,True,"Stephen Miller, D.B.A., M.B.A., B.A.",
+Chaifetz School of Business,Emeritus,"Arun Pereira, Ph.D.",arun pereira,https://www.slu.edu/business/about/faculty/pereira-arun.php,False,True,,Ph.D.
+Chaifetz School of Business,Emeritus,"Palash Bera, Ph.D.",palash bera,https://www.slu.edu/business/about/faculty/bera-palash.php,False,True,,Ph.D.
+Chaifetz School of Business,Emeritus,"Sherri Xiaorui Cheng, Ph.D.",sherri xiaorui cheng,https://www.slu.edu/business/about/faculty/hu-xiaorui.php,False,True,,Ph.D.
+Chaifetz School of Business,Emeritus,"Deepika Gopukumar, Ph.D.",deepika gopukumar,https://www.slu.edu/business/about/faculty/gopukumar-deepika.php,False,True,,Ph.D.
+Chaifetz School of Business,Emeritus,"Abhimanyu Gupta, Ph.D.",abhimanyu gupta,https://www.slu.edu/business/about/faculty/gupta-abhimanyu.php,False,True,,Ph.D.
+Chaifetz School of Business,Emeritus,"Justin Goodson, Ph.D.",justin goodson,https://www.slu.edu/business/about/faculty/goodson-justin.php,False,True,,Ph.D.
+Chaifetz School of Business,Emeritus,Tracy Granneman,tracy granneman,https://www.slu.edu/business/about/faculty/granneman-tracy.php,False,True,Tracy Granneman,
+Chaifetz School of Business,Emeritus,Kerry Guilliams,kerry guillia,https://www.slu.edu/business/about/faculty/guilliams-kerry.php,False,True,"Kerry Guilliams, MBA",
+Chaifetz School of Business,Emeritus,"Sandip Kumar Sarkar, Ph.D.",sandip kumar sarkar,https://www.slu.edu/business/about/faculty/sandip-kumar-sarkar.php,False,True,,Ph.D.
+Chaifetz School of Business,Emeritus,Vineet Sharma,vineet shar,https://www.slu.edu/business/about/faculty/vineet-sharma.php,False,True,Vineet Sharma,
+Chaifetz School of Business,Emeritus,"Xiao Zhang, Ph.D.",xiao zhang,https://www.slu.edu/business/about/faculty/zhang-xiao.php,False,True,,Ph.D.
+Chaifetz School of Business,Emeritus,"Tiancheng Zhao, Ph.D.",tiancheng zhao,https://www.slu.edu/business/about/faculty/zhao-tiancheng.php,False,True,,Ph.D.
+Chaifetz School of Business,Emeritus,"Mark Ferris, Ph.D.",mark ferris,https://www.slu.edu/business/about/faculty/ferris-mark.php,False,True,,Ph.D.
+Chaifetz School of Business,Emeritus,"No Kyoon Kwak, Ph.D.",no kyoon kwak,https://www.slu.edu/business/about/faculty/kwak-nokyoon.php,False,True,,Ph.D.
+College for Public Health and Social Justice,Office of the Dean,"Leslie McClure, Ph.D.",leslie mcclure,https://www.slu.edu/public-health-social-justice/faculty/leslie-mcclure.php,False,False,,Ph.D.
+College for Public Health and Social Justice,Office of the Dean,"Kelly Lane-deGraaf, Ph.D.",kelly lane-degraaf,https://www.slu.edu/public-health-social-justice/faculty/lane-degraaf-kelly.php,False,False,,Ph.D.
+College for Public Health and Social Justice,Office of the Dean,"Enbal Shacham, Ph.D.",enbal shacham,https://www.slu.edu/public-health-social-justice/faculty/shacham-enbal.php,False,False,,Ph.D.
+College for Public Health and Social Justice,Department of Behavioral Science and Health Equity,"Anne K. Sebert Kuhlmann, Ph.D.",anne k sebert kuhlmann,https://www.slu.edu/public-health-social-justice/faculty/sebert-kuhlmann-anne.php,False,False,,Ph.D.
+College for Public Health and Social Justice,Department of Behavioral Science and Health Equity,"Elizabeth Baker, Ph.D.",elizabeth baker,https://www.slu.edu/public-health-social-justice/faculty/baker-elizabeth.php,False,False,,Ph.D.
+College for Public Health and Social Justice,Department of Behavioral Science and Health Equity,"Sam Biver, M.P.H.",sam biver,https://www.slu.edu/public-health-social-justice/faculty/sam-biver.php,False,False,"Sam Biver, M.P.H.",
+College for Public Health and Social Justice,Department of Behavioral Science and Health Equity,"Darleesa Doss, Ph.D.",darleesa doss,https://www.slu.edu/public-health-social-justice/faculty/darleesa-doss.php,False,False,,Ph.D.
+College for Public Health and Social Justice,Department of Behavioral Science and Health Equity,"Keon L. Gilbert, Dr.PH.",keon l gilbert,https://www.slu.edu/public-health-social-justice/faculty/gilbert-keon.php,False,False,,Dr.PH
+College for Public Health and Social Justice,Department of Behavioral Science and Health Equity,"Qiang Pu, Ph.D.",qiang pu,https://www.slu.edu/public-health-social-justice/faculty/pu-qiang.php,False,False,,Ph.D.
+College for Public Health and Social Justice,Department of Behavioral Science and Health Equity,"Nancy L. Weaver, Ph.D.",nancy l weaver,https://www.slu.edu/public-health-social-justice/faculty/weaver-nancy.php,False,False,,Ph.D.
+College for Public Health and Social Justice,Department of Behavioral Science and Health Equity,"Ricardo J. Wray, Ph.D.",ricardo j wray,https://www.slu.edu/public-health-social-justice/faculty/wray-ricardo.php,False,False,,Ph.D.
+College for Public Health and Social Justice,Department of Epidemiology and Biostatistics,"Michael Elliott, Ph.D.",michael elliott,https://www.slu.edu/public-health-social-justice/faculty/elliot-michael.php,False,False,,Ph.D.
+College for Public Health and Social Justice,Department of Epidemiology and Biostatistics,"Katherine A. Stamatakis, Ph.D.",katherine a stamatakis,https://www.slu.edu/public-health-social-justice/faculty/stamatakis-katherine.php,False,False,,Ph.D.
+College for Public Health and Social Justice,Department of Epidemiology and Biostatistics,"Lauren D. Arnold, Ph.D.",lauren d arnold,https://www.slu.edu/public-health-social-justice/faculty/arnold-lauren.php,False,False,,Ph.D.
+College for Public Health and Social Justice,Department of Epidemiology and Biostatistics,"Steven E. Rigdon, Ph.D.",steven e rigdon,https://www.slu.edu/public-health-social-justice/faculty/rigdon-steven.php,False,False,,Ph.D.
+College for Public Health and Social Justice,Department of Epidemiology and Biostatistics,"Kelly Ayres, M.S.",kelly ayres,https://www.slu.edu/public-health-social-justice/faculty/ayres-kelly.php,False,False,"Kelly Ann Ayres, M.S.",
+College for Public Health and Social Justice,Department of Epidemiology and Biostatistics,"Jen Jen Chang, Ph.D.",jen jen chang,https://www.slu.edu/public-health-social-justice/faculty/chang-jenjen.php,False,False,,Ph.D.
+College for Public Health and Social Justice,Department of Epidemiology and Biostatistics,"Kenan Li, Ph.D.",kenan li,https://www.slu.edu/public-health-social-justice/faculty/li-kenan.php,False,False,,Ph.D.
+College for Public Health and Social Justice,Department of Epidemiology and Biostatistics,"Travis Loux, Ph.D.",travis loux,https://www.slu.edu/public-health-social-justice/faculty/loux-travis.php,False,False,,Ph.D.
+College for Public Health and Social Justice,Department of Epidemiology and Biostatistics,"Zhengmin Qian, Ph.D., M.D.",zhengmin qian,https://www.slu.edu/public-health-social-justice/faculty/qian-zhegmin.php,False,False,,Ph.D.
+College for Public Health and Social Justice,Department of Epidemiology and Biostatistics,"Mintesnot T. Teni, Ph.D.",mintesnot t teni,https://www.slu.edu/public-health-social-justice/faculty/mintesnot-teni.php,False,False,,Ph.D.
+College for Public Health and Social Justice,Department of Epidemiology and Biostatistics,"Hong Xian, Ph.D.",hong xian,https://www.slu.edu/public-health-social-justice/faculty/xian-hong.php,False,False,,Ph.D.
+College for Public Health and Social Justice,Department of Health Management and Policy,"Kimberly R. Enard, Ph.D.",kimberly r enard,https://www.slu.edu/public-health-social-justice/faculty/enard-kimberly.php,False,False,,Ph.D.
+College for Public Health and Social Justice,Department of Health Management and Policy,"Marcea Walter, M.S.H.A.",marcea walterh a,https://www.slu.edu/public-health-social-justice/faculty/walter-marcea.php,False,False,Marcea Walter,
+College for Public Health and Social Justice,Department of Health Management and Policy,"Echu Liu, Ph.D.",echu liu,https://www.slu.edu/public-health-social-justice/faculty/liu-echu.php,False,False,,Ph.D.
+College for Public Health and Social Justice,Department of Health Management and Policy,"SangNam Ahn, Ph.D.",sangnam ahn,https://www.slu.edu/public-health-social-justice/faculty/ahn-sangnam.php,False,False,,Ph.D.
+College for Public Health and Social Justice,Department of Health Management and Policy,"Thomas E. Burroughs, Ph.D.",thomas e burroughs,https://www.slu.edu/public-health-social-justice/faculty/burroughs-thomas.php,False,False,,Ph.D.
+College for Public Health and Social Justice,Department of Health Management and Policy,"Mark Gaynor, Ph.D.",mark gaynor,https://www.slu.edu/public-health-social-justice/faculty/gaynor-mark.php,False,False,,Ph.D.
+College for Public Health and Social Justice,Department of Health Management and Policy,"Kathleen N. Gillespie, Ph.D.",kathleen n gillespie,https://www.slu.edu/public-health-social-justice/faculty/gillespie-kathleen.php,False,False,,Ph.D.
+College for Public Health and Social Justice,Department of Health Management and Policy,"Xiaoyu Liu, Ph.D.",xiaoyu liu,https://www.slu.edu/public-health-social-justice/faculty/xiaoyu-liu.php,False,False,,Ph.D.
+College for Public Health and Social Justice,Department of Health Management and Policy,"Cheryl Rathert, Ph.D.",cheryl rathert,https://www.slu.edu/public-health-social-justice/faculty/rathert-cheryl.php,False,False,,Ph.D.
+College for Public Health and Social Justice,Department of Health Management and Policy,"Jake T. Redden, DHSc",jake t redden,https://www.slu.edu/public-health-social-justice/faculty/jake-redden.php,False,False,,DHSc
+School of Social Work,Office of the Dean,"Noelle Fearn, Ph.D.",noelle fearn,https://www.slu.edu/social-work/faculty/fearn-noelle.php,False,False,,Ph.D.
+School of Social Work,Office of the Dean,"Brandy Maynard, Ph.D.",brandy maynard,https://www.slu.edu/social-work/faculty/maynard-brandy.php,False,False,,Ph.D.
+School of Social Work,Office of the Dean,"Michael Vaughn, Ph.D.",michael vaughn,https://www.slu.edu/social-work/faculty/vaughn-michael-1.php,False,False,,Ph.D.
+School of Social Work,Social Work Faculty,"Julie Birkenmaier, Ph.D.",julie birkenmaier,https://www.slu.edu/social-work/faculty/birkenmaier-julie.php,False,False,,Ph.D.
+School of Social Work,Social Work Faculty,Laurie Brockhaus,laurie brockhaus,https://www.slu.edu/social-work/faculty/laurie-brockhaus.php,False,False,"Laurie Brockhaus, MSW, LCSW",
+School of Social Work,Social Work Faculty,"Jun-Hong Chen, Ph.D.",jun-hong chen,https://www.slu.edu/social-work/faculty/jun-hong-chen.php,False,False,,Ph.D.
+School of Social Work,Social Work Faculty,"Shannon Cooper-Sadlo, Ph.D.",shannon cooper-sadlo,https://www.slu.edu/social-work/faculty/cooper-sadlo-shannon.php,False,False,,Ph.D.
+School of Social Work,Social Work Faculty,Rachel Crowe,rachel crowe,https://www.slu.edu/social-work/faculty/crowe-rachel.php,False,False,"Rachel  Crowe, M.S.W., LCSW",
+School of Social Work,Social Work Faculty,"Wendy DuCassé, D.S.W.",wendy ducass,https://www.slu.edu/social-work/faculty/wendy-ducasse.php,False,False,,D.S.W.
+School of Social Work,Social Work Faculty,"Allison Gibson, Ph.D.",allison gibson,https://www.slu.edu/social-work/faculty/allison-gibson.php,False,False,,Ph.D.
+School of Social Work,Social Work Faculty,"Jesse J. Helton, Ph.D.",jesse j helton,https://www.slu.edu/social-work/faculty/helton-jesse.php,False,False,,Ph.D.
+School of Social Work,Social Work Faculty,"Michael Mancini, Ph.D.",michael mancini,https://www.slu.edu/social-work/faculty/mancini-michael.php,False,False,,Ph.D.
+School of Social Work,Social Work Faculty,"Monica Matthieu, Ph.D.",monica matthieu,https://www.slu.edu/social-work/faculty/matthieu-monica.php,False,False,,Ph.D.
+School of Social Work,Social Work Faculty,"Maria Morrison, Ph.D.",maria morrison,https://www.slu.edu/social-work/faculty/maria-morrison.php,False,False,,Ph.D.
+School of Social Work,Social Work Faculty,"Stephen Edward McMillin, Ph.D.",stephen edward mcmillin,https://www.slu.edu/social-work/faculty/mcmillin-stephen.php,False,False,,Ph.D.
+School of Social Work,Social Work Faculty,"Vithya Murugan, Ph.D.",vithya murugan,https://www.slu.edu/social-work/faculty/murugan-vithya.php,False,False,,Ph.D.
+School of Social Work,Social Work Faculty,Kristi Richter,kristi richter,https://www.slu.edu/social-work/faculty/richter-kristi.php,False,False,"Kristi S. Richter, M.S.W., LCSW, CDFT",
+School of Social Work,Social Work Faculty,"Sabrina W. Tyuse, Ph.D.",sabrina w tyuse,https://www.slu.edu/social-work/faculty/tyuse-sabrina.php,False,False,,Ph.D.
+School of Social Work,Criminology and Criminal Justice Faculty,"Popy Begum, Ph.D.",popy begum,https://www.slu.edu/social-work/faculty/popy-begum.php,False,False,,Ph.D.
+School of Social Work,Criminology and Criminal Justice Faculty,Kenya Brumfield-Young,kenya brumfield-young,https://www.slu.edu/social-work/faculty/brumfield-young-kenya.php,False,False,"Kenya Brumfield-Young, M.L.S., M.S.C.J.",
+School of Social Work,Criminology and Criminal Justice Faculty,"Dyan McGuire, Ph.D.",dyan mcguire,https://www.slu.edu/social-work/faculty/dyan-mcguire.php,False,False,,Ph.D.
+School of Social Work,Criminology and Criminal Justice Faculty,"Joe Zlatic, Ph.D.",joe zlatic,https://www.slu.edu/social-work/faculty/joe-zlatic.php,False,False,,Ph.D.
+School of Social Work,Applied Behavior Analysis Faculty,Heather Lewis,heather lewis,https://www.slu.edu/social-work/faculty/lewis-heather.php,False,False,"Heather Lewis, M.S.W., Ed.S., BCBA",
+School of Social Work,Gerontology Faculty,"Cara Wallace, Ph.D.",cara wallace,https://www.slu.edu/nursing/faculty/cara-wallace.php,False,False,,Ph.D.
+School of Science and Engineering,Office of the Dean,"Jenna Gorlewicz, Ph.D.",jenna gorlewicz,https://www.slu.edu/science-and-engineering/academics/aerospace-and-mechanical-engineering/faculty/gorlewicz-jenna.php,False,False,,Ph.D.
+School of Science and Engineering,Office of the Dean,"Scott Sell, Ph.D.",scott sell,https://www.slu.edu/science-and-engineering/academics/biomedical-engineering/faculty/sell-scott.php,False,False,,Ph.D.
+School of Science and Engineering,Office of the Dean,"Scott Martin, Ph.D.",scott martin,https://www.slu.edu/science-and-engineering/academics/chemistry/faculty/r-scott-martin.php,False,False,,Ph.D.
+School of Science and Engineering,Office of the Dean,"Stephen Belt, Ph.D.",stephen belt,https://www.slu.edu/science-and-engineering/academics/parks-aviation-science/faculty/belt-stephen.php,False,False,,Ph.D.
+School of Science and Engineering,Office of the Dean,"Gary Bledsoe, Ph.D.",gary bledsoe,https://www.slu.edu/science-and-engineering/academics/biomedical-engineering/faculty/bledsoe-gary.php,False,False,,Ph.D.
+School of Science and Engineering,Office of the Dean,"Alexei Demchenko, Ph.D.",alexei demchenko,https://www.slu.edu/science-and-engineering/academics/chemistry/faculty/alexei-demchenko.php,False,False,,Ph.D.
+School of Science and Engineering,Office of the Dean,"Jalil Kianfar, Ph.D.",jalil kianfar,https://www.slu.edu/science-and-engineering/academics/civil-engineering/faculty/kianfar-jalil.php,False,False,,Ph.D.
+School of Science and Engineering,Office of the Dean,"Linda Warren, Ph.D.",linda warren,https://www.slu.edu/science-and-engineering/academics/earth-environmental-geospatial-science/faculty/warren-linda.php,False,False,,Ph.D.
+School of Science and Engineering,Office of the Dean,"Asmira Alagic, Ph.D.",asmira alagic,https://www.slu.edu/science-and-engineering/academics/chemistry/faculty/asmira-alagic.php,False,False,,Ph.D.
+School of Science and Engineering,Office of the Dean,Our Commonality,our commonality,https://www.slu.edu/science-and-engineering/about/sse-commonality.php,False,False,Our Commonality,
+School of Science and Engineering,Office of the Dean,Sinquefield Science and Engineering Center,sinquefield science and engineering center,https://www.slu.edu/science-and-engineering/about/facilities/sinquefield-science-and-engineering-center.php,False,False,Sinquefield Science and Engineering Center,
+School of Science and Engineering,Office of the Dean,Industry Partners,industry partners,https://www.slu.edu/science-and-engineering/about/industry-partners.php,False,False,Industry Partners,
+School of Science and Engineering,Office of the Dean,Billiken BEAMS,billiken bea,https://www.slu.edu/science-and-engineering/about/pre-college-programs/billiken-beams.php,False,False,Billiken BEAMS,
+School of Science and Engineering,Office of the Dean,Project Lead the Way,project lead the way,https://www.slu.edu/science-and-engineering/about/pre-college-programs/project-lead-the-way.php,False,False,Project Lead the Way,
+School of Science and Engineering,Office of the Dean,SSE Faculty Governance,sse faculty governance,https://www.slu.edu/science-and-engineering/about/sse-faculty-council/sse-faculty-council-governance.php,False,False,SSE Faculty Council Governance,
+School of Science and Engineering,Office of the Dean,SSE Council Members,sse council members,https://www.slu.edu/science-and-engineering/about/sse-faculty-council/sse-faculty-council-members.php,False,False,SSE Faculty Council Members,
+School of Science and Engineering,Office of the Dean,"Jenna Gorlewicz, Ph.D.",jenna gorlewicz,https://www.slu.edu/science-and-engineering/academics/aerospace-and-mechanical-engineering/faculty/gorlewicz-jenna.php,False,False,,Ph.D.
+School of Science and Engineering,Office of the Dean,"Scott Sell, Ph.D.",scott sell,https://www.slu.edu/science-and-engineering/academics/biomedical-engineering/faculty/sell-scott.php,False,False,,Ph.D.
+School of Science and Engineering,Office of the Dean,"Scott Martin, Ph.D.",scott martin,https://www.slu.edu/science-and-engineering/academics/chemistry/faculty/r-scott-martin.php,False,False,,Ph.D.
+School of Science and Engineering,Aerospace and Mechanical Engineering,"Jenna Gorlewicz, Ph.D.",jenna gorlewicz,https://www.slu.edu/science-and-engineering/academics/aerospace-and-mechanical-engineering/faculty/gorlewicz-jenna.php,False,False,,Ph.D.
+School of Science and Engineering,Aerospace and Mechanical Engineering,"Michael Swartwout, Ph.D.",michael swartwout,https://www.slu.edu/science-and-engineering/academics/aerospace-and-mechanical-engineering/faculty/swartwout-michael.php,False,False,,Ph.D.
+School of Science and Engineering,Aerospace and Mechanical Engineering,"Theodosios Alexander, Sc.D.",theodosios alexander sc d,https://www.slu.edu/science-and-engineering/academics/aerospace-and-mechanical-engineering/faculty/alexander-theodosios.php,False,False,,Sc.D.
+School of Science and Engineering,Aerospace and Mechanical Engineering,"Madi Babaiasl, Ph.D.",madi babaiasl,https://www.slu.edu/science-and-engineering/academics/aerospace-and-mechanical-engineering/faculty/babaiasl-madi.php,False,False,,Ph.D.
+School of Science and Engineering,Aerospace and Mechanical Engineering,"Sridhar Condoor, Ph.D.",sridhar condoor,https://www.slu.edu/science-and-engineering/academics/aerospace-and-mechanical-engineering/faculty/condoor-sridhar.php,False,False,,Ph.D.
+School of Science and Engineering,Aerospace and Mechanical Engineering,"Srikanth Gururajan, Ph.D.",srikanth gururajan,https://www.slu.edu/science-and-engineering/academics/aerospace-and-mechanical-engineering/faculty/gururajan-srikanth.php,False,False,,Ph.D.
+School of Science and Engineering,Aerospace and Mechanical Engineering,"Sanjay Jayaram, Ph.D.",sanjay jayaram,https://www.slu.edu/science-and-engineering/academics/aerospace-and-mechanical-engineering/faculty/jayaram-sanjay.php,False,False,,Ph.D.
+School of Science and Engineering,Aerospace and Mechanical Engineering,"Ray LeBeau, Ph.D.",ray lebeau,https://www.slu.edu/science-and-engineering/academics/aerospace-and-mechanical-engineering/faculty/lebeau-ray.php,False,False,,Ph.D.
+School of Science and Engineering,Aerospace and Mechanical Engineering,"Danahe Marmolejo, Ph.D.",danahe marmolejo,https://www.slu.edu/science-and-engineering/academics/aerospace-and-mechanical-engineering/faculty/danahe-marmolejo.php,False,False,,Ph.D.
+School of Science and Engineering,Aerospace and Mechanical Engineering,"Mark McQuilling, Ph.D.",mark mcquilling,https://www.slu.edu/science-and-engineering/academics/aerospace-and-mechanical-engineering/faculty/mcquilling-mark.php,False,False,,Ph.D.
+School of Science and Engineering,Aerospace and Mechanical Engineering,"Susheel Singh, Ph.D.",susheel singh,https://www.slu.edu/science-and-engineering/academics/aerospace-and-mechanical-engineering/faculty/singh-susheel.php,False,False,,Ph.D.
+School of Science and Engineering,Aviation Science,"Stephen Belt, Ph.D.",stephen belt,https://www.slu.edu/science-and-engineering/academics/parks-aviation-science/faculty/belt-stephen.php,False,False,,Ph.D.
+School of Science and Engineering,Aviation Science,"Luigi Raphael Dy, Ph.D.",luigi raphael dy,https://www.slu.edu/science-and-engineering/academics/parks-aviation-science/faculty/dy-luigi.php,False,False,,Ph.D.
+School of Science and Engineering,Aviation Science,Stephen Magoc,stephen magoc,https://www.slu.edu/science-and-engineering/academics/parks-aviation-science/faculty/magoc-stephen.php,False,False,"Stephen Magoc, MBA",
+School of Science and Engineering,Aviation Science,"Gajapriya Tamilselvan, Ph.D.",gajapriya tamilselvan,https://www.slu.edu/science-and-engineering/academics/parks-aviation-science/faculty/tamilselvan-gajapriya.php,False,False,,Ph.D.
+School of Science and Engineering,Aviation Science,Jack Schwarz,jack schwarz,https://www.slu.edu/science-and-engineering/academics/parks-aviation-science/faculty/schwarz-jack.php,False,False,Jack Schwarz,
+School of Science and Engineering,Aviation Science,Ryan Boyer,ryan boyer,https://www.slu.edu/science-and-engineering/academics/parks-aviation-science/faculty/boyer-ryan.php,False,False,"Ryan Boyer, MBA",
+School of Science and Engineering,Aviation Science,David Chilenski,david chilenski,https://www.slu.edu/science-and-engineering/academics/parks-aviation-science/faculty/chilenski-david.php,False,False,David Chilenski,
+School of Science and Engineering,Aviation Science,Donny Schmidt,donny schmidt,https://www.slu.edu/science-and-engineering/academics/parks-aviation-science/faculty/schmidt-donny.php,False,False,Donny Schmidt,
+School of Science and Engineering,Biomedical Engineering,"Gary Bledsoe, Ph.D.",gary bledsoe,https://www.slu.edu/science-and-engineering/academics/biomedical-engineering/faculty/bledsoe-gary.php,False,False,,Ph.D.
+School of Science and Engineering,Biomedical Engineering,"Silviya Zustiak, Ph.D.",silviya zustiak,https://www.slu.edu/science-and-engineering/academics/biomedical-engineering/faculty/zustiak-silviya.php,False,False,,Ph.D.
+School of Science and Engineering,Biomedical Engineering,"Natasha Case, Ph.D.",natasha case,https://www.slu.edu/science-and-engineering/academics/biomedical-engineering/faculty/case-natasha.php,False,False,,Ph.D.
+School of Science and Engineering,Biomedical Engineering,"Marta Cooperstein, Ph.D.",marta cooperstein,https://www.slu.edu/science-and-engineering/academics/biomedical-engineering/faculty/cooperstein-marta.php,False,False,,Ph.D.
+School of Science and Engineering,Biomedical Engineering,"Yan Gai, Ph.D.",yan gai,https://www.slu.edu/science-and-engineering/academics/biomedical-engineering/faculty/gai-yan.php,False,False,,Ph.D.
+School of Science and Engineering,Biomedical Engineering,"Koyal Garg, Ph.D.",koyal garg,https://www.slu.edu/science-and-engineering/academics/biomedical-engineering/faculty/garg-koyal.php,False,False,,Ph.D.
+School of Science and Engineering,Biomedical Engineering,"Alex Reiter, Ph.D.",alex reiter,https://www.slu.edu/science-and-engineering/academics/biomedical-engineering/faculty/reiter-alex.php,False,False,,Ph.D.
+School of Science and Engineering,Biomedical Engineering,"Scott Sell, Ph.D.",scott sell,https://www.slu.edu/science-and-engineering/academics/biomedical-engineering/faculty/sell-scott.php,False,False,,Ph.D.
+School of Science and Engineering,Biomedical Engineering,Jenna Gorlewicz - Mechanical,jenna gorlewicz - mechanical,https://www.slu.edu/science-and-engineering/academics/aerospace-and-mechanical-engineering/faculty/gorlewicz-jenna.php,False,False,"Jenna Gorlewicz, Ph.D.",Ph.D.
+School of Science and Engineering,Biomedical Engineering,Irma Kuljanishvili - Physics,ir kuljanishvili - physics,https://www.slu.edu/science-and-engineering/academics/electrical-and-computer-engineering/faculty/kuljanishvili-irma.php,False,False,"Irma Kuljanishvili, Ph.D.",Ph.D.
+School of Science and Engineering,Biomedical Engineering,"Andrew Hall, D.Sc.",andrew hall d sc,https://www.slu.edu/science-and-engineering/academics/biomedical-engineering/faculty/hall-andrew.php,False,True,"Andrew Hall, D.Sc.",
+School of Science and Engineering,Chemistry,"Alexei Demchenko, Ph.D.",alexei demchenko,https://www.slu.edu/science-and-engineering/academics/chemistry/faculty/alexei-demchenko.php,False,False,,Ph.D.
+School of Science and Engineering,Chemistry,"Asmira Alagic, Ph.D.",asmira alagic,https://www.slu.edu/science-and-engineering/academics/chemistry/faculty/asmira-alagic.php,False,False,,Ph.D.
+School of Science and Engineering,Chemistry,"Christopher Arnatt, Ph.D.",christopher arnatt,https://www.slu.edu/science-and-engineering/academics/chemistry/faculty/christopher-arnatt.php,False,False,,Ph.D.
+School of Science and Engineering,Chemistry,"Dana A. Baum, Ph.D.",dana a baum,https://www.slu.edu/science-and-engineering/academics/chemistry/faculty/dana-baum.php,False,False,,Ph.D.
+School of Science and Engineering,Chemistry,"Paul J. Bracher, Ph.D.",paul j bracher,https://www.slu.edu/science-and-engineering/academics/chemistry/faculty/paul-bracher.php,False,False,,Ph.D.
+School of Science and Engineering,Chemistry,"Steven Buckner, Ph.D.",steven buckner,https://www.slu.edu/science-and-engineering/academics/chemistry/faculty/steven-buckner.php,False,False,,Ph.D.
+School of Science and Engineering,Chemistry,"Sara Drenkhahn-Weinaug, Ph.D.",sara drenkhahn-weinaug,https://www.slu.edu/science-and-engineering/academics/chemistry/faculty/sara-drenkhahn-weinaug.php,False,False,,Ph.D.
+School of Science and Engineering,Chemistry,"James L. Edwards, Ph.D.",james l edwards,https://www.slu.edu/science-and-engineering/academics/chemistry/faculty/james-edwards.php,False,False,,Ph.D.
+School of Science and Engineering,Chemistry,"Michael Hankins, Ph.D.",michael hankins,https://www.slu.edu/science-and-engineering/academics/chemistry/faculty/michael-hankins.php,False,False,,Ph.D.
+School of Science and Engineering,Chemistry,"Paul A. Jelliss, Ph.D.",paul a jelliss,https://www.slu.edu/science-and-engineering/academics/chemistry/faculty/paul-jelliss.php,False,False,,Ph.D.
+School of Science and Engineering,Chemistry,"Malkanthi Karunananda, Ph.D.",malkanthi karunananda,https://www.slu.edu/science-and-engineering/academics/chemistry/faculty/malkanthi-karunananda.php,False,False,,Ph.D.
+School of Science and Engineering,Chemistry,"Ajith Karunarathne, Ph.D.",ajith karunarathne,https://www.slu.edu/science-and-engineering/academics/chemistry/faculty/ajith-karunarathne.php,False,False,,Ph.D.
+School of Science and Engineering,Chemistry,"Istvan Z. Kiss, Ph.D.",istvan z kiss,https://www.slu.edu/science-and-engineering/academics/chemistry/faculty/istvan-kiss.php,False,False,,Ph.D.
+School of Science and Engineering,Chemistry,"Michael Lewis, Ph.D.",michael lewis,https://www.slu.edu/science-and-engineering/academics/chemistry/faculty/michael-lewis.php,False,False,,Ph.D.
+School of Science and Engineering,Chemistry,"Piotr Mak, Ph.D.",piotr mak,https://www.slu.edu/science-and-engineering/academics/chemistry/faculty/mak-piotr.php,False,False,,Ph.D.
+School of Science and Engineering,Chemistry,"R. Scott Martin, Ph.D.",r scott martin,https://www.slu.edu/science-and-engineering/academics/chemistry/faculty/r-scott-martin.php,False,False,,Ph.D.
+School of Science and Engineering,Chemistry,"Ryan McCulla, Ph.D.",ryan mcculla,https://www.slu.edu/science-and-engineering/academics/chemistry/faculty/ryan-mcculla.php,False,False,,Ph.D.
+School of Science and Engineering,Chemistry,"Marvin Meyers, Ph.D.",marvin meyers,https://www.slu.edu/science-and-engineering/academics/chemistry/faculty/marvin-meyers.php,False,False,,Ph.D.
+School of Science and Engineering,Chemistry,"Jennifer Monahan, Ph.D.",jennifer monahan,https://www.slu.edu/science-and-engineering/academics/chemistry/faculty/jennifer-monahan.php,False,False,,Ph.D.
+School of Science and Engineering,Chemistry,"Jamie Neely, Ph.D.",jamie neely,https://www.slu.edu/science-and-engineering/academics/chemistry/faculty/neely-jamie.php,False,False,,Ph.D.
+School of Science and Engineering,Chemistry,"Damon Osbourn, Ph.D.",damon osbourn,https://www.slu.edu/science-and-engineering/academics/chemistry/faculty/damon-osbourn.php,False,False,,Ph.D.
+School of Science and Engineering,Chemistry,"Robert Perkins, Ph.D.",robert perkins,https://www.slu.edu/science-and-engineering/academics/chemistry/faculty/robert-perkins.php,False,False,,Ph.D.
+School of Science and Engineering,Chemistry,"Michelle Pillers, Ph.D.",michelle pillers,https://www.slu.edu/science-and-engineering/academics/chemistry/faculty/michelle-pillers.php,False,False,,Ph.D.
+School of Science and Engineering,Chemistry,"Premila Russell, Ph.D.",premila russell,https://www.slu.edu/science-and-engineering/academics/chemistry/faculty/premila-russell.php,False,False,,Ph.D.
+School of Science and Engineering,Chemistry,Natalie Schleper,natalie schleper,https://www.slu.edu/science-and-engineering/academics/chemistry/faculty/natalie-schleper.php,False,False,"Natalie Schleper, M.S.",
+School of Science and Engineering,Chemistry,Daria Sokic-Lazic,daria sokic-lazic,https://www.slu.edu/science-and-engineering/academics/chemistry/faculty/daria-sokic-lazic.php,False,False,"Daria Sokic-Lazic, MS(R)",
+School of Science and Engineering,Chemistry,"John Throgmorton, Ph.D.",john throgmorton,https://www.slu.edu/science-and-engineering/academics/chemistry/faculty/john-throgmorton.php,False,False,,Ph.D.
+School of Science and Engineering,Chemistry,"John Walker, Ph.D.",john walker,https://www.slu.edu/science-and-engineering/academics/chemistry/faculty/john-walker.php,False,False,,Ph.D.
+School of Science and Engineering,Chemistry,Ash Winkler,ash winkler,https://www.slu.edu/science-and-engineering/academics/chemistry/faculty/ash-winkler.php,False,False,"Ash Winkler, M.S.",
+School of Science and Engineering,Chemistry,"Brian Woods, Ph.D.",brian woods,https://www.slu.edu/science-and-engineering/academics/chemistry/faculty/woods-brian.php,False,False,,Ph.D.
+School of Science and Engineering,Chemistry,"Brent M. Znosko, Ph.D.",brent m znosko,https://www.slu.edu/science-and-engineering/academics/chemistry/faculty/brent-znosko.php,False,False,,Ph.D.
+School of Science and Engineering,Chemistry,"Charles C. Kirkpatrick, Ph.D.",charles c kirkpatrick,https://www.slu.edu/science-and-engineering/academics/chemistry/faculty/charles-kirkpatrick.php,False,True,,Ph.D.
+School of Science and Engineering,Chemistry,"Bruce A. Kowert, Ph.D.",bruce a kowert,https://www.slu.edu/science-and-engineering/academics/chemistry/faculty/bruce-kowert.php,False,True,,Ph.D.
+School of Science and Engineering,Chemistry,"Alexa B. Serfis, Ph.D.",alexa b serfis,https://www.slu.edu/science-and-engineering/academics/chemistry/faculty/alexa-serfis.php,False,True,,Ph.D.
+School of Science and Engineering,Civil Engineering,"Jalil Kianfar, Ph.D.",jalil kianfar,https://www.slu.edu/science-and-engineering/academics/civil-engineering/faculty/kianfar-jalil.php,False,False,,Ph.D.
+School of Science and Engineering,Civil Engineering,"Tugce Baser, Ph.D.",tugce baser,https://www.slu.edu/science-and-engineering/academics/civil-engineering/faculty/baser-tugce.php,False,False,,Ph.D.
+School of Science and Engineering,Civil Engineering,"Amanda Cox, Ph.D.",amanda cox,https://www.slu.edu/science-and-engineering/academics/civil-engineering/faculty/cox-amanda.php,False,False,,Ph.D.
+School of Science and Engineering,Civil Engineering,"Riyadh Hindi, Ph.D.",riyadh hindi,https://www.slu.edu/science-and-engineering/academics/civil-engineering/faculty/hindi-riyadh.php,False,False,,Ph.D.
+School of Science and Engineering,Civil Engineering,"Ronaldo Luna, Ph.D.",ronaldo luna,https://www.slu.edu/science-and-engineering/academics/civil-engineering/faculty/luna-ronaldo.php,False,False,,Ph.D.
+School of Science and Engineering,Computer Science,"Min Hyung Choi, Ph.D.",min hyung choi,https://www.slu.edu/science-and-engineering/academics/computer-science/faculty-and-staff/choi-min.php,False,False,,Ph.D.
+School of Science and Engineering,Computer Science,"Jason Fritts, Ph.D.",jason fritts,https://www.slu.edu/science-and-engineering/academics/computer-science/faculty-and-staff/jason-fritts.php,False,False,,Ph.D.
+School of Science and Engineering,Computer Science,"Flavio Esposito, Ph.D.",flavio esposito,https://www.slu.edu/science-and-engineering/academics/computer-science/faculty-and-staff/flavio-esposito.php,False,False,,Ph.D.
+School of Science and Engineering,Computer Science,"James McCollum, Ph.D.",james mccollum,https://www.slu.edu/science-and-engineering/academics/computer-science/faculty-and-staff/mccollum-james.php,False,False,,Ph.D.
+School of Science and Engineering,Computer Science,"Ankit Agrawal, Ph.D.",ankit agrawal,https://www.slu.edu/science-and-engineering/academics/computer-science/faculty-and-staff/ankit-agrawal.php,False,False,,Ph.D.
+School of Science and Engineering,Computer Science,"Tae-Hyuk (Ted) Ahn, Ph.D.",tae-hyuk ahn,https://www.slu.edu/science-and-engineering/academics/computer-science/faculty-and-staff/ted-ahn.php,False,False,,Ph.D.
+School of Science and Engineering,Computer Science,"Hadi Akbarpour, Ph.D.",hadi akbarpour,https://www.slu.edu/science-and-engineering/academics/computer-science/faculty-and-staff/hadi-akbarpour.php,False,False,,Ph.D.
+School of Science and Engineering,Computer Science,"Qinglei Cao, Ph.D.",qinglei cao,https://www.slu.edu/science-and-engineering/academics/computer-science/faculty-and-staff/qinglei-cao.php,False,False,,Ph.D.
+School of Science and Engineering,Computer Science,"Nan Cen, Ph.D.",nan cen,https://www.slu.edu/science-and-engineering/academics/computer-science/faculty-and-staff/nan-cen.php,False,False,,Ph.D.
+School of Science and Engineering,Computer Science,"Michael Goldwasser, Ph.D.",michael goldwasser,https://www.slu.edu/science-and-engineering/academics/computer-science/faculty-and-staff/michael-goldwasser.php,False,False,,Ph.D.
+School of Science and Engineering,Computer Science,"Jie Hou, Ph.D.",jie hou,https://www.slu.edu/science-and-engineering/academics/computer-science/faculty-and-staff/jie-hou.php,False,False,,Ph.D.
+School of Science and Engineering,Computer Science,"David Letscher, Ph.D.",david letscher,https://www.slu.edu/science-and-engineering/academics/computer-science/faculty-and-staff/david-letscher.php,False,False,,Ph.D.
+School of Science and Engineering,Computer Science,Michael Liljegren,michael liljegren,https://www.slu.edu/science-and-engineering/academics/computer-science/faculty-and-staff/michael-liljegren.php,False,False,Michael Liljegren,
+School of Science and Engineering,Computer Science,"Abby Stylianou, Ph.D.",abby stylianou,https://www.slu.edu/science-and-engineering/academics/computer-science/faculty-and-staff/abby-stylianou.php,False,False,,Ph.D.
+School of Science and Engineering,Computer Science,"Reza Tourani, Ph.D.",reza tourani,https://www.slu.edu/science-and-engineering/academics/computer-science/faculty-and-staff/reza-tourani.php,False,False,,Ph.D.
+School of Science and Engineering,Computer Science,"Orhun Aydin, Ph.D.",orhun aydin,https://www.slu.edu/science-and-engineering/academics/earth-environmental-geospatial-science/faculty/aydin-orhun.php,False,False,,Ph.D.
+School of Science and Engineering,Computer Science,"Vasit Sagan, Ph.D.",vasit sagan,https://www.slu.edu/science-and-engineering/academics/earth-environmental-geospatial-science/faculty/sagan-vasit.php,False,False,,Ph.D.
+School of Science and Engineering,Electrical and Computer Engineering,"Kyle Mitchell, Ph.D.",kyle mitchell,https://www.slu.edu/science-and-engineering/academics/electrical-and-computer-engineering/faculty/mitchell-kyle.php,False,False,,Ph.D.
+School of Science and Engineering,Electrical and Computer Engineering,"Greg Comer, Ph.D.",greg comer,https://www.slu.edu/science-and-engineering/academics/electrical-and-computer-engineering/faculty/comer-greg.php,False,False,,Ph.D.
+School of Science and Engineering,Electrical and Computer Engineering,"William Ebel, Ph.D.",william ebel,https://www.slu.edu/science-and-engineering/academics/electrical-and-computer-engineering/faculty/ebel-william.php,False,False,,Ph.D.
+School of Science and Engineering,Electrical and Computer Engineering,"Ramy El-Ganainy, Ph.D.",ramy el-ganainy,https://www.slu.edu/science-and-engineering/academics/electrical-and-computer-engineering/faculty/el-ganainy-ramy.php,False,False,,Ph.D.
+School of Science and Engineering,Electrical and Computer Engineering,"Roobik Gharabagi, Ph.D.",roobik gharabagi,https://www.slu.edu/science-and-engineering/academics/electrical-and-computer-engineering/faculty/gharabagi-roobik.php,False,False,,Ph.D.
+School of Science and Engineering,Electrical and Computer Engineering,"John James, Ph.D.",john james,https://www.slu.edu/science-and-engineering/academics/electrical-and-computer-engineering/faculty/james-john.php,False,False,,Ph.D.
+School of Science and Engineering,Electrical and Computer Engineering,"Irma Kuljanishvili, Ph.D.",ir kuljanishvili,https://www.slu.edu/science-and-engineering/academics/electrical-and-computer-engineering/faculty/kuljanishvili-irma.php,False,False,,Ph.D.
+School of Science and Engineering,Electrical and Computer Engineering,"Amina Mohammadalipour, Ph.D.",amina mohammadalipour,https://www.slu.edu/science-and-engineering/academics/electrical-and-computer-engineering/faculty/amina-mohammadalipour.php,False,False,,Ph.D.
+School of Science and Engineering,Electrical and Computer Engineering,"Martin Nikolo, Ph.D.",martin nikolo,https://www.slu.edu/science-and-engineering/academics/electrical-and-computer-engineering/faculty/nikolo-martin.php,False,False,,Ph.D.
+School of Science and Engineering,Electrical and Computer Engineering,"Jean Potvin, Ph.D.",jean potvin,https://www.slu.edu/science-and-engineering/academics/electrical-and-computer-engineering/faculty/potvin-jean.php,False,False,,Ph.D.
+School of Science and Engineering,Electrical and Computer Engineering,"Ian Redmount, Ph.D.",ian redmount,https://www.slu.edu/science-and-engineering/academics/electrical-and-computer-engineering/faculty/redmount-ian.php,False,False,,Ph.D.
+School of Science and Engineering,Electrical and Computer Engineering,"Gregory Triplett, Ph.D.",gregory triplett,https://www.slu.edu/science-and-engineering/academics/electrical-and-computer-engineering/faculty/gregory-triplett.php,False,False,,Ph.D.
+School of Science and Engineering,Electrical and Computer Engineering,"David S. Wisbey, Ph.D.",david s wisbey,https://www.slu.edu/science-and-engineering/academics/electrical-and-computer-engineering/faculty/wisbey-david.php,False,False,,Ph.D.
+School of Science and Engineering,Electrical and Computer Engineering,"Vijai Dixit, Ph.D.",vijai dixit,https://www.slu.edu/science-and-engineering/academics/electrical-and-computer-engineering/faculty/dixit-vijai.php,False,True,,Ph.D.
+School of Science and Engineering,"Earth, Environmental and Geospatial Sciences","Orhun Aydin, Ph.D.",orhun aydin,https://www.slu.edu/science-and-engineering/academics/earth-environmental-geospatial-science/faculty/aydin-orhun.php,False,False,,Ph.D.
+School of Science and Engineering,"Earth, Environmental and Geospatial Sciences","Sarah Coffin, Ph.D.",sarah coffin,https://www.slu.edu/science-and-engineering/academics/earth-environmental-geospatial-science/faculty/coffin-sarah.php,False,False,,Ph.D.
+School of Science and Engineering,"Earth, Environmental and Geospatial Sciences","John Encarnacion, Ph.D.",john encarnacion,https://www.slu.edu/science-and-engineering/academics/earth-environmental-geospatial-science/faculty/encarnacion-john.php,False,False,,Ph.D.
+School of Science and Engineering,"Earth, Environmental and Geospatial Sciences","Jack Fishman, Ph.D.",jack fishman,https://www.slu.edu/science-and-engineering/academics/earth-environmental-geospatial-science/faculty/fishman-jack.php,False,False,,Ph.D.
+School of Science and Engineering,"Earth, Environmental and Geospatial Sciences","Benjamin de Foy, Ph.D.",benjamin de foy,https://www.slu.edu/science-and-engineering/academics/earth-environmental-geospatial-science/faculty/defoy-benjamin.php,False,False,,Ph.D.
+School of Science and Engineering,"Earth, Environmental and Geospatial Sciences","Charles Graves, Ph.D.",charles graves,https://www.slu.edu/science-and-engineering/academics/earth-environmental-geospatial-science/faculty/graves-charles.php,False,False,,Ph.D.
+School of Science and Engineering,"Earth, Environmental and Geospatial Sciences","Daniel Hanes, Ph.D.",daniel hanes,https://www.slu.edu/science-and-engineering/academics/earth-environmental-geospatial-science/faculty/hanes-dan.php,False,False,,Ph.D.
+School of Science and Engineering,"Earth, Environmental and Geospatial Sciences","Liz Hasenmueller, Ph.D.",liz hasenmueller,https://www.slu.edu/science-and-engineering/academics/earth-environmental-geospatial-science/faculty/hasenmueller-elizabeth.php,False,False,,Ph.D.
+School of Science and Engineering,"Earth, Environmental and Geospatial Sciences",Robert Lewis,robert lewis,https://www.slu.edu/science-and-engineering/academics/earth-environmental-geospatial-science/faculty/lewis-bob.php,False,False,"Robert M. Lewis, CEcD, FAICP",
+School of Science and Engineering,"Earth, Environmental and Geospatial Sciences","Zaitao Pan, Ph.D.",zaitao pan,https://www.slu.edu/science-and-engineering/academics/earth-environmental-geospatial-science/faculty/pan-zaitao.php,False,False,,Ph.D.
+School of Science and Engineering,"Earth, Environmental and Geospatial Sciences","Robert Pasken, Ph.D.",robert pasken,https://www.slu.edu/science-and-engineering/academics/earth-environmental-geospatial-science/faculty/pasken-robert.php,False,False,,Ph.D.
+School of Science and Engineering,"Earth, Environmental and Geospatial Sciences","Vasit Sagan, Ph.D.",vasit sagan,https://www.slu.edu/science-and-engineering/academics/earth-environmental-geospatial-science/faculty/sagan-vasit.php,False,False,,Ph.D.
+School of Science and Engineering,"Earth, Environmental and Geospatial Sciences","Bo Wang, Ph.D.",bo wang,https://www.slu.edu/science-and-engineering/academics/earth-environmental-geospatial-science/faculty/wang-bo.php,False,False,,Ph.D.
+School of Science and Engineering,"Earth, Environmental and Geospatial Sciences","Linda Warren, Ph.D.",linda warren,https://www.slu.edu/science-and-engineering/academics/earth-environmental-geospatial-science/faculty/warren-linda.php,False,False,,Ph.D.
+School of Science and Engineering,"Earth, Environmental and Geospatial Sciences","Jian Yao, Ph.D.",jian yao,https://www.slu.edu/science-and-engineering/academics/earth-environmental-geospatial-science/faculty/yao-jian.php,False,False,,Ph.D.
+School of Science and Engineering,"Earth, Environmental and Geospatial Sciences","Lupei Zhu, Ph.D.",lupei zhu,https://www.slu.edu/science-and-engineering/academics/earth-environmental-geospatial-science/faculty/zhu-lupei.php,False,False,,Ph.D.
+School of Science and Engineering,"Earth, Environmental and Geospatial Sciences","David J. Crossley, Ph.D.",david j crossley,https://www.slu.edu/science-and-engineering/academics/earth-environmental-geospatial-science/faculty/crossley-david.php,False,True,,Ph.D.
+School of Science and Engineering,"Earth, Environmental and Geospatial Sciences","Robert Herrmann, Ph.D.",robert herrmann,https://www.slu.edu/science-and-engineering/academics/earth-environmental-geospatial-science/faculty/herrmann-robert.php,False,True,,Ph.D.
+College of Arts and Sciences,Biology,"Laurie Shornick, Ph.D.",laurie shornick,https://www.slu.edu/arts-and-sciences/biology/faculty/shornick-laurie.php,False,False,,Ph.D.
+College of Arts and Sciences,Biology,"Lindzy Dodson, Ph.D.",lindzy dodson,https://www.slu.edu/arts-and-sciences/biology/faculty/dodson-lindzy.php,False,False,,Ph.D.
+College of Arts and Sciences,Biology,"Ashley Milam, Ph.D.",ashley milam,https://www.slu.edu/arts-and-sciences/biology/faculty/milam-ashley.php,False,False,,Ph.D.
+College of Arts and Sciences,Biology,"Julie Thole, Ph.D.",julie thole,https://www.slu.edu/arts-and-sciences/biology/faculty/thole-julie.php,False,False,,Ph.D.
+College of Arts and Sciences,Biology,"Susan Spencer, Ph.D.",susan spencer,https://www.slu.edu/arts-and-sciences/biology/faculty/spencer-susan.php,False,False,,Ph.D.
+College of Arts and Sciences,Biology,Betsy Angeli,betsy angeli,https://www.slu.edu/arts-and-sciences/biology/faculty/angeli-betsy.php,False,False,"Betsy Angeli, Ph.D.",Ph.D.
+College of Arts and Sciences,Biology,"Alaina Baker-Nigh, Ph.D.",alaina baker-nigh,https://www.slu.edu/arts-and-sciences/biology/faculty/baker-nigh-alaina.php,False,False,,Ph.D.
+College of Arts and Sciences,Biology,"Benjamin England, Ed.D.",benjamin england ed d,https://www.slu.edu/arts-and-sciences/biology/faculty/england-ben.php,False,False,,Ed.D.
+College of Arts and Sciences,Biology,"Eva Gonzales, Ph.D.",eva gonzales,https://www.slu.edu/arts-and-sciences/biology/faculty/gonzales-eva.php,False,False,,Ph.D.
+College of Arts and Sciences,Biology,"Laurie Russell, Ph.D.",laurie russell,https://www.slu.edu/arts-and-sciences/biology/faculty/russell-laurie.php,False,False,,Ph.D.
+College of Arts and Sciences,Biology,"Mahboubeh Tavakoli-Nezhad, Ph.D.",mahboubeh tavakoli-nezhad,https://www.slu.edu/arts-and-sciences/biology/faculty/mahboubeh-tavakoli-nezhad.php,False,False,,Ph.D.
+College of Arts and Sciences,Biology,"Alice Tipton, Ph.D.",alice tipton,https://www.slu.edu/arts-and-sciences/biology/faculty/alice-tipton.php,False,False,,Ph.D.
+College of Arts and Sciences,Biology,"Stephen Blake, Ph.D.",stephen blake,https://www.slu.edu/arts-and-sciences/biology/faculty/blake-stephen.php,False,False,,Ph.D.
+College of Arts and Sciences,Biology,"Elena Bray Speth, Ph.D.",elena bray speth,https://www.slu.edu/arts-and-sciences/biology/faculty/brayspeth-elena.php,False,False,,Ph.D.
+College of Arts and Sciences,Biology,"Brian Downes, Ph.D.",brian downes,https://www.slu.edu/arts-and-sciences/biology/faculty/downes-brian.php,False,False,,Ph.D.
+College of Arts and Sciences,Biology,"Jonathan Fisher, Ph.D.",jonathan fisher,https://www.slu.edu/arts-and-sciences/biology/faculty/fisher-jon.php,False,False,,Ph.D.
+College of Arts and Sciences,Biology,"Kasey Fowler-Finn, Ph.D.",kasey fowler-finn,https://www.slu.edu/arts-and-sciences/biology/faculty/fowler-finn-kasey.php,False,False,,Ph.D.
+College of Arts and Sciences,Biology,"Laibin Huang, Ph.D.",laibin huang,https://www.slu.edu/arts-and-sciences/biology/faculty/laibin-huang.php,False,False,,Ph.D.
+College of Arts and Sciences,Biology,"Blythe Janowiak, Ph.D.",blythe janowiak,https://www.slu.edu/arts-and-sciences/biology/faculty/janowiak-blythe.php,False,False,,Ph.D.
+College of Arts and Sciences,Biology,"Jason Knouft, Ph.D.",jason knouft,https://www.slu.edu/arts-and-sciences/biology/faculty/knouft-jason.php,False,False,,Ph.D.
+College of Arts and Sciences,Biology,"Laurence Lemaire, Ph.D.",laurence lemaire,https://www.slu.edu/arts-and-sciences/biology/faculty/lemaire-laurence.php,False,False,,Ph.D.
+College of Arts and Sciences,Biology,"Zhenguo Lin, Ph.D.",zhenguo lin,https://www.slu.edu/arts-and-sciences/biology/faculty/lin-zhenguo.php,False,False,,Ph.D.
+College of Arts and Sciences,Biology,"Haijun Liu, Ph.D.",haijun liu,https://www.slu.edu/arts-and-sciences/biology/faculty/liu-haijun.php,False,False,,Ph.D.
+College of Arts and Sciences,Biology,"Allison Miller, Ph.D.",allison miller,https://www.slu.edu/arts-and-sciences/biology/faculty/miller-allison.php,False,False,,Ph.D.
+College of Arts and Sciences,Biology,"Sofia Origanti, Ph.D.",sofia origanti,https://www.slu.edu/arts-and-sciences/biology/faculty/sofia-origanti.php,False,False,,Ph.D.
+College of Arts and Sciences,Biology,"Cristy Portales-Reyes, Ph.D.",cristy portales-reyes,https://www.slu.edu/arts-and-sciences/biology/faculty/christy-reyes.php,False,False,,Ph.D.
+College of Arts and Sciences,Biology,"Matthew Rubin, Ph.D.",matthew rubin,https://www.slu.edu/arts-and-sciences/biology/faculty/rubin-matthew.php,False,False,,Ph.D.
+College of Arts and Sciences,Biology,"Mohini Sengupta, Ph.D.",mohini sengupta,https://www.slu.edu/arts-and-sciences/biology/faculty/sengupta-mohini.php,False,False,,Ph.D.
+College of Arts and Sciences,Biology,"Yuqi Wang, Ph.D.",yuqi wang,https://www.slu.edu/arts-and-sciences/biology/faculty/wang-yuqi.php,False,False,,Ph.D.
+College of Arts and Sciences,Biology,"Daniel Warren, Ph.D.",daniel warren,https://www.slu.edu/arts-and-sciences/biology/faculty/warren-daniel.php,False,False,,Ph.D.
+College of Arts and Sciences,Biology,"Robert Wood, Ph.D.",robert wood,https://www.slu.edu/arts-and-sciences/biology/faculty/wood-robert.php,False,False,,Ph.D.
+College of Arts and Sciences,Biology,"Wenyan Xiao, Ph.D.",wenyan xiao,https://www.slu.edu/arts-and-sciences/biology/faculty/xiao-wenyan.php,False,False,,Ph.D.
+College of Arts and Sciences,Biology,"Dapeng Zhang, Ph.D.",dapeng zhang,https://www.slu.edu/arts-and-sciences/biology/faculty/zhang-dapeng.php,False,False,,Ph.D.
+College of Arts and Sciences,Biology,"Judith Ogilvie, Ph.D.",judith ogilvie,https://www.slu.edu/arts-and-sciences/biology/faculty/ogilvie-judith.php,False,True,,Ph.D.
+College of Arts and Sciences,Biology,"Thomas Valone, Ph.D.",thomas valone,https://www.slu.edu/arts-and-sciences/biology/faculty/valone-thomas.php,False,True,,Ph.D.
+College of Arts and Sciences,English,"Vincent Casaregola, Ph.D.",vincent casaregola,https://www.slu.edu/arts-and-sciences/english/faculty/vince-casaregola.php,False,False,,Ph.D.
+College of Arts and Sciences,English,"Nathan Grant, Ph.D.",nathan grant,https://www.slu.edu/arts-and-sciences/english/faculty/nathan-grant.php,False,False,,Ph.D.
+College of Arts and Sciences,English,"Andy Harper, Ph.D.",andy harper,https://www.slu.edu/arts-and-sciences/english/faculty/andy-harper.php,False,False,,Ph.D.
+College of Arts and Sciences,English,"Rachel Greenwald Smith, Ph.D.",rachel greenwald smith,https://www.slu.edu/arts-and-sciences/english/faculty/rachel-greenwald-smith.php,False,False,,Ph.D.
+College of Arts and Sciences,English,"Jason de Lara Molesky, Ph.D.",jason de lara molesky,https://www.slu.edu/arts-and-sciences/english/faculty/jason-moleskly.php,False,False,,Ph.D.
+College of Arts and Sciences,English,"Brian Yothers, Ph.D.",brian yothers,https://www.slu.edu/arts-and-sciences/english/faculty/brian-yothers.php,False,False,,Ph.D.
+College of Arts and Sciences,English,"Sheila Coursey, Ph.D.",sheila coursey,https://www.slu.edu/arts-and-sciences/english/faculty/coursey-sheila.php,False,False,,Ph.D.
+College of Arts and Sciences,English,"Yea Jung Park, Ph.D.",yea jung park,https://www.slu.edu/arts-and-sciences/english/faculty/yea-jung-park.php,False,False,,Ph.D.
+College of Arts and Sciences,English,"Donald Stump, Ph.D.",donald stump,https://www.slu.edu/arts-and-sciences/english/faculty/donald-stump.php,False,False,,Ph.D.
+College of Arts and Sciences,English,"Jennifer Rust, Ph.D.",jennifer rust,https://www.slu.edu/arts-and-sciences/english/faculty/jennifer-rust.php,False,False,,Ph.D.
+College of Arts and Sciences,English,"Jonathan Sawday, Ph.D.",jonathan sawday,https://www.slu.edu/arts-and-sciences/english/faculty/jonathan-sawday.php,False,False,,Ph.D.
+College of Arts and Sciences,English,"Toby R. Benis, Ph.D.",toby r benis,https://www.slu.edu/arts-and-sciences/english/faculty/toby-benis.php,False,False,,Ph.D.
+College of Arts and Sciences,English,"Ellen Crowell, Ph.D.",ellen crowell,https://www.slu.edu/arts-and-sciences/english/faculty/ellen-crowell.php,False,False,,Ph.D.
+College of Arts and Sciences,English,"Maryse Jayasuriya, Ph.D.",maryse jayasuriya,https://www.slu.edu/arts-and-sciences/english/faculty/maryse-jayasuriya.php,False,False,,Ph.D.
+College of Arts and Sciences,English,"Anne Stiles, Ph.D.",anne stiles,https://www.slu.edu/arts-and-sciences/english/faculty/anne-stiles.php,False,False,,Ph.D.
+College of Arts and Sciences,English,"Joya Uraizee, Ph.D.",joya uraizee,https://www.slu.edu/arts-and-sciences/english/faculty/joya-uraizee.php,False,False,,Ph.D.
+College of Arts and Sciences,English,"Phyllis Weliver, D.Phil.",phyllis weliver d phil,https://www.slu.edu/arts-and-sciences/english/faculty/phyllis-weliver.php,False,False,"Phyllis Weliver, D. Phil.",
+College of Arts and Sciences,English,"Ron A. Austin, M.F.A.",ron a austin,https://www.slu.edu/arts-and-sciences/english/faculty/ron-austin.php,False,False,"Ron A. Austin, M.F.A.",
+College of Arts and Sciences,English,"Devin Johnston, Ph.D.",devin johnston,https://www.slu.edu/arts-and-sciences/english/faculty/devin-johnston.php,False,False,,Ph.D.
+College of Arts and Sciences,English,"Ted Mathys, M.F.A.",ted mathys,https://www.slu.edu/arts-and-sciences/english/faculty/ted-mathys.php,False,False,"Ted Mathys, M.F.A.",
+College of Arts and Sciences,English,"Geoff Brewer, Ph.D.",geoff brewer,https://www.slu.edu/arts-and-sciences/english/faculty/brewer-geoffrey.php,False,False,,Ph.D.
+College of Arts and Sciences,English,"Paul Lynch, Ph.D.",paul lynch,https://www.slu.edu/arts-and-sciences/english/faculty/paul-lynch.php,False,False,,Ph.D.
+College of Arts and Sciences,English,"Emily A. Phillips, Ph.D.",emily a phillips,https://www.slu.edu/arts-and-sciences/english/emily-phillips.php,False,False,,Ph.D.
+College of Arts and Sciences,English,"Joe Posnanski, M.F.A.",joe posnanski,https://www.slu.edu/arts-and-sciences/english/faculty/joe-posnanski.php,False,False,"Joe Posnanski, M.F.A.",
+College of Arts and Sciences,English,"Nathaniel Rivers, Ph.D.",nathaniel rivers,https://www.slu.edu/arts-and-sciences/english/faculty/nathaniel-rivers.php,False,False,,Ph.D.
+College of Arts and Sciences,English,"Stephen Casmier, Ph.D.",stephen casmier,https://www.slu.edu/arts-and-sciences/english/faculty/stephen-casmier.php,False,True,,Ph.D.
+College of Arts and Sciences,English,"Ruth Evans, Ph.D.",ruth evans,https://www.slu.edu/arts-and-sciences/english/faculty/ruth-evans.php,False,True,,Ph.D.
+College of Arts and Sciences,History,"Mark Edward Ruff, Ph.D.",mark edward ruff,https://www.slu.edu/arts-and-sciences/history/faculty/ruff-mike.php,False,False,,Ph.D.
+College of Arts and Sciences,History,"Lorri Glover, Ph.D.",lorri glover,https://www.slu.edu/arts-and-sciences/history/faculty/glover-lorri.php,False,False,,Ph.D.
+College of Arts and Sciences,History,"Douglas Boin, Ph.D.",douglas boin,https://www.slu.edu/arts-and-sciences/history/faculty/boin-douglas.php,False,False,,Ph.D.
+College of Arts and Sciences,History,"Sam Zeno Conedera, S.J., Ph.D.",sam zeno conedera s j,https://www.slu.edu/arts-and-sciences/history/faculty/sam-conedera.php,False,False,,Ph.D.
+College of Arts and Sciences,History,"Enrique Dávila, Ph.D.",enrique d vila,https://www.slu.edu/arts-and-sciences/history/faculty/enrique-davila.php,False,False,,Ph.D.
+College of Arts and Sciences,History,"Thomas J. Finan, Ph.D.",thomas j finan,https://www.slu.edu/arts-and-sciences/history/faculty/finan-thomas.php,False,False,,Ph.D.
+College of Arts and Sciences,History,"Claire Gilbert, Ph.D.",claire gilbert,https://www.slu.edu/arts-and-sciences/history/faculty/gilbert-claire.php,False,False,,Ph.D.
+College of Arts and Sciences,History,"Torrie Hester, Ph.D.",torrie hester,https://www.slu.edu/arts-and-sciences/history/faculty/hester-torrie.php,False,False,,Ph.D.
+College of Arts and Sciences,History,"Kenneth Homan, S.J., Ph.D.",kenneth homan s j,https://www.slu.edu/arts-and-sciences/history/faculty/homan-ken.php,False,False,,Ph.D.
+College of Arts and Sciences,History,"Thomas F. Madden, Ph.D.",thomas f madden,https://www.slu.edu/arts-and-sciences/history/faculty/madden-thomas.php,False,False,,Ph.D.
+College of Arts and Sciences,History,"Filippo Marsili, Ph.D.",filippo marsili,https://www.slu.edu/arts-and-sciences/history/faculty/marsili-filippo.php,False,False,,Ph.D.
+College of Arts and Sciences,History,"Nathaniel Millett, Ph.D.",nathaniel millett,https://www.slu.edu/arts-and-sciences/history/faculty/millett-nathaniel.php,False,False,,Ph.D.
+College of Arts and Sciences,History,"Fabien Montcher, Ph.D.",fabien montcher,https://www.slu.edu/arts-and-sciences/history/faculty/montcher-fabien.php,False,False,,Ph.D.
+College of Arts and Sciences,History,"Katrina Thompson Moore, Ph.D.",katrina thompson moore,https://www.slu.edu/arts-and-sciences/history/faculty/moore-katrina.php,False,False,,Ph.D.
+College of Arts and Sciences,History,"George O. Ndege, Ph.D.",george o ndege,https://www.slu.edu/arts-and-sciences/history/faculty/ndege-george.php,False,False,,Ph.D.
+College of Arts and Sciences,History,"Jennifer J. Popiel, Ph.D.",jennifer j popiel,https://www.slu.edu/arts-and-sciences/history/faculty/popiel-jennifer.php,False,False,,Ph.D.
+College of Arts and Sciences,History,"Steven A. Schoenig, S.J., Ph.D.",steven a schoenig s j,https://www.slu.edu/arts-and-sciences/history/faculty/schoenig-steven.php,False,False,,Ph.D.
+College of Arts and Sciences,History,"Silvana R. Siddali, Ph.D.",silvana r siddali,https://www.slu.edu/arts-and-sciences/history/faculty/siddali-silvana.php,False,False,,Ph.D.
+College of Arts and Sciences,History,"Damian J. Smith, Ph.D.",damian j smith,https://www.slu.edu/arts-and-sciences/history/faculty/smith-damian.php,False,False,,Ph.D.
+College of Arts and Sciences,History,"Charles Parker, Ph.D.",charles parker,https://www.slu.edu/arts-and-sciences/history/faculty/charles-parker.php,False,True,,Ph.D.
+College of Arts and Sciences,History,"Daniel L. Schlafly, Jr., Ph.D.",daniel l schlafly jr,https://www.slu.edu/arts-and-sciences/history/faculty/schlafly-daniel.php,False,True,,Ph.D.
+College of Arts and Sciences,History,"Warren Treadgold, Ph.D.",warren treadgold,https://www.slu.edu/arts-and-sciences/history/faculty/treadgold-warren.php,False,True,,Ph.D.
+College of Arts and Sciences,Philosophy,"Scott Ragland, Ph.D.",scott ragland,https://www.slu.edu/arts-and-sciences/philosophy/faculty/ragland-scott.php,False,False,,Ph.D.
+College of Arts and Sciences,Philosophy,Gregory Beabout,gregory beabout,https://www.slu.edu/arts-and-sciences/philosophy/faculty/beabout-greg.php,False,False,"Greg Beabout, Ph.D.",Ph.D.
+College of Arts and Sciences,Philosophy,Scott Berman,scott berman,https://www.slu.edu/arts-and-sciences/philosophy/faculty/berman-scott.php,False,False,"Scott Berman, Ph.D.",Ph.D.
+College of Arts and Sciences,Philosophy,Jeffrey Bishop,jeffrey bishop,https://www.slu.edu/arts-and-sciences/bioethics/faculty/bishop-jeffrey.php,False,False,"Jeffrey P. Bishop, M.D., Ph.D.",Ph.D.
+College of Arts and Sciences,Philosophy,Susan Brower-Toland,susan brower-toland,https://www.slu.edu/arts-and-sciences/philosophy/faculty/brower-toland-susan.php,False,False,"Susan Brower-Toland, Ph.D.",Ph.D.
+College of Arts and Sciences,Philosophy,Dan Haybron,dan haybron,https://www.slu.edu/arts-and-sciences/philosophy/faculty/haybron-dan.php,False,False,"Dan Haybron, Ph.D.",Ph.D.
+College of Arts and Sciences,Philosophy,Elizabeth Jackson,elizabeth jackson,https://www.slu.edu/arts-and-sciences/philosophy/faculty/elizabeth-jackson.php,False,False,"Elizabeth Jackson, Ph.D.",Ph.D.
+College of Arts and Sciences,Philosophy,Jonathan Jacobs,jonathan jacobs,https://www.slu.edu/arts-and-sciences/philosophy/faculty/jacobs-jonathan.php,False,False,"Jonathan Jacobs, Ph.D.",Ph.D.
+College of Arts and Sciences,Philosophy,Can Löwe,can l we,https://www.slu.edu/arts-and-sciences/philosophy/faculty/can-lowe.php,False,False,"Can Löwe, Ph.D.",Ph.D.
+College of Arts and Sciences,Philosophy,"Anna Marmodoro,",anna marmodoro,https://www.slu.edu/arts-and-sciences/philosophy/faculty/anna-marmodoro.php,False,False,"Anna Marmodoro, Ph.D.",Ph.D.
+College of Arts and Sciences,Philosophy,"Pedro McDade,",pedro mcdade,https://www.slu.edu/arts-and-sciences/philosophy/faculty/pedro-mcdade.php,False,False,"Pedro McDade, S.J., Ph.D.",Ph.D.
+College of Arts and Sciences,Philosophy,John W. Peck,john w peck,https://www.slu.edu/arts-and-sciences/philosophy/faculty/john-peck.php,False,False,"John W. Peck, SJ, Ph.D.",Ph.D.
+College of Arts and Sciences,Philosophy,William Rehg,william rehg,https://www.slu.edu/arts-and-sciences/philosophy/faculty/rehg-william.php,False,False,"William Rehg, S.J.",
+College of Arts and Sciences,Philosophy,Joe Salerno,joe salerno,https://www.slu.edu/arts-and-sciences/philosophy/faculty/salerno-joe.php,False,False,"Joe Salerno, Ph.D.",Ph.D.
+College of Arts and Sciences,Philosophy,Kent Staley,kent staley,https://www.slu.edu/arts-and-sciences/philosophy/faculty/staley-kent.php,False,False,"Kent Staley, Ph.D.",Ph.D.
+College of Arts and Sciences,Philosophy,Eleonore Stump,eleonore stump,https://www.slu.edu/arts-and-sciences/philosophy/faculty/stump-eleonore.php,False,False,"Eleonore Stump, Ph.D.",Ph.D.
+College of Arts and Sciences,Philosophy,Jason Eberl,jason eberl,https://www.slu.edu/arts-and-sciences/bioethics/faculty/eberl-jason.php,False,False,"Jason T. Eberl, Ph.D.",Ph.D.
+College of Arts and Sciences,Philosophy,Ruth Groff,ruth groff,https://www.slu.edu/arts-and-sciences/political-science/faculty/groff-ruth.php,False,False,"Ruth Porter Groff, Ph.D.",Ph.D.
+College of Arts and Sciences,Philosophy,Pauline Lee,pauline lee,https://www.slu.edu/arts-and-sciences/theological-studies/faculty/lee-pauline.php,False,False,"Pauline Lee, Ph.D.",Ph.D.
+College of Arts and Sciences,Philosophy,Yolonda Wilson,yolonda wilson,https://www.slu.edu/arts-and-sciences/bioethics/faculty/yolonda-wilson.php,False,False,"Yolonda Wilson, Ph.D.",Ph.D.
+College of Arts and Sciences,Philosophy,Michael Barber,michael barber,https://www.slu.edu/arts-and-sciences/philosophy/faculty/barber-michael.php,False,True,"Michael D. Barber, S.J.",
+College of Arts and Sciences,Philosophy,Colleen McCluskey,colleen mccluskey,https://www.slu.edu/arts-and-sciences/philosophy/faculty/mccluskey-colleen.php,False,True,"Colleen McCluskey, Ph.D.",Ph.D.
+College of Arts and Sciences,Philosophy,"Theodore Vitali, C.P., Ph.D.",theodore vitali c p,https://www.slu.edu/arts-and-sciences/philosophy/faculty/vitali-theodore.php,False,True,,Ph.D.
+College of Arts and Sciences,Philosophy,Helen De Cruz,helen de cruz,https://www.slu.edu/arts-and-sciences/philosophy/faculty/helen-de-cruz.php,False,False,"Helen De Cruz, Ph.D.",Ph.D.
+College of Arts and Sciences,Philosophy,Jack Marler,jack marler,https://www.slu.edu/arts-and-sciences/philosophy/faculty/marler-jack.php,False,False,"Jack Marler, Ph.D.",Ph.D.
+College of Arts and Sciences,Philosophy,George Terzis,george terzis,https://www.slu.edu/arts-and-sciences/philosophy/faculty/terzis-george.php,False,False,"George Terzis, Ph.D.",Ph.D.
+College of Arts and Sciences,Psychology,"Kira H. Banks, Ph.D.",kira h banks,https://www.slu.edu/arts-and-sciences/psychology/faculty/banks-kira.php,False,False,,Ph.D.
+College of Arts and Sciences,Psychology,"Laura Burch, Ph.D.",laura burch,https://www.slu.edu/arts-and-sciences/psychology/faculty/laura-burch.php,False,False,,Ph.D.
+College of Arts and Sciences,Psychology,"Annie Garner, Ph.D.",annie garner,https://www.slu.edu/arts-and-sciences/psychology/faculty/garner-annie.php,False,False,,Ph.D.
+College of Arts and Sciences,Psychology,"Paul J. Handal, Ph.D.",paul j handal,https://www.slu.edu/arts-and-sciences/psychology/faculty/handal-paul.php,False,False,,Ph.D.
+College of Arts and Sciences,Psychology,"David A. S. Kaufman, Ph.D.",david a s kaufman,https://www.slu.edu/arts-and-sciences/psychology/faculty/kaufman-david.php,False,False,,Ph.D.
+College of Arts and Sciences,Psychology,"Michael J. Ross, Ph.D.",michael j ross,https://www.slu.edu/arts-and-sciences/psychology/faculty/ross-michael.php,False,False,,Ph.D.
+College of Arts and Sciences,Psychology,"Madeline Stenersen, Ph.D.",madeline stenersen,https://www.slu.edu/arts-and-sciences/psychology/faculty/madeline-stenersen.php,False,False,,Ph.D.
+College of Arts and Sciences,Psychology,"Terri L. Weaver, Ph.D.",terri l weaver,https://www.slu.edu/arts-and-sciences/psychology/faculty/weaver-terri.php,False,False,,Ph.D.
+College of Arts and Sciences,Psychology,"Jeremiah Weinstock, Ph.D.",jeremiah weinstock,https://www.slu.edu/arts-and-sciences/psychology/faculty/weinstock-jeremiah.php,False,False,,Ph.D.
+College of Arts and Sciences,Psychology,"Tony W. Buchanan, Ph.D.",tony w buchanan,https://www.slu.edu/arts-and-sciences/psychology/faculty/buchanan-tony.php,False,False,,Ph.D.
+College of Arts and Sciences,Psychology,"Eddie M. Clark, Ph.D.",eddie m clark,https://www.slu.edu/arts-and-sciences/psychology/faculty/clark-eddie.php,False,False,,Ph.D.
+College of Arts and Sciences,Psychology,"Richard D. Harvey, Ph.D.",richard d harvey,https://www.slu.edu/arts-and-sciences/psychology/faculty/harvey-richard.php,False,False,,Ph.D.
+College of Arts and Sciences,Psychology,"Genevieve Keyser, Ph.D.",genevieve keyser,https://www.slu.edu/arts-and-sciences/psychology/faculty/genevieve-keyser.php,False,False,,Ph.D.
+College of Arts and Sciences,Psychology,"Brenda A. Kirchhoff, Ph.D.",brenda a kirchhoff,https://www.slu.edu/arts-and-sciences/psychology/faculty/kirchhoff-brenda.php,False,False,,Ph.D.
+College of Arts and Sciences,Psychology,"Janet E. Kuebli, Ph.D.",janet e kuebli,https://www.slu.edu/arts-and-sciences/psychology/faculty/kuebli-janet.php,False,False,,Ph.D.
+College of Arts and Sciences,Psychology,"Donna J. LaVoie, Ph.D.",donna j lavoie,https://www.slu.edu/arts-and-sciences/psychology/faculty/lavoie-donna.php,False,False,,Ph.D.
+College of Arts and Sciences,Psychology,"Katherine Luking, Ph.D.",katherine luking,https://www.slu.edu/arts-and-sciences/psychology/faculty/katherine-luking.php,False,False,,Ph.D.
+College of Arts and Sciences,Psychology,"Kimberly K. Powlishta, Ph.D.",kimberly k powlishta,https://www.slu.edu/arts-and-sciences/psychology/faculty/powlishta-kimberly.php,False,False,,Ph.D.
+College of Arts and Sciences,Psychology,"Bryan W. Sokol, Ph.D.",bryan w sokol,https://www.slu.edu/arts-and-sciences/psychology/faculty/sokol-bryan.php,False,False,,Ph.D.
+College of Arts and Sciences,Psychology,"Jill D. Waring, Ph.D.",jill d waring,https://www.slu.edu/arts-and-sciences/psychology/faculty/waring-jill.php,False,False,,Ph.D.
+College of Arts and Sciences,Psychology,"Ruth H. Warner, Ph.D.",ruth h warner,https://www.slu.edu/arts-and-sciences/psychology/faculty/warner-ruth.php,False,False,,Ph.D.
+College of Arts and Sciences,Psychology,"Lisa Willoughby, Ph.D.",lisa willoughby,https://www.slu.edu/arts-and-sciences/psychology/faculty/willoughby-lisa.php,False,False,,Ph.D.
+College of Arts and Sciences,Psychology,"Xiaowen Chen, Ph.D.",xiaowen chen,https://www.slu.edu/arts-and-sciences/psychology/faculty/xiaowen-chen.php,False,False,,Ph.D.
+College of Arts and Sciences,Psychology,"Edward J. Sabin, Ph.D.",edward j sabin,https://www.slu.edu/arts-and-sciences/psychology/faculty/sabin-edward.php,False,False,,Ph.D.
+College of Arts and Sciences,Psychology,"Kristin Kiddoo, Ph.D.",kristin kiddoo,https://www.slu.edu/arts-and-sciences/psychology/faculty/kiddoo-kristin.php,False,False,,Ph.D.
+College of Arts and Sciences,Psychology,"Christopher Schmank, Ph.D.",christopher schmank,https://www.slu.edu/arts-and-sciences/psychology/faculty/christopher-schmank.php,False,False,,Ph.D.
+College of Arts and Sciences,Psychology,"Quang Tran, S.J., Ph.D",quang tran s j,https://www.slu.edu/arts-and-sciences/psychology/faculty/tran-quang.php,False,False,,Ph.D.
+College of Arts and Sciences,Psychology,"Jeffrey D. Gfeller, Ph.D.",jeffrey d gfeller,https://www.slu.edu/arts-and-sciences/psychology/faculty/gfeller-jeffrey.php,False,True,,Ph.D.
+College of Arts and Sciences,Psychology,"Ronald T. Kellogg, Ph.D.",ronald t kellogg,https://www.slu.edu/arts-and-sciences/psychology/faculty/kellogg-ronald.php,False,True,,Ph.D.
+College of Arts and Sciences,Psychology,"Jillon S. Vander Wal, Ph.D.",jillon s vander wal,https://www.slu.edu/arts-and-sciences/psychology/faculty/vander-wal-jillon.php,False,True,,Ph.D.
+College of Arts and Sciences,Political Science,"Nori Katagiri, Ph.D.",nori katagiri,https://www.slu.edu/arts-and-sciences/political-science/faculty/katagiri-nori.php,False,False,,Ph.D.
+College of Arts and Sciences,Political Science,"J. D. Bowen, Ph.D.",j d bowen,https://www.slu.edu/arts-and-sciences/political-science/faculty/bowen-james.php,False,False,,Ph.D.
+College of Arts and Sciences,Political Science,"Morgan Hazelton, Ph.D.",morgan hazelton,https://www.slu.edu/arts-and-sciences/political-science/faculty/hazelton-morgan.php,False,False,,Ph.D.
+College of Arts and Sciences,Political Science,"Steven Rogers, Ph.D.",steven rogers,https://www.slu.edu/arts-and-sciences/political-science/faculty/rogers-steven.php,False,False,,Ph.D.
+College of Arts and Sciences,Political Science,"Ness Sandoval, Ph.D.",ness sandoval,https://www.slu.edu/arts-and-sciences/sociology-anthropology/faculty/sandoval-onesimo.php,False,False,,Ph.D.
+College of Arts and Sciences,Political Science,"Ellen Carnaghan, Ph.D.",ellen carnaghan,https://www.slu.edu/arts-and-sciences/political-science/faculty/carnaghan-ellen.php,False,False,,Ph.D.
+College of Arts and Sciences,Political Science,"Nathaniel Carrington, Ph.D.",nathaniel carrington,https://www.slu.edu/arts-and-sciences/political-science/faculty/nathaniel-carrington.php,False,False,,Ph.D.
+College of Arts and Sciences,Political Science,"Robert Cropf, Ph.D.",robert cropf,https://www.slu.edu/arts-and-sciences/political-science/faculty/cropf-robert.php,False,False,,Ph.D.
+College of Arts and Sciences,Political Science,"Christopher M. Duncan, Ph.D.",christopher m duncan,https://www.slu.edu/arts-and-sciences/political-science/faculty/duncan-christopher.php,False,False,,Ph.D.
+College of Arts and Sciences,Political Science,"Ali Fisunoglu, Ph.D.",ali fisunoglu,https://www.slu.edu/arts-and-sciences/political-science/faculty/ali-fisunoglu.php,False,False,,Ph.D.
+College of Arts and Sciences,Political Science,"Ruth Groff, Ph.D.",ruth groff,https://www.slu.edu/arts-and-sciences/political-science/faculty/groff-ruth.php,False,False,,Ph.D.
+College of Arts and Sciences,Political Science,"Wynne Moskop, Ph.D.",wynne moskop,https://www.slu.edu/arts-and-sciences/political-science/faculty/moskop-wynne.php,False,False,,Ph.D.
+College of Arts and Sciences,Political Science,"Robin Saywitz, Ph.D.",robin saywitz,https://www.slu.edu/arts-and-sciences/political-science/faculty/saywitz-robin.php,False,False,,Ph.D.
+College of Arts and Sciences,Political Science,"Emmanuel Uwalaka, Ph.D.",emmanuel uwalaka,https://www.slu.edu/arts-and-sciences/political-science/faculty/uwalaka-emmanuel.php,False,False,,Ph.D.
+College of Arts and Sciences,Sociology and Anthropology,"Amy Cooper, Ph.D.",amy cooper,https://www.slu.edu/arts-and-sciences/sociology-anthropology/faculty/cooper-amy.php,False,False,,Ph.D.
+College of Arts and Sciences,Sociology and Anthropology,"Shiloh Dietz, Ph.D.",shiloh dietz,https://www.slu.edu/arts-and-sciences/sociology-anthropology/faculty/shiloh-deitz.php,False,False,,Ph.D.
+College of Arts and Sciences,Sociology and Anthropology,"Scott Harris, Ph.D.",scott harris,https://www.slu.edu/arts-and-sciences/sociology-anthropology/faculty/harris-scott.php,False,False,,Ph.D.
+College of Arts and Sciences,Sociology and Anthropology,"Emily Hite, Ph.D.",emily hite,https://www.slu.edu/arts-and-sciences/sociology-anthropology/faculty/emily-hite.php,False,False,,Ph.D.
+College of Arts and Sciences,Sociology and Anthropology,"Joel Jennings, Ph.D.",joel jennings,https://www.slu.edu/arts-and-sciences/sociology-anthropology/faculty/jennings-joel.php,False,False,,Ph.D.
+College of Arts and Sciences,Sociology and Anthropology,"Elaina Johns-Wolfe, Ph.D.",elaina johns-wolfe,https://www.slu.edu/arts-and-sciences/sociology-anthropology/faculty/elaina-johns-wolfe.php,False,False,,Ph.D.
+College of Arts and Sciences,Sociology and Anthropology,"Abigail Jorgensen, Ph.D.",abigail jorgensen,https://www.slu.edu/arts-and-sciences/sociology-anthropology/faculty/abigail-jorgensen.php,False,False,,Ph.D.
+College of Arts and Sciences,Sociology and Anthropology,"Ajlina Karamehic-Muratovic, Ph.D.",ajlina karamehic-muratovic,https://www.slu.edu/arts-and-sciences/sociology-anthropology/faculty/karamehic-muratovic-ajilina.php,False,False,,Ph.D.
+College of Arts and Sciences,Sociology and Anthropology,"Katherine MacKinnon, Ph.D.",katherine mackinnon,https://www.slu.edu/arts-and-sciences/sociology-anthropology/faculty/mackinnon-katherine.php,False,False,,Ph.D.
+College of Arts and Sciences,Sociology and Anthropology,"Hisako Matsuo, Ph.D.",hisako matsuo,https://www.slu.edu/arts-and-sciences/sociology-anthropology/faculty/matsuo-hisako.php,False,False,,Ph.D.
+College of Arts and Sciences,Sociology and Anthropology,"Daniel Monti, Ph.D.",daniel monti,https://www.slu.edu/arts-and-sciences/sociology-anthropology/faculty/monti-daniel.php,False,False,,Ph.D.
+College of Arts and Sciences,Sociology and Anthropology,"Bruce O'Neill, Ph.D.",bruce o'neill,https://www.slu.edu/arts-and-sciences/sociology-anthropology/faculty/oneill-bruce.php,False,False,,Ph.D.
+College of Arts and Sciences,Sociology and Anthropology,"J.S. Onesimo Sandoval, Ph.D.",j s onesimo sandoval,https://www.slu.edu/arts-and-sciences/sociology-anthropology/faculty/sandoval-onesimo.php,False,False,,Ph.D.
+College of Arts and Sciences,Sociology and Anthropology,"Pablo Seward Delaporte, Ph.D.",pablo seward delaporte,https://www.slu.edu/arts-and-sciences/sociology-anthropology/faculty/pablo-seward-delaporte.php,False,False,,Ph.D.
+College of Arts and Sciences,Sociology and Anthropology,"Mary Vermilion, Ph.D.",mary vermilion,https://www.slu.edu/arts-and-sciences/sociology-anthropology/faculty/vermilion-mary.php,False,False,,Ph.D.
+College of Arts and Sciences,Sociology and Anthropology,"Terry Tomazic, Ph.D.",terry tomazic,https://www.slu.edu/arts-and-sciences/sociology-anthropology/faculty/tomazic-terry.php,False,True,,Ph.D.
+College of Arts and Sciences,Mathematics and Statistics,Teaching and Curricular Development,teaching and curricular development,https://www.slu.edu/arts-and-sciences/mathematics-statistics/faculty/teaching.php,False,False,Teaching and Curricular Development,
+College of Arts and Sciences,Mathematics and Statistics,"Anneke Bart, Ph.D.",anneke bart,https://www.slu.edu/arts-and-sciences/mathematics-statistics/faculty/anneke-bart.php,False,False,,Ph.D.
+College of Arts and Sciences,Mathematics and Statistics,"Julianne Rainbolt, Ph.D.",julianne rainbolt,https://www.slu.edu/arts-and-sciences/mathematics-statistics/faculty/julianne-rainbolt.php,False,False,,Ph.D.
+College of Arts and Sciences,Mathematics and Statistics,"Benjamin Hutz, Ph.D.",benjamin hutz,https://www.slu.edu/arts-and-sciences/mathematics-statistics/faculty/benjamin-hutz.php,False,False,,Ph.D.
+College of Arts and Sciences,Mathematics and Statistics,"Michael May, S.J., Ph.D.",michael may s j,https://www.slu.edu/arts-and-sciences/mathematics-statistics/faculty/michael-may.php,False,False,,Ph.D.
+College of Arts and Sciences,Mathematics and Statistics,"Darrin Speegle, Ph.D.",darrin speegle,https://www.slu.edu/arts-and-sciences/mathematics-statistics/faculty/darrin-speegle.php,False,False,,Ph.D.
+College of Arts and Sciences,Mathematics and Statistics,"Bryan Clair, Ph.D.",bryan clair,https://www.slu.edu/arts-and-sciences/mathematics-statistics/faculty/bryan-clair.php,False,False,,Ph.D.
+College of Arts and Sciences,Mathematics and Statistics,"Daniel Freeman, Ph.D.",daniel freeman,https://www.slu.edu/arts-and-sciences/mathematics-statistics/faculty/daniel-freeman.php,False,False,,Ph.D.
+College of Arts and Sciences,Mathematics and Statistics,"Dorsa Ghoreishi, Ph.D.",dorsa ghoreishi,https://www.slu.edu/arts-and-sciences/mathematics-statistics/faculty/dorsa-ghoreishi.php,False,False,,Ph.D.
+College of Arts and Sciences,Mathematics and Statistics,"Cody Gilbert, Ph.D.",cody gilbert,https://www.slu.edu/arts-and-sciences/mathematics-statistics/faculty/cody-gilbert.php,False,False,,Ph.D.
+College of Arts and Sciences,Mathematics and Statistics,"James T. Gill, Ph.D.",james t gill,https://www.slu.edu/arts-and-sciences/mathematics-statistics/faculty/james-gill.php,False,False,,Ph.D.
+College of Arts and Sciences,Mathematics and Statistics,"Haijun Gong, Ph.D.",haijun gong,https://www.slu.edu/arts-and-sciences/mathematics-statistics/faculty/haijun-gong.php,False,False,,Ph.D.
+College of Arts and Sciences,Mathematics and Statistics,"Stacey Harris, Ph.D.",stacey harris,https://www.slu.edu/arts-and-sciences/mathematics-statistics/faculty/stacey-harris.php,False,False,,Ph.D.
+College of Arts and Sciences,Mathematics and Statistics,"James Hebda, Ph.D.",james hebda,https://www.slu.edu/arts-and-sciences/mathematics-statistics/faculty/james-hebda.php,False,False,,Ph.D.
+College of Arts and Sciences,Mathematics and Statistics,"Philip Huling, Ph.D.",philip huling,https://www.slu.edu/arts-and-sciences/mathematics-statistics/faculty/philip-huling.php,False,False,,Ph.D.
+College of Arts and Sciences,Mathematics and Statistics,"Vahan Huroyan, Ph.D.",vahan huroyan,https://www.slu.edu/arts-and-sciences/mathematics-statistics/faculty/vahan-huroyan.php,False,False,,Ph.D.
+College of Arts and Sciences,Mathematics and Statistics,"Brody Johnson, Ph.D.",brody johnson,https://www.slu.edu/arts-and-sciences/mathematics-statistics/faculty/brody-johnson.php,False,False,,Ph.D.
+College of Arts and Sciences,Mathematics and Statistics,"John Kalliongis, Ph.D.",john kalliongis,https://www.slu.edu/arts-and-sciences/mathematics-statistics/faculty/john-kalliongis.php,False,False,,Ph.D.
+College of Arts and Sciences,Mathematics and Statistics,"Michael Landry, Ph.D.",michael landry,https://www.slu.edu/arts-and-sciences/mathematics-statistics/faculty/michael-landry.php,False,False,,Ph.D.
+College of Arts and Sciences,Mathematics and Statistics,"David Letscher, Ph.D.",david letscher,https://www.slu.edu/arts-and-sciences/mathematics-statistics/faculty/david-letscher.php,False,False,,Ph.D.
+College of Arts and Sciences,Mathematics and Statistics,"Lauren Miller, Ph.D.",lauren miller,https://www.slu.edu/arts-and-sciences/mathematics-statistics/faculty/lauren-miller.php,False,False,,Ph.D.
+College of Arts and Sciences,Mathematics and Statistics,"Hugo Panzo, Ph.D.",hugo panzo,https://www.slu.edu/arts-and-sciences/mathematics-statistics/faculty/hugo-panzo.php,False,False,,Ph.D.
+College of Arts and Sciences,Mathematics and Statistics,"Elodie Pozzi, Ph.D.",elodie pozzi,https://www.slu.edu/arts-and-sciences/mathematics-statistics/faculty/elodie-pozzi.php,False,False,,Ph.D.
+College of Arts and Sciences,Mathematics and Statistics,"Nirina Lovasoa Randrianarivony, Ph.D.",nirina lovasoa randrianarivony,https://www.slu.edu/arts-and-sciences/mathematics-statistics/faculty/nirina-lovasoa-randrianarivony.php,False,False,,Ph.D.
+College of Arts and Sciences,Mathematics and Statistics,"Ashish K. Srivastava, Ph.D.",ashish k srivastava,https://www.slu.edu/arts-and-sciences/mathematics-statistics/faculty/ashish-srivastava.php,False,False,,Ph.D.
+College of Arts and Sciences,Mathematics and Statistics,"Özlem Uğurlu, Ph.D.",zlem u urlu,https://www.slu.edu/arts-and-sciences/mathematics-statistics/faculty/ozlem-ugurlu.php,False,False,,Ph.D.
+College of Arts and Sciences,Mathematics and Statistics,"John Cantwell, Ph.D.",john cantwell,https://www.slu.edu/arts-and-sciences/mathematics-statistics/faculty/john-cantwell.php,False,True,,Ph.D.
+College of Arts and Sciences,Mathematics and Statistics,"Bradley Currey, Ph.D.",bradley currey,https://www.slu.edu/arts-and-sciences/mathematics-statistics/faculty/bradley-currey.php,False,True,,Ph.D.
+College of Arts and Sciences,Theological Studies,"Daniel L. Smith, Ph.D.",daniel l smith,https://www.slu.edu/arts-and-sciences/theological-studies/faculty/smith-daniel.php,False,False,,Ph.D.
+College of Arts and Sciences,Theological Studies,"Grant Kaplan, Ph.D.",grant kaplan,https://www.slu.edu/arts-and-sciences/theological-studies/faculty/kaplan-grant.php,False,False,,Ph.D.
+College of Arts and Sciences,Theological Studies,"Lori Baron, Ph.D.",lori baron,https://www.slu.edu/arts-and-sciences/theological-studies/faculty/baron-lori.php,False,False,,Ph.D.
+College of Arts and Sciences,Theological Studies,"Elizabeth Sweeny Block, Ph.D.",elizabeth sweeny block,https://www.slu.edu/arts-and-sciences/theological-studies/faculty/block-elizabeth-sweeny.php,False,False,,Ph.D.
+College of Arts and Sciences,Theological Studies,"Anne Carpenter, Ph.D.",anne carpenter,https://www.slu.edu/arts-and-sciences/faculty-resources/anne-carpenter.php,False,False,,Ph.D.
+College of Arts and Sciences,Theological Studies,"Kayla Dang, Ph.D.",kayla dang,https://www.slu.edu/arts-and-sciences/theological-studies/faculty/kayla-dang.php,False,False,,Ph.D.
+College of Arts and Sciences,Theological Studies,"Emily Dumler-Winckler, Ph.D.",emily dumler-winckler,https://www.slu.edu/arts-and-sciences/theological-studies/faculty/dumler-winckler-emily.php,False,False,,Ph.D.
+College of Arts and Sciences,Theological Studies,"Mary Dunn, Ph.D.",mary dunn,https://www.slu.edu/arts-and-sciences/theological-studies/faculty/dunn-mary.php,False,False,,Ph.D.
+College of Arts and Sciences,Theological Studies,"Matthew Elia, Ph.D.",matthew elia,https://www.slu.edu/arts-and-sciences/theological-studies/faculty/matthew-elia.php,False,False,,Ph.D.
+College of Arts and Sciences,Theological Studies,"Daniel J. Finucane, Ph.D.",daniel j finucane,https://www.slu.edu/arts-and-sciences/theological-studies/faculty/finucane-daniel.php,False,False,,Ph.D.
+College of Arts and Sciences,Theological Studies,"Joan Hart-Hasler, Ph.D.",joan hart-hasler,https://www.slu.edu/arts-and-sciences/theological-studies/faculty/hart-hasler-joan.php,False,False,,Ph.D.
+College of Arts and Sciences,Theological Studies,"Ani Honarchiansaky, Ph.D.",ani honarchiansaky,https://www.slu.edu/arts-and-sciences/theological-studies/faculty/ani-honarchiansaky.php,False,False,,Ph.D.
+College of Arts and Sciences,Theological Studies,"Chad Kim, Ph.D.",chad kim,https://www.slu.edu/arts-and-sciences/theological-studies/faculty/chad-kim.php,False,False,,Ph.D.
+College of Arts and Sciences,Theological Studies,"Atria Larson, Ph.D.",atria larson,https://www.slu.edu/arts-and-sciences/theological-studies/faculty/larson-atria.php,False,False,,Ph.D.
+College of Arts and Sciences,Theological Studies,"Pauline C. Lee, Ph.D.",pauline c lee,https://www.slu.edu/arts-and-sciences/theological-studies/faculty/lee-pauline.php,False,False,,Ph.D.
+College of Arts and Sciences,Theological Studies,"Rachel Lindsey, Ph.D",rachel lindsey,https://www.slu.edu/arts-and-sciences/theological-studies/faculty/lindsey-rachel.php,False,False,,Ph.D.
+College of Arts and Sciences,Theological Studies,"Peter W. Martens, Ph.D.",peter w martens,https://www.slu.edu/arts-and-sciences/theological-studies/faculty/martens-peter.php,False,False,,Ph.D.
+College of Arts and Sciences,Theological Studies,"Michael McClymond, Ph.D.",michael mcclymond,https://www.slu.edu/arts-and-sciences/theological-studies/faculty/mcclymond-michael.php,False,False,,Ph.D.
+College of Arts and Sciences,Theological Studies,"James Adam Redfield, Ph.D.",james adam redfield,https://www.slu.edu/arts-and-sciences/theological-studies/faculty/redfield-james.php,False,False,,Ph.D.
+College of Arts and Sciences,Theological Studies,"Rubén Rosario Rodríguez, Ph.D.",rub n rosario rodr guez,https://www.slu.edu/arts-and-sciences/theological-studies/faculty/rodriguez-ruben.php,False,False,,Ph.D.
+College of Arts and Sciences,Theological Studies,"Nicolo Sassi, Ph.D.",nicolo sassi,https://www.slu.edu/arts-and-sciences/theological-studies/faculty/nicolo-sassi.php,False,False,,Ph.D.
+College of Arts and Sciences,Theological Studies,"Brian Sholl, Ph.D.",brian sholl,https://www.slu.edu/arts-and-sciences/theological-studies/faculty/sholl-brian.php,False,False,,Ph.D.
+College of Arts and Sciences,Theological Studies,"Reggie Williams, Ph.D.",reggie willia,https://www.slu.edu/arts-and-sciences/theological-studies/faculty/reggie-williams.php,False,False,,Ph.D.
+College of Arts and Sciences,Theological Studies,"Angelyn Dries, O.S.F., Ph.D.",angelyn dries o s f,https://www.slu.edu/arts-and-sciences/theological-studies/faculty/dries-angelyn.php,False,True,,Ph.D.
+College of Arts and Sciences,Theological Studies,"Julie Hanlon Rubio, Ph.D.",julie hanlon rubio,https://www.slu.edu/arts-and-sciences/theological-studies/faculty/rubio-julie.php,False,True,,Ph.D.
+College of Arts and Sciences,Theological Studies,"J. A. Wayne Hellmann, OFM Conv, Dr. Theol",j a wayne hellmann ofm conv dr theol,https://www.slu.edu/arts-and-sciences/theological-studies/faculty/hellmann-j-a-wayne.php,False,True,"J.A. Wayne Hellmann, O.F.M. Conv., Dr. Theol.",
+College of Arts and Sciences,Theological Studies,"G. John Renard, Ph.D.",g john renard,https://www.slu.edu/arts-and-sciences/theological-studies/faculty/renard-john.php,False,True,,Ph.D.
+College of Arts and Sciences,Theological Studies,"Miguel Romero, Ph.D.",miguel romero,https://www.slu.edu/arts-and-sciences/bioethics/faculty/miguel-romero.php,False,True,,Ph.D.
+College of Arts and Sciences,Visual and Performing Arts,"Robert L. Hughes Jr., Ph.D.",robert l hughes jr,https://www.slu.edu/arts-and-sciences/visual-and-performing-arts/faculty/hughes-robert.php,False,False,,Ph.D.
+College of Arts and Sciences,Visual and Performing Arts,"Bradley Bailey, Ph.D.",bradley bailey,https://www.slu.edu/arts-and-sciences/visual-and-performing-arts/faculty/bailey-bradley.php,False,False,,Ph.D.
+College of Arts and Sciences,Visual and Performing Arts,"Olubukola Gbadegesin, Ph.D.",olubukola gbadegesin,https://www.slu.edu/arts-and-sciences/visual-and-performing-arts/faculty/gbadegesi-olubukola.php,False,False,,Ph.D.
+College of Arts and Sciences,Visual and Performing Arts,"Cynthia Stollhans, Ph.D.",cynthia stollhans,https://www.slu.edu/arts-and-sciences/visual-and-performing-arts/faculty/stollhans-cynthia.php,False,False,,Ph.D.
+College of Arts and Sciences,Visual and Performing Arts,"Aaron Johnson, D.M.A.",aaron johnson d,https://www.slu.edu/arts-and-sciences/visual-and-performing-arts/faculty/johnson-aaron.php,False,False,,D.M.A.
+College of Arts and Sciences,Visual and Performing Arts,Stephanie Tennill,stephanie tennill,https://www.slu.edu/arts-and-sciences/visual-and-performing-arts/faculty/tennill-stephanie.php,False,False,Stephanie Tennill,
+College of Arts and Sciences,Visual and Performing Arts,Amy Bautz,amy bautz,https://www.slu.edu/arts-and-sciences/visual-and-performing-arts/faculty/bautz-amy.php,False,False,"Amy Bautz, MFA",
+College of Arts and Sciences,Visual and Performing Arts,Ilene Berman,ilene berman,https://www.slu.edu/arts-and-sciences/visual-and-performing-arts/faculty/berman-ilene.php,False,False,"Ilene Berman, MFA",
+College of Arts and Sciences,Visual and Performing Arts,Martin Brief,martin brief,https://www.slu.edu/arts-and-sciences/visual-and-performing-arts/faculty/brief-martin.php,False,False,"Martin Brief, M.F.A.",
+College of Arts and Sciences,Visual and Performing Arts,Jim Burwinkel,jim burwinkel,https://www.slu.edu/arts-and-sciences/visual-and-performing-arts/faculty/burwinkel-jim.php,False,False,"Jim Burwinkel, M.Arch.",
+College of Arts and Sciences,Visual and Performing Arts,Deborah Douglas,deborah douglas,https://www.slu.edu/arts-and-sciences/visual-and-performing-arts/faculty/douglas-deborah.php,False,False,"Deborah Douglas, M.F.A.",
+College of Arts and Sciences,Visual and Performing Arts,Nila Petty,nila petty,https://www.slu.edu/arts-and-sciences/visual-and-performing-arts/faculty/petty-nila.php,False,False,"Nila Petty, MFA",
+College of Arts and Sciences,Visual and Performing Arts,Nancy Bell,nancy bell,https://www.slu.edu/arts-and-sciences/visual-and-performing-arts/faculty/bell-nancy.php,False,False,"Nancy Bell, MFA, A.E.A., SAG-AFTRA",
+College of Arts and Sciences,Visual and Performing Arts,Gary Barker,gary barker,https://www.slu.edu/arts-and-sciences/visual-and-performing-arts/faculty/barker-gary.php,False,False,"Gary Barker, MFA, A.E.A., SAG-AFTRA",
+College of Arts and Sciences,Visual and Performing Arts,Lou Bird,lou bird,https://www.slu.edu/arts-and-sciences/visual-and-performing-arts/faculty/bird-lou.php,False,False,"Lou Bird, MFA",
+College of Arts and Sciences,Visual and Performing Arts,Lucille Cashion,lucille cashion,https://www.slu.edu/arts-and-sciences/visual-and-performing-arts/faculty/cashion-lucy.php,False,False,Lucy Cashion,
+College of Arts and Sciences,Visual and Performing Arts,Denisse Chavez,denisse chavez,https://www.slu.edu/arts-and-sciences/visual-and-performing-arts/faculty/chavez-denisse.php,False,False,"Denisse Chavez, M.F.A.",
+College of Arts and Sciences,Visual and Performing Arts,Holly Seitz-Marchant,holly seitz-marchant,https://www.slu.edu/arts-and-sciences/visual-and-performing-arts/faculty/marchant-holly.php,False,False,"Holly Seitz Marchant, MFA",
+College of Arts and Sciences,"Linguistics, Literatures and Cultures","André Zampaulo, Ph.D.",andr zampaulo,https://www.slu.edu/arts-and-sciences/linguistics-literatures-cultures/faculty/zampaulo-andre.php,False,False,,Ph.D.
+College of Arts and Sciences,"Linguistics, Literatures and Cultures","Sheri Anderson-Gutiérrez, Ph.D.",sheri anderson-guti rrez,https://www.slu.edu/arts-and-sciences/linguistics-literatures-cultures/faculty/anderson-gutierrez-sheri.php,False,False,,Ph.D.
+College of Arts and Sciences,"Linguistics, Literatures and Cultures","Ander Beristain, Ph.D.",ander beristain,https://www.slu.edu/arts-and-sciences/linguistics-literatures-cultures/faculty/beristain-ander.php,False,False,,Ph.D.
+College of Arts and Sciences,"Linguistics, Literatures and Cultures","Christina García, Ph.D.",christina garc a,https://www.slu.edu/arts-and-sciences/linguistics-literatures-cultures/faculty/garcia-christina.php,False,False,,Ph.D.
+College of Arts and Sciences,"Linguistics, Literatures and Cultures","Dan Nickolai, Ph.D.",dan nickolai,https://www.slu.edu/arts-and-sciences/linguistics-literatures-cultures/faculty/nickolai-dan.php,False,False,,Ph.D.
+College of Arts and Sciences,"Linguistics, Literatures and Cultures","Olga Arbeláez, Ph.D.",olga arbel ez,https://www.slu.edu/arts-and-sciences/linguistics-literatures-cultures/faculty/arbelaez-olga.php,False,False,,Ph.D.
+College of Arts and Sciences,"Linguistics, Literatures and Cultures",Sarah Bauer,sarah bauer,https://www.slu.edu/arts-and-sciences/linguistics-literatures-cultures/faculty/bauer-sarah.php,False,False,"Sarah E. Bauer, M.A., M.Ed.",
+College of Arts and Sciences,"Linguistics, Literatures and Cultures","Elizabeth Blake, Ph.D.",elizabeth blake,https://www.slu.edu/arts-and-sciences/linguistics-literatures-cultures/faculty/blake-elizabeth.php,False,False,,Ph.D.
+College of Arts and Sciences,"Linguistics, Literatures and Cultures","Yun A. Lee, Ph.D.",yun a lee,https://www.slu.edu/arts-and-sciences/linguistics-literatures-cultures/faculty/lee-yun.php,False,False,,Ph.D.
+College of Arts and Sciences,"Linguistics, Literatures and Cultures","Julia Lieberman, Ph.D",julia lieberman,https://www.slu.edu/arts-and-sciences/linguistics-literatures-cultures/faculty/lieberman-julia.php,False,False,,Ph.D.
+College of Arts and Sciences,"Linguistics, Literatures and Cultures",Germán Lorenzo-Ayala,germ n lorenzo-ayala,https://www.slu.edu/arts-and-sciences/linguistics-literatures-cultures/faculty/lorenzo-ayala-german.php,False,False,"Germán  Lorenzo-Ayala, M.A.",
+College of Arts and Sciences,"Linguistics, Literatures and Cultures","Evelyn Meyer, Ph.D.",evelyn meyer,https://www.slu.edu/arts-and-sciences/linguistics-literatures-cultures/faculty/meyer-evelyn.php,False,False,,Ph.D.
+College of Arts and Sciences,"Linguistics, Literatures and Cultures","Pascale Perraudin, Ph.D.",pascale perraudin,https://www.slu.edu/arts-and-sciences/linguistics-literatures-cultures/faculty/perraudin-pascale.php,False,False,,Ph.D.
+College of Arts and Sciences,"Linguistics, Literatures and Cultures","Amy Wright, Ph.D.",amy wright,https://www.slu.edu/arts-and-sciences/linguistics-literatures-cultures/faculty/wright-amy.php,False,False,,Ph.D.
+College of Arts and Sciences,"Linguistics, Literatures and Cultures","L. Cassandra Hamrick, Ph.D.,",l cassandra hamrick,https://www.slu.edu/arts-and-sciences/linguistics-literatures-cultures/faculty/hamrick-cassandra.php,False,True,,Ph.D.
+College of Arts and Sciences,"Linguistics, Literatures and Cultures","Kathleen Llewellyn, Ph.D.",kathleen llewellyn,https://www.slu.edu/arts-and-sciences/linguistics-literatures-cultures/faculty/llewellyn-kathleen.php,False,True,,Ph.D.
+College of Arts and Sciences,"Linguistics, Literatures and Cultures","Jean-Louis Pautrot, Ph.D.,",jean-louis pautrot,https://www.slu.edu/arts-and-sciences/linguistics-literatures-cultures/faculty/pautrot-jean-louis.php,False,True,,Ph.D.
+College of Arts and Sciences,"Linguistics, Literatures and Cultures","Nil Santiáñez, Ph.D.",nil santi ez,https://www.slu.edu/arts-and-sciences/linguistics-literatures-cultures/faculty/santianez-nil.php,False,True,,Ph.D.
+College of Arts and Sciences,American Studies,"Heidi Ardizzone, Ph.D.",heidi ardizzone,https://www.slu.edu/arts-and-sciences/american-studies/faculty/heidi-ardizzone.php,False,False,,Ph.D.
+College of Arts and Sciences,American Studies,"Flannery Burke, Ph.D.",flannery burke,https://www.slu.edu/arts-and-sciences/american-studies/faculty/burke-flannery.php,False,False,,Ph.D.
+College of Arts and Sciences,American Studies,"Benjamin Looker, Ph.D.,",benjamin looker,https://www.slu.edu/arts-and-sciences/american-studies/faculty/benjamin-looker.php,False,False,,Ph.D.
+College of Arts and Sciences,American Studies,"Kate Moran, Ph.D.",kate moran,https://www.slu.edu/arts-and-sciences/american-studies/faculty/kate-moran.php,False,False,,Ph.D.
+College of Arts and Sciences,American Studies,"Corinne Wohlford, Ph.D.",corinne wohlford,https://www.slu.edu/arts-and-sciences/american-studies/faculty/corinne-wohlford.php,False,False,,Ph.D.
+College of Arts and Sciences,American Studies,"Matthew Mancini, Ph.D.",matthew mancini,https://www.slu.edu/arts-and-sciences/american-studies/faculty/matthew-mancini.php,False,True,,Ph.D.
+College of Arts and Sciences,African American Studies,"Christopher M. Tinson, Ph.D.",christopher m tinson,https://www.slu.edu/arts-and-sciences/african-american-studies/faculty/tinson-christopher.php,False,False,,Ph.D.
+College of Arts and Sciences,African American Studies,"Amrita Chaturvedi, Ph.D.",amrita chaturvedi,https://www.slu.edu/arts-and-sciences/african-american-studies/faculty/amrita-chaturvedi.php,False,False,,Ph.D.
+College of Arts and Sciences,African American Studies,"Adeyemi Doss, Ph.D.",adeyemi doss,https://www.slu.edu/arts-and-sciences/african-american-studies/faculty/adeyemi-doss.php,False,False,,Ph.D.
+College of Arts and Sciences,African American Studies,"Olubukola Gbadegesin,Ph.D.",olubukola gbadegesin,https://www.slu.edu/arts-and-sciences/visual-and-performing-arts/faculty/gbadegesi-olubukola.php,False,False,,Ph.D.
+College of Arts and Sciences,African American Studies,"Clarice Thomas, Ph.D.",clarice thomas,https://www.slu.edu/arts-and-sciences/african-american-studies/faculty/clarice-thomas.php,False,False,,Ph.D.
+College of Arts and Sciences,African American Studies,"Katrina Thompson, Ph.D.",katrina thompson,https://www.slu.edu/arts-and-sciences/history/faculty/moore-katrina.php,False,False,,Ph.D.
+College of Arts and Sciences,African American Studies,"Eddie Clark, Ph.D.*",eddie clark,https://www.slu.edu/arts-and-sciences/psychology/faculty/clark-eddie.php,False,False,,Ph.D.
+College of Arts and Sciences,African American Studies,"Nathan Grant, Ph.D.",nathan grant,https://www.slu.edu/arts-and-sciences/english/faculty/nathan-grant.php,False,False,,Ph.D.
+College of Arts and Sciences,African American Studies,"Richard D. Harvey, Ph.D.",richard d harvey,https://www.slu.edu/arts-and-sciences/psychology/faculty/harvey-richard.php,False,False,,Ph.D.
+College of Arts and Sciences,African American Studies,"George O. Ndege, Ph.D.*",george o ndege,https://www.slu.edu/arts-and-sciences/history/faculty/ndege-george.php,False,False,,Ph.D.
+College of Arts and Sciences,African American Studies,"Joya F. Uraizee, Ph.D.*",joya f uraizee,https://www.slu.edu/arts-and-sciences/english/faculty/joya-uraizee.php,False,False,,Ph.D.
+College of Arts and Sciences,African American Studies,"Emmanuel Uwalaka, Ph.D.",emmanuel uwalaka,https://www.slu.edu/arts-and-sciences/political-science/faculty/uwalaka-emmanuel.php,False,False,,Ph.D.
+College of Arts and Sciences,African American Studies,"Yolonda Wilson, Ph.D.",yolonda wilson,https://www.slu.edu/arts-and-sciences/bioethics/faculty/yolonda-wilson.php,False,False,,Ph.D.
+College of Arts and Sciences,Women's and Gender Studies,Corinne Wohlford Mason,corinne wohlford mason,https://www.slu.edu/arts-and-sciences/american-studies/faculty/corinne-wohlford.php,False,False,"Corinne Wohlford Mason, Ph.D.",Ph.D.
+College of Arts and Sciences,Women's and Gender Studies,Alesha Durfee,alesha durfee,https://www.slu.edu/arts-and-sciences/women-gender-studies/faculty/alesha-durfee.php,False,False,"Alesha Durfee, Ph.D.",Ph.D.
+College of Arts and Sciences,Women's and Gender Studies,Amanda Izzo,amanda izzo,https://www.slu.edu/arts-and-sciences/women-gender-studies/faculty/izzo-amanda.php,False,False,"Amanda Izzo, Ph.D.",Ph.D.
+College of Arts and Sciences,Women's and Gender Studies,Claudia Karagoz,claudia karagoz,https://www.slu.edu/arts-and-sciences/women-gender-studies/faculty/karagoz-claudia.php,False,False,"Claudia Karagoz, Ph.D.",Ph.D.
+College of Arts and Sciences,Women's and Gender Studies,Mary Maxfield,mary maxfield,https://www.slu.edu/arts-and-sciences/women-gender-studies/faculty/mary-maxfield.php,False,False,"Mary Maxfield, Ph.D.",Ph.D.
+College of Arts and Sciences,Women's and Gender Studies,Melissa Ochoa,melissa ochoa,https://www.slu.edu/arts-and-sciences/women-gender-studies/faculty/melissa-ochoa.php,False,False,"Melissa Ochoa, Ph.D.",Ph.D.
+College of Arts and Sciences,Women's and Gender Studies,Gretchen Arnold,gretchen arnold,https://www.slu.edu/arts-and-sciences/women-gender-studies/faculty/arnold-gretchen.php,False,True,"Gretchen Arnold, Ph.D.",Ph.D.
+College of Arts and Sciences,Women's and Gender Studies,Penny Weiss,penny weiss,https://www.slu.edu/arts-and-sciences/women-gender-studies/faculty/weiss-penny.php,False,True,"Penny Weiss, Ph.D.",Ph.D.
+College of Arts and Sciences,Health Care Ethics,"Jeffrey P. Bishop, M.D., Ph.D.",jeffrey p bishop,https://www.slu.edu/arts-and-sciences/bioethics/faculty/bishop-jeffrey.php,False,False,,Ph.D.
+College of Arts and Sciences,Health Care Ethics,"Harold Braswell, Ph.D.,",harold braswell,https://www.slu.edu/arts-and-sciences/bioethics/faculty/braswell-harold.php,False,False,,Ph.D.
+College of Arts and Sciences,Health Care Ethics,"Jason Eberl, Ph.D.",jason eberl,https://www.slu.edu/arts-and-sciences/bioethics/faculty/eberl-jason.php,False,False,,Ph.D.
+College of Arts and Sciences,Health Care Ethics,"Kyle Karches, M.D., Ph.D.",kyle karches,https://www.slu.edu/arts-and-sciences/bioethics/faculty/kyle-karches.php,False,False,,Ph.D.
+College of Arts and Sciences,Health Care Ethics,"Miguel J. Romero, Th.D.",miguel j romero th d,https://www.slu.edu/arts-and-sciences/bioethics/faculty/miguel-romero.php,False,False,"Miguel Romero, Th.D.",
+College of Arts and Sciences,Health Care Ethics,"Erica K. Salter, Ph.D.,",erica k salter,https://www.slu.edu/arts-and-sciences/bioethics/faculty/salter-erica.php,False,False,,Ph.D.
+College of Arts and Sciences,Health Care Ethics,"Yolonda Y. Wilson, Ph.D.",yolonda y wilson,https://www.slu.edu/arts-and-sciences/bioethics/faculty/yolonda-wilson.php,False,False,,Ph.D.
+College of Arts and Sciences,Health Care Ethics,"Rachelle Barina, Ph.D.",rachelle barina,https://www.slu.edu/arts-and-sciences/bioethics/faculty/barina-rachelle.php,False,False,,Ph.D.
+College of Arts and Sciences,Health Care Ethics,"Jill E. Burkemper, Ph.D.",jill e burkemper,https://www.slu.edu/arts-and-sciences/bioethics/faculty/burkemper-jill.php,False,False,,Ph.D.
+College of Arts and Sciences,Health Care Ethics,"Carl Griffin Trotter, M.D., Ph.D.",carl griffin trotter,https://www.slu.edu/arts-and-sciences/bioethics/faculty/trotter-carl.php,False,True,,Ph.D.
+College of Arts and Sciences,Health Care Ethics,"Liz Chiarello, Ph.D.",liz chiarello,https://www.slu.edu/arts-and-sciences/sociology-anthropology/faculty/chiarello-liz.php,False,False,,Ph.D.
+College of Arts and Sciences,Health Care Ethics,"Amy Cooper, Ph.D.",amy cooper,https://www.slu.edu/arts-and-sciences/sociology-anthropology/faculty/cooper-amy.php,False,False,,Ph.D.
+College of Arts and Sciences,Health Care Ethics,"Abigail Jorgensen, Ph.D.",abigail jorgensen,https://www.slu.edu/arts-and-sciences/sociology-anthropology/faculty/abigail-jorgensen.php,False,False,,Ph.D.
+College of Arts and Sciences,Communication,"Timothy Huffman, Ph.D.",timothy huffman,https://www.slu.edu/arts-and-sciences/communication/faculty/tim-huffman.php,False,False,,Ph.D.
+College of Arts and Sciences,Communication,"Karla Scott, Ph.D.",karla scott,https://www.slu.edu/arts-and-sciences/communication/faculty/karla-scott.php,False,False,,Ph.D.
+College of Arts and Sciences,Communication,"Hillary Ash, Ph.D.",hillary ash,https://www.slu.edu/arts-and-sciences/communication/faculty/hillary-ash.php,False,False,,Ph.D.
+College of Arts and Sciences,Communication,"William Aungst, Ph.D.",william aungst,https://www.slu.edu/arts-and-sciences/communication/faculty/william-aungst.php,False,False,,Ph.D.
+College of Arts and Sciences,Communication,Cynthia Graville,cynthia graville,https://www.slu.edu/arts-and-sciences/communication/faculty/cynthia-graville-smith.php,False,False,"Cynthia Graville-Smith, M.Ed.",
+College of Arts and Sciences,Communication,Keli Jackson,keli jackson,https://www.slu.edu/arts-and-sciences/communication/faculty/jackson-keli.php,False,False,"Keli Jackson, M.A.",
+College of Arts and Sciences,Communication,Jennifer Korte,jennifer korte,https://www.slu.edu/arts-and-sciences/communication/faculty/jennifer-korte.php,False,False,"Jennifer Korte, M.A.",
+College of Arts and Sciences,Communication,"Dan Kozlowski, Ph.D.",dan kozlowski,https://www.slu.edu/arts-and-sciences/communication/faculty/dan-kozlowski.php,False,False,,Ph.D.
+College of Arts and Sciences,Communication,"Kelsey Mesmer, Ph.D.",kelsey mesmer,https://www.slu.edu/arts-and-sciences/communication/faculty/kelsey-mesmer.php,False,False,,Ph.D.
+College of Arts and Sciences,Communication,Medrine Nyambura,medrine nyambura,https://www.slu.edu/arts-and-sciences/communication/faculty/medrine-nyambura.php,False,False,"Medrine Nyambura, M.F.A.",
+College of Arts and Sciences,Communication,"Jennifer Ohs, Ph.D.",jennifer ohs,https://www.slu.edu/arts-and-sciences/communication/faculty/jennifer-ohs.php,False,False,,Ph.D.
+College of Arts and Sciences,Communication,"Charnell Peters, Ph.D.",charnell peters,https://www.slu.edu/arts-and-sciences/communication/faculty/charnell-peters.php,False,False,,Ph.D.
+College of Arts and Sciences,Communication,"Rudy Pett, Ph.D.",rudy pett,https://www.slu.edu/arts-and-sciences/communication/faculty/rudy-pett.php,False,False,,Ph.D.
+College of Arts and Sciences,Communication,Alex H. Rafi,alex h rafi,https://www.slu.edu/arts-and-sciences/communication/faculty/alex-rafi.php,False,False,"Alex H. Rafi, M.F.A.",
+College of Arts and Sciences,Communication,"Elizabeth Richard, Ph.D.",elizabeth richard,https://www.slu.edu/arts-and-sciences/communication/faculty/elizabeth-richard.php,False,False,,Ph.D.
+College of Arts and Sciences,Communication,"April Trees, Ph.D.",april trees,https://www.slu.edu/arts-and-sciences/communication/faculty/april-trees.php,False,False,,Ph.D.
+College of Arts and Sciences,Communication,"Ashley Walter, Ph.D.",ashley walter,https://www.slu.edu/arts-and-sciences/communication/faculty/ashley-walter.php,False,False,,Ph.D.
+College of Philosophy and Letters,(unknown),"Randall S. Rosenberg, Ph.D.",randall s rosenberg,https://www.slu.edu/philosophy-and-letters/faculty/rosenberg-randall.php,False,False,,Ph.D.
+College of Philosophy and Letters,(unknown),"Thomas Flowers, S.J., Ph.D.",thomas flowers s j,https://www.slu.edu/philosophy-and-letters/faculty/flowers-thomas.php,False,False,,Ph.D.
+College of Philosophy and Letters,Center for Ignatian Service,"Jay Hammond, Ph.D.",jay hammond,https://www.slu.edu/philosophy-and-letters/faculty/hammond-jay.php,False,False,,Ph.D.
+College of Philosophy and Letters,Center for Ignatian Service,"Brian Himes, Ph.D.",brian himes,https://www.slu.edu/philosophy-and-letters/faculty/himes-brian.php,False,False,,Ph.D.
+College of Philosophy and Letters,Catholic Studies Program,"Matthew Baugh, S.J., Ph.D.",matthew baugh s j,https://www.slu.edu/philosophy-and-letters/catholic-studies-program/faculty/matthew-baugh.php,False,False,,Ph.D.
+College of Philosophy and Letters,Catholic Studies Program,"Jennifer Sanders, Ph.D.",jennifer sanders,https://www.slu.edu/philosophy-and-letters/faculty/sanders-jennifer.php,False,False,,Ph.D.
+College of Philosophy and Letters,Catholic Studies Program,"Gregory Beabout, Ph.D.",gregory beabout,https://www.slu.edu/arts-and-sciences/philosophy/faculty/beabout-greg.php,False,False,,Ph.D.
+Doisy College of Health Sciences,Administration,"Tricia Austin, Ph.D.",tricia austin,https://www.slu.edu/doisy/faculty/austin-tricia.php,False,False,,Ph.D.
+Doisy College of Health Sciences,Administration,"Stephen Nickell, Ed.D.",stephen nickell ed d,https://www.slu.edu/doisy/faculty/nickell-stephen.php,False,False,,Ed.D.
+Doisy College of Health Sciences,Clinical Health Sciences,"Crystal Botkin, Ph.D., M.P.H., CNMT, PET, FSNMMI-TS",crystal botkin cnmt pet fsnmmi-ts,https://www.slu.edu/doisy/faculty/botkin-crystal.php,False,False,,Ph.D.
+Doisy College of Health Sciences,Clinical Health Sciences,"Sherry Bicklein, M.H.I., RT(R)(T)",sherry bicklein m h i rt,https://www.slu.edu/doisy/faculty/bicklein-sherry.php,False,False,"Sherry  Bicklein, M.H.I., RT(R)(T)",
+Doisy College of Health Sciences,Clinical Health Sciences,"Caroline Chang, M.M.S, PA-C",caroline chang m pa-c,https://www.slu.edu/doisy/faculty/chang-caroline.php,False,False,"Caroline  Chang, MMS, PA-C",
+Doisy College of Health Sciences,Clinical Health Sciences,"Andrew Croxford, M.A.Ed., CNMT, PET",andrew croxforded cnmt pet,https://www.slu.edu/doisy/faculty/croxford-andrew.php,False,False,"Andrew Croxford, MAEd, CNMT, PET",
+Doisy College of Health Sciences,Clinical Health Sciences,"Genevieve DelRosario, M.H.S., PA-C",genevieve delrosario m h s pa-c,https://www.slu.edu/doisy/faculty/delrosario-genevieve.php,False,False,"Genevieve  DelRosario, MHS, PA-C",
+Doisy College of Health Sciences,Clinical Health Sciences,"Brian Elliott, M.S.",brian elliott,https://www.slu.edu/doisy/faculty/brian-elliott.php,False,False,"Brian Elliott, MS",
+Doisy College of Health Sciences,Clinical Health Sciences,"Uthayashanker Ezekiel, Ph.D., MB(ASCP)CM",uthayashanker ezekiel mb cm,https://www.slu.edu/doisy/faculty/ezekiel-uthayashanker.php,False,False,,Ph.D.
+Doisy College of Health Sciences,Clinical Health Sciences,"Anne Garanzini, M.Ed., PA-C",anne garanzini m ed pa-c,https://www.slu.edu/doisy/faculty/garanzini-anne.php,False,False,"Anne  Garanzini, M.Ed., PA-C",
+Doisy College of Health Sciences,Clinical Health Sciences,"Rita M. Heuertz, Ph.D., MLS (ASCP)",rita m heuertz,https://www.slu.edu/doisy/faculty/heuertz-rita.php,False,False,,Ph.D.
+Doisy College of Health Sciences,Clinical Health Sciences,"Julie Howe, MBA, RHIA, D-ABMDI",julie howe rhia d-abmdi,https://www.slu.edu/doisy/faculty/howe-julie.php,False,False,"Julie  Howe, MBA, RHIA, D-ABMDI",
+Doisy College of Health Sciences,Clinical Health Sciences,"Marcey Kennedy, M.A., RT(MR), MRSO(MRSC)",marcey kennedy rt mrso,https://www.slu.edu/doisy/faculty/kennedy-marcey.php,False,False,"Marcey  Kennedy, M.A., RT (MR), MRSO, MRSC)",
+Doisy College of Health Sciences,Clinical Health Sciences,"Kathleen O. Kienstra, M.A.T., RT(R)(T)",kathleen o kienstrat rt,https://www.slu.edu/doisy/faculty/kienstra-kathy.php,False,False,"Kathleen	 O.  Kienstra, MAT, RT(R)(T)",
+Doisy College of Health Sciences,Clinical Health Sciences,"Minh Kosfeld, Ph.D., MLT (ASCP)CM",minh kosfeld mlt cm,https://www.slu.edu/doisy/faculty/kosfeld-minh.php,False,False,,Ph.D.
+Doisy College of Health Sciences,Clinical Health Sciences,"Madeline Kruper, M.M.S., PA-C",madeline kruper m pa-c,https://www.slu.edu/doisy/faculty/kruper-madeline.php,False,False,"Madeline Kruper, MMS, PA-C",
+Doisy College of Health Sciences,Clinical Health Sciences,"Amanda McCormick, M.P.A.S., PA-C",amanda mccormick m p a s pa-c,https://www.slu.edu/doisy/faculty/mccormick-amanda.php,False,False,"Amanda McCormick, MPAS, PA-C",
+Doisy College of Health Sciences,Clinical Health Sciences,"Teresa T. Neal, M.H.A., RHIA",teresa t neal m h a rhia,https://www.slu.edu/doisy/faculty/neal-teresa.php,False,False,"Teresa T. Neal, M.H.A., RHIA",
+Doisy College of Health Sciences,Clinical Health Sciences,"Elaina Osterbur, Ph.D.",elaina osterbur,https://www.slu.edu/doisy/faculty/osterbur-elaina.php,False,False,,Ph.D.
+Doisy College of Health Sciences,Clinical Health Sciences,"Karen Platt, M.M.Sc., PA-C",karen platt m pa-c,https://www.slu.edu/doisy/faculty/platt-karen.php,False,False,"Karen Platt, MMS, PA-C",
+Doisy College of Health Sciences,Clinical Health Sciences,"Tim R. Randolph, Ph.D., MLS (ASCP), SMNAI",tim r randolph smnai,https://www.slu.edu/doisy/faculty/randolph-tim.php,False,False,,Ph.D.
+Doisy College of Health Sciences,Clinical Health Sciences,"Amanda M. Reed, M.A.E., MLS (ASCP)CM",amanda m reede cm,https://www.slu.edu/doisy/faculty/reed-amanda.php,False,False,"Amanda  M.  Reed, MAE, MLS(ASCP)CM",
+Doisy College of Health Sciences,Clinical Health Sciences,"Elizabeth Rhyne, MSN, RN, CPNP",elizabeth rhyne msn rn cpnp,https://www.slu.edu/doisy/faculty/rhyne-elizabeth.php,False,False,"Elizabeth A. Rhyne, MSN, RN, CPNP",
+Doisy College of Health Sciences,Clinical Health Sciences,"Carol Suit, M.P.A.S., PA-C",carol suit m p a s pa-c,https://www.slu.edu/doisy/faculty/suit-carol.php,False,False,"Carol Suit, MPAS, PA-C",
+Doisy College of Health Sciences,Clinical Health Sciences,"Chezna Warner, DMSc, MSW, MHS, PA-C",chezna warner d mhs pa-c,https://www.slu.edu/doisy/faculty/warner-chezna.php,False,False,"Chezna Warner, DMSc, MSW, MHS, PA-C",
+Doisy College of Health Sciences,Nutrition and Dietetics,"Rabia Rahman, Ph.D., RD, LD,",rabia rahman rd ld,https://www.slu.edu/doisy/faculty/rahman-rabia.php,False,False,,Ph.D.
+Doisy College of Health Sciences,Nutrition and Dietetics,"Martha Blaess, Ph.D.,CCC-SLP, RDN, LD",martha blaess ccc-slp rdn ld,https://www.slu.edu/doisy/faculty/blaess-martha.php,False,False,,Ph.D.
+Doisy College of Health Sciences,Nutrition and Dietetics,"Daniel Brewer, M.S., RD",daniel brewer rd,https://www.slu.edu/doisy/faculty/brewer-daniel.php,False,False,"Daniel Brewer, M.S., R.D., L.D.",
+Doisy College of Health Sciences,Nutrition and Dietetics,"Lauren Landfried, Ph.D., RD, LD",lauren landfried rd ld,https://www.slu.edu/doisy/faculty/lanfried-lauren.php,False,False,,Ph.D.
+Doisy College of Health Sciences,Nutrition and Dietetics,"Whitney Linsenmeyer, Ph.D., RD, LD",whitney linsenmeyer rd ld,https://www.slu.edu/doisy/faculty/linsenmeyer-whitney.php,False,False,,Ph.D.
+Doisy College of Health Sciences,Nutrition and Dietetics,"Hossein Rafiei, Ph.D., RD, ACSM-CPT",hossein rafiei rd acsm-cpt,https://www.slu.edu/doisy/faculty/rafiei-hossein.php,False,False,,Ph.D.
+Doisy College of Health Sciences,Nutrition and Dietetics,"María José Romo-Palafox, Ph.D., RD, LD",mar a jos romo-palafox rd ld,https://www.slu.edu/doisy/faculty/romopalafox-maria.php,False,False,,Ph.D.
+Doisy College of Health Sciences,Occupational Science and Occupational Therapy,"Wendy Stav, Ph.D., OTR/L, FAOTA",wendy stav otr l faota,https://www.slu.edu/doisy/faculty/stav-wendy.php,False,False,,Ph.D.
+Doisy College of Health Sciences,Occupational Science and Occupational Therapy,"Sarah Adam, OTR/OTR/L, CBIS",sarah adam otr otr l cbis,https://www.slu.edu/doisy/faculty/adam-sarah.php,False,False,"Sarah L. Adam, OTD, OTR/L, CBIS",
+Doisy College of Health Sciences,Occupational Science and Occupational Therapy,"Omar Ahmad, Ph.D., OTD, OTR/L",omar ahmad otd otr l,https://www.slu.edu/doisy/faculty/ahmed-omar.php,False,False,,Ph.D.
+Doisy College of Health Sciences,Occupational Science and Occupational Therapy,"Angela Cecil, Ph.D., MBA, OTR/L, FNAP",angela cecil otr l fnap,https://www.slu.edu/doisy/faculty/cecil-angela.php,False,False,,Ph.D.
+Doisy College of Health Sciences,Occupational Science and Occupational Therapy,"Julia Henderson-Kalb, OTD, OTR/L",julia henderson-kalb otd otr l,https://www.slu.edu/doisy/faculty/henderson-kalb-julia.php,False,False,"Julia   Henderson-Kalb, OTD, OTR/L",
+Doisy College of Health Sciences,Occupational Science and Occupational Therapy,"Lisa Jaegers, Ph.D., OTR/L, FAOTA",lisa jaegers otr l faota,https://www.slu.edu/doisy/faculty/jaegers-lisa.php,False,False,,Ph.D.
+Doisy College of Health Sciences,Occupational Science and Occupational Therapy,"Selena Washington, Ph.D., OTR/L",selena washington otr l,https://www.slu.edu/doisy/faculty/washington-selena.php,False,False,,Ph.D.
+Doisy College of Health Sciences,Occupational Science and Occupational Therapy,"Sarah Zimmerman, OTD, OTR/L",sarah zimmerman otd otr l,https://www.slu.edu/doisy/faculty/zimmerman-sarah.php,False,False,"Sarah K. Zimmerman, OTD, OTR/L",
+Doisy College of Health Sciences,Physical Therapy and Athletic Training,"Chris Sebelski, Ph.D., DPT,",chris sebelski dpt,https://www.slu.edu/doisy/faculty/sebelski-chris.php,False,False,,Ph.D.
+Doisy College of Health Sciences,Physical Therapy and Athletic Training,"Jennifer Anderson, PT, DPT, CCS",jennifer anderson pt dpt ccs,https://www.slu.edu/doisy/faculty/anderson-jennifer.php,False,False,"Jennifer Anderson, PT, DPT, CCS",
+Doisy College of Health Sciences,Physical Therapy and Athletic Training,"Eric Bellm, PT, DPT, OCS",eric bellm pt dpt ocs,https://www.slu.edu/doisy/faculty/bellm-eric.php,False,False,"Eric Bellm, PT, DPT, OCS",
+Doisy College of Health Sciences,Physical Therapy and Athletic Training,"Anthony Breitbach, Ph.D.",anthony breitbach,https://www.slu.edu/doisy/faculty/breitbach-anthony.php,False,False,,Ph.D.
+Doisy College of Health Sciences,Physical Therapy and Athletic Training,"Lisa Dorsey, Ph.D.",lisa dorsey,https://www.slu.edu/doisy/faculty/dorsey-lisa.php,False,False,,Ph.D.
+Doisy College of Health Sciences,Physical Therapy and Athletic Training,"Jill Fitzgerald, PT, DPT, GCS",jill fitzgerald pt dpt gcs,https://www.slu.edu/doisy/faculty/fitzgerald-jill.php,False,False,"Jill  FitzGerald, PT, DPT, GCS, CEEAA, CSCS",
+Doisy College of Health Sciences,Physical Therapy and Athletic Training,"Elissa Held Bradford, Ph.D., PT, NCS",elissa held bradford pt ncs,https://www.slu.edu/doisy/faculty/heldbradford-elissa.php,False,False,,Ph.D.
+Doisy College of Health Sciences,Physical Therapy and Athletic Training,"Timothy G. Howell, Ed.D., ATC",timothy g howell ed d atc,https://www.slu.edu/doisy/faculty/howell-timothy.php,False,False,,Ed.D.
+Doisy College of Health Sciences,Physical Therapy and Athletic Training,"Kim Levenhagen, PT, DPT, WCC",kim levenhagen pt dpt wcc,https://www.slu.edu/doisy/faculty/levenhagen-kim.php,False,False,"Kim Levenhagen, PT, DPT, WCC, CLT, FNAP",
+Doisy College of Health Sciences,Physical Therapy and Athletic Training,"Jason Longhurst, Ph.D., PT, NCS",jason longhurst pt ncs,https://www.slu.edu/doisy/faculty/longhurst-jason.php,False,False,,Ph.D.
+Doisy College of Health Sciences,Physical Therapy and Athletic Training,"Mike Markee, Ph.D., PT, DPT, OCS, ATC",mike markee pt dpt ocs atc,https://www.slu.edu/doisy/faculty/markee-mike.php,False,False,,Ph.D.
+Doisy College of Health Sciences,Physical Therapy and Athletic Training,"Kitty Newsham, Ph.D., ATC",kitty newsham atc,https://www.slu.edu/doisy/faculty/newsham-katherine.php,False,False,,Ph.D.
+Doisy College of Health Sciences,Physical Therapy and Athletic Training,"Oluwatoyosi Owoeye, Ph.D.",oluwatoyosi owoeye,https://www.slu.edu/doisy/faculty/owoeye-olu.php,False,False,,Ph.D.
+Doisy College of Health Sciences,Physical Therapy and Athletic Training,"Randy Richter, Ph.D., PT",randy richter pt,https://www.slu.edu/doisy/faculty/richter-randy.php,False,False,,Ph.D.
+Doisy College of Health Sciences,Physical Therapy and Athletic Training,"Gretchen Salsich, Ph.D., PT",gretchen salsich pt,https://www.slu.edu/doisy/faculty/salsich-gretchen.php,False,False,,Ph.D.
+Doisy College of Health Sciences,Physical Therapy and Athletic Training,"Katie Sniffen, Ph.D., ATC",katie sniffen atc,https://www.slu.edu/doisy/faculty/sniffen-katie.php,False,False,,Ph.D.
+Doisy College of Health Sciences,Physical Therapy and Athletic Training,"Barb Yemm, PT, DPT, OCS",barb yemm pt dpt ocs,https://www.slu.edu/doisy/faculty/yemm-barb.php,False,False,"Barb Yemm, PT, DPT, OCS",
+Doisy College of Health Sciences,Physical Therapy and Athletic Training,"Annie Zinselmeier, PT, DPT, NCS",annie zinselmeier pt dpt ncs,https://www.slu.edu/doisy/faculty/fordonski-annie.php,False,False,"Annie Zinselmeier, PT, DPT, NCS",
+Doisy College of Health Sciences,"Speech, Language and Hearing Sciences","Sara C. Steele, Ph.D., CCC-SLP,",sara c steele ccc-slp,https://www.slu.edu/doisy/faculty/steele-sara.php,False,False,,Ph.D.
+Doisy College of Health Sciences,"Speech, Language and Hearing Sciences","Angela Adrian, M.A., CCC-SLP",angela adrian ccc-slp,https://www.slu.edu/doisy/faculty/adrian-angela.php,False,False,"Angela  Adrian, M.A., CCC-SLP",
+Doisy College of Health Sciences,"Speech, Language and Hearing Sciences","Mitzi Brammer, Ph.D., CCC-SLP",mitzi brammer ccc-slp,https://www.slu.edu/doisy/faculty/brammer-mitzi.php,False,False,,Ph.D.
+Doisy College of Health Sciences,"Speech, Language and Hearing Sciences","Yi-Fang Chiu, Ph.D., CCC-SLP",yi-fang chiu ccc-slp,https://www.slu.edu/doisy/faculty/chiu-yi-fang.php,False,False,,Ph.D.
+Doisy College of Health Sciences,"Speech, Language and Hearing Sciences","Maureen Fischer, M.S., CCC-SLP",maureen fischer ccc-slp,https://www.slu.edu/doisy/faculty/fischer-maureen.php,False,False,"Maureen Fischer, M.S., CCC-A",
+Doisy College of Health Sciences,"Speech, Language and Hearing Sciences","Rebecca Frisella, M.S., CCC-SLP",rebecca frisella ccc-slp,https://www.slu.edu/doisy/faculty/frisella-rebecca.php,False,False,"Rebecca Frisella, M.S., CCC-SLP",
+Doisy College of Health Sciences,"Speech, Language and Hearing Sciences","Julie J. Hoffmann, M.A., CCC-SLP",julie j hoffmann ccc-slp,https://www.slu.edu/doisy/faculty/hoffmann-julie.php,False,False,"Julia  J.  Hoffmann, M.A., CCC-SLP",
+Doisy College of Health Sciences,"Speech, Language and Hearing Sciences","Christina Loveless, M.S., CCC-SLP",christina loveless ccc-slp,https://www.slu.edu/doisy/faculty/loveless-christina.php,False,False,"Christina Loveless, M.S., CCC-SLP",
+Doisy College of Health Sciences,"Speech, Language and Hearing Sciences","Robin R. Murphy, M.S., CCC-SLP",robin r murphy ccc-slp,https://www.slu.edu/doisy/faculty/murphy-robin.php,False,False,"Robin R. Murphy, MS, CCC-SLP",
+Doisy College of Health Sciences,"Speech, Language and Hearing Sciences","Elizabeth Roepke, Ph.D., CCC-SLP",elizabeth roepke ccc-slp,https://www.slu.edu/doisy/faculty/roepke-elizabeth.php,False,False,,Ph.D.
+Doisy College of Health Sciences,"Speech, Language and Hearing Sciences","Bernard Rousseau, Ph.D., CCC-SLP",bernard rousseau ccc-slp,https://www.slu.edu/doisy/faculty/rousseau-bernard.php,False,False,,Ph.D.
+Doisy College of Health Sciences,"Speech, Language and Hearing Sciences","Saneta Thurmon, Ph.D., CCC-SLP/A",saneta thurmon ccc-slp a,https://www.slu.edu/doisy/faculty/thurmon-saneta.php,False,False,,Ph.D.
+Doisy College of Health Sciences,"Speech, Language and Hearing Sciences","Andrea Vaughan, M.S., CCC-SLP, BCS-S",andrea vaughan ccc-slp bcs-s,https://www.slu.edu/doisy/faculty/vaughan-andrea.php,False,False,"Andrea Vaughan, MS, CCC-SLP, BCS-S",
+Doisy College of Health Sciences,"Speech, Language and Hearing Sciences","Amanda Wadams, Ph.D., CCC-SLP",amanda wada ccc-slp,https://www.slu.edu/doisy/faculty/wadams-amanda.php,False,False,,Ph.D.
+Doisy College of Health Sciences,Emeritus Faculty,"Karen Barney, Ph.D.",karen barney,https://www.slu.edu/doisy/faculty/barney-karen.php,False,True,,Ph.D.
+Doisy College of Health Sciences,Emeritus Faculty,"Carol Beckel, Ph.D.",carol beckel,https://www.slu.edu/doisy/faculty/beckel-carol.php,False,True,,Ph.D.
+Doisy College of Health Sciences,Emeritus Faculty,"Ethel Frese, Ph.D.",ethel frese,https://www.slu.edu/doisy/faculty/frese-ethel.php,False,True,,Ph.D.
+Doisy College of Health Sciences,Emeritus Faculty,"Elizabeth Gockel-Blessing, Ph.D.",elizabeth gockel-blessing,https://www.slu.edu/doisy/faculty/blessing-elizabeth.php,False,True,,Ph.D.
+Doisy College of Health Sciences,Emeritus Faculty,"Ann Hayes, DPT",ann hayes dpt,https://www.slu.edu/doisy/faculty/hayes-ann.php,False,True,"Ann Hayes, PT, DPT, MHS, OCS",
+Doisy College of Health Sciences,Emeritus Faculty,"Ginge Kettenbach, Ph.D.",ginge kettenbach,https://www.slu.edu/doisy/faculty/kettenbach-ginge.php,False,True,,Ph.D.
+Doisy College of Health Sciences,Emeritus Faculty,"Cynthia Matlock, Ph.D.",cynthia matlock,https://www.slu.edu/doisy/faculty/matlock-cynthia.php,False,True,,Ph.D.
+Doisy College of Health Sciences,Emeritus Faculty,"Travis Threats,  Ph.D.",travis threats,https://www.slu.edu/doisy/faculty/threats-travis.php,False,True,,Ph.D.
+Doisy College of Health Sciences,Emeritus Faculty,"Christine Werner, Ph.D.",christine werner,https://www.slu.edu/doisy/faculty/werner-christine.php,False,True,,Ph.D.
+Doisy College of Health Sciences,Emeritus Faculty,Julie Wolter,julie wolter,https://www.slu.edu/doisy/faculty/wolter-julie.php,False,True,"Julie  Wolter, M.A., RHIA, FAHIMA",
+Trudy Busch Valentine School of Nursing,Administration,Kristine L’Ecuyer,kristine l ecuyer,https://www.slu.edu/nursing/faculty/lecuyer-kristine.php,False,False,"Kristine  L'Ecuyer, Ph.D., RN, CNL, CNE",Ph.D.
+Trudy Busch Valentine School of Nursing,Administration,Michelle Papachrisanthou,michelle papachrisanthou,https://www.slu.edu/nursing/faculty/papachrisanthou-michelle.php,False,False,"Michelle  Papachrisanthou, D.N.P., APRN, CPNP-PC",D.N.P.
+Trudy Busch Valentine School of Nursing,Administration,Devita Stallings,devita stallings,https://www.slu.edu/nursing/faculty/stallings-devita.php,False,False,"Devita  Stallings, Ph.D., RN, FAAN",Ph.D.
+Trudy Busch Valentine School of Nursing,Administration,Helen Lach,helen lach,https://www.slu.edu/nursing/faculty/lach-helen.php,False,False,"Helen  W.  Lach, Ph.D., RN, CNL, FGSA, FAAN",Ph.D.
+Trudy Busch Valentine School of Nursing,Program Option Coordinators and Directors,Karen Cuvar,karen cuvar,https://www.slu.edu/nursing/faculty/cuvar-karen.php,False,False,"Karen M. Cuvar, Ph.D., RN, CNE, CNL",Ph.D.
+Trudy Busch Valentine School of Nursing,Program Option Coordinators and Directors,Cristina McGroarty,cristina mcgroarty,https://www.slu.edu/nursing/faculty/mcgroarty-cristina.php,False,False,"Cristina  McGroarty, Ph.D., RN, CNE",Ph.D.
+Trudy Busch Valentine School of Nursing,Program Option Coordinators and Directors,Heather Wade,heather wade,https://www.slu.edu/nursing/faculty/wade-heather.php,False,False,"Heather Wade, D.N.P., FNP-BC, RN, CNL",D.N.P.
+Trudy Busch Valentine School of Nursing,Program Option Coordinators and Directors,Deborah Horton,deborah horton,https://www.slu.edu/nursing/faculty/horton-deborah.php,False,False,"Deborah Horton, Ph.D., RN, MPH, PHNA - BC",Ph.D.
+Trudy Busch Valentine School of Nursing,Program Option Coordinators and Directors,Bobbi Shatto,bobbi shatto,https://www.slu.edu/nursing/faculty/shatto-bobbi.php,False,False,"Bobbi  Shatto, Ph.D., RN, CNL",Ph.D.
+Trudy Busch Valentine School of Nursing,Program Option Coordinators and Directors,Geralyn Ochs,geralyn ochs,https://www.slu.edu/nursing/faculty/ochs-geralyn.php,False,False,"Geralyn  A.  Ochs, M.S.N., APRN, AGACNP-BC, ANP-BC, FAANP",
+Trudy Busch Valentine School of Nursing,Program Option Coordinators and Directors,Shellie Hill,shellie hill,https://www.slu.edu/nursing/faculty/hill-shellie.php,False,False,"Shellie  Hill, D.N.P., APRN, FNP-BC",D.N.P.
+Trudy Busch Valentine School of Nursing,Program Option Coordinators and Directors,Christina Rariden,christina rariden,https://www.slu.edu/nursing/faculty/raridan-christina.php,False,False,"Christina  Rariden, D.N.P., FNP-BC, PMHNP-BC",D.N.P.
+Trudy Busch Valentine School of Nursing,Program Option Coordinators and Directors,Karen Moore,karen moore,https://www.slu.edu/nursing/faculty/moore-karen.php,False,False,"Karen S. Moore, Ph.D., D.N.P., APRN, ANP-BC, FNP-C, CGNC, FAANP, FAAN",Ph.D.
+Trudy Busch Valentine School of Nursing,Faculty,Kathleen Armstrong,kathleen armstrong,https://www.slu.edu/nursing/faculty/armstrong-kathleen.php,False,False,"Kathleen  Armstrong, Ph.D., RN, CNE",Ph.D.
+Trudy Busch Valentine School of Nursing,Faculty,Amanda Barkema,amanda barke,https://www.slu.edu/nursing/faculty/barkema-amanda.php,False,False,"Amanda Barkema, M.S.N., APRN, PMHNP-BC",
+Trudy Busch Valentine School of Nursing,Faculty,Margaret R. Benz,margaret r benz,https://www.slu.edu/nursing/faculty/benz-margaret.php,False,False,"Margaret R. Benz, M.S.N.(R), APRN, ANP-BC, FAANP",
+Trudy Busch Valentine School of Nursing,Faculty,Seth Bland,seth bland,https://www.slu.edu/nursing/faculty/bland-seth.php,False,False,"Seth Bland, M.S.N., RN, CNL",
+Trudy Busch Valentine School of Nursing,Faculty,Tori Boyer,tori boyer,https://www.slu.edu/nursing/faculty/boyer-tori.php,False,False,"Tori E. Boyer, D.N.P., APRN, CPNP-PC",D.N.P.
+Trudy Busch Valentine School of Nursing,Faculty,Margaret Bultas,margaret bultas,https://www.slu.edu/nursing/faculty/bultas-margaret.php,False,False,"Margaret Bultas, Ph.D., RN, CNE, CNL",Ph.D.
+Trudy Busch Valentine School of Nursing,Faculty,Bridgette Carnes,bridgette carnes,https://www.slu.edu/nursing/faculty/carnes-bridgette.php,False,False,"Bridgette  Carnes, Ph.D., RN",Ph.D.
+Trudy Busch Valentine School of Nursing,Faculty,Briauna Cole,briauna cole,https://www.slu.edu/nursing/faculty/cole-briauna.php,False,False,"Briauna Cole, M.S.N., RN, CNE",
+Trudy Busch Valentine School of Nursing,Faculty,Denise Côté-Arsenault,denise c t -arsenault,https://www.slu.edu/nursing/faculty/cote-arsenault-denise.php,False,False,"Denise Côté-Arsenault, Ph.D., RN, CPLC, FNAP, FAAN",Ph.D.
+Trudy Busch Valentine School of Nursing,Faculty,Patricia E. Freed,patricia e freed,https://www.slu.edu/nursing/faculty/freed-patricia.php,False,False,"Patricia E. Freed, Ed.D., RN, CNE",Ed.D.
+Trudy Busch Valentine School of Nursing,Faculty,Nicole Healey,nicole healey,https://www.slu.edu/nursing/faculty/healey-nicole.php,False,False,"Nicole Healey, D.N.P., RN, CNE, CEN",D.N.P.
+Trudy Busch Valentine School of Nursing,Faculty,Christopher Hemmer,christopher hemmer,https://www.slu.edu/nursing/faculty/hemmer-christopher.php,False,False,"Christopher  Hemmer, D.N.P., ANP-BC, ONP-C, FAANP, FNAON",D.N.P.
+Trudy Busch Valentine School of Nursing,Faculty,Verna Hendricks-Ferguson,verna hendricks-ferguson,https://www.slu.edu/nursing/faculty/hendricks-ferguson-verna.php,False,False,"Verna  Hendricks-Ferguson, Ph.D., RN, FPCN, FAAN",Ph.D.
+Trudy Busch Valentine School of Nursing,Faculty,Kristin Keller,kristin keller,https://www.slu.edu/nursing/faculty/keller-kristin.php,False,False,"Kristin Keller, Ph.D., RN, CNS",Ph.D.
+Trudy Busch Valentine School of Nursing,Faculty,Joanne Kraenzle-Schneider,joanne kraenzle-schneider,https://www.slu.edu/nursing/faculty/kraenzle-schneider-joanne.php,False,False,"Joanne Kraenzle Schneider, Ph.D., RN, FAAN",Ph.D.
+Trudy Busch Valentine School of Nursing,Faculty,Alison Kuhn,alison kuhn,https://www.slu.edu/nursing/faculty/kuhn-alison.php,False,False,"Alison Kuhn, D.N.P., APRN, FNP-BC",D.N.P.
+Trudy Busch Valentine School of Nursing,Faculty,Joanne C. Langan,joanne c langan,https://www.slu.edu/nursing/faculty/langan-joanne.php,False,False,"Joanne C Langan, Ph.D., RN, CNE",Ph.D.
+Trudy Busch Valentine School of Nursing,Faculty,Carolyn Layloff,carolyn layloff,https://www.slu.edu/nursing/faculty/layloff-carolyn.php,False,False,"Carolyn Layloff, M.S.N., RN",
+Trudy Busch Valentine School of Nursing,Faculty,Diana Llamas,diana llamas,https://www.slu.edu/nursing/faculty/llamas-diana.php,False,False,"Diana Llamas, M.S.N., RN, CNL",
+Trudy Busch Valentine School of Nursing,Faculty,Kelly Lovan-Gold,kelly lovan-gold,https://www.slu.edu/nursing/faculty/lovan-gold-kelly.php,False,False,"Kelly  Lovan-Gold, M.S.N., RN, RNC-OB, C-EFM",
+Trudy Busch Valentine School of Nursing,Faculty,Samantha Marquard,samantha marquard,https://www.slu.edu/nursing/faculty/marquard-samantha.php,False,False,"Samantha  Marquard, D.N.P., M.P.H., FNP-C",D.N.P.
+Trudy Busch Valentine School of Nursing,Faculty,Laura McLaughlin,laura mclaughlin,https://www.slu.edu/nursing/faculty/mclaughlin-laura.php,False,False,"Laura  McLaughlin, Ph.D., RN",Ph.D.
+Trudy Busch Valentine School of Nursing,Faculty,Vicki Moran,vicki moran,https://www.slu.edu/nursing/faculty/moran-vicki.php,False,False,"Vicki  Moran,  Ph.D., RN, MSN/MPH, CNE, CDE, PHNA-BC, TNS",Ph.D.
+Trudy Busch Valentine School of Nursing,Faculty,Teri A. Murray,teri a murray,https://www.slu.edu/nursing/faculty/murray-teri.php,False,False,"Teri A. Murray, Ph.D., PHNA-BC, RN, ANEF, FAAN",Ph.D.
+Trudy Busch Valentine School of Nursing,Faculty,Patrick Radler,patrick radler,https://www.slu.edu/nursing/faculty/radler-patrick.php,False,False,"Patrick  Radler, M.S.N., APRN, FNP-C",
+Trudy Busch Valentine School of Nursing,Faculty,Nichol Reeves,nichol reeves,https://www.slu.edu/nursing/faculty/reeves-nichol.php,False,False,"Nichol J. Reeves, M.S.N., ANP-C",
+Trudy Busch Valentine School of Nursing,Faculty,Maegan Roper,maegan roper,https://www.slu.edu/nursing/faculty/roper-maegan.php,False,False,"Maegan Roper, M.S.N., RN, CMSRN, CNL, CNE",
+Trudy Busch Valentine School of Nursing,Faculty,Cynthia S. Rubbelke,cynthia s rubbelke,https://www.slu.edu/nursing/faculty/rubbelke-cynthia.php,False,False,"Cynthia   S. Rubbelke, M.Ed., M.S.N.(R), RN, CHSOS, CCE",
+Trudy Busch Valentine School of Nursing,Faculty,Karen Scaglione,karen scaglione,https://www.slu.edu/nursing/faculty/scaglione-karen.php,False,False,"Karen Scaglione, D.N.P, APRN, AGACNP-BC, ACNP-BC, CLNC",D.N.P.
+Trudy Busch Valentine School of Nursing,Faculty,Ashley Schmuke,ashley schmuke,https://www.slu.edu/nursing/faculty/schmuke-ashley.php,False,False,"Ashley D. Schmuke  ,  Ph.D., RNC-OB, CNE",Ph.D.
+Trudy Busch Valentine School of Nursing,Faculty,Krista Simmons,krista simmons,https://www.slu.edu/nursing/faculty/simmons-krista.php,False,False,"Krista J. Simmons,  D.N.P., ANP-C, CNL, CNE",D.N.P.
+Trudy Busch Valentine School of Nursing,Faculty,Lee I. Smith,lee i smith,https://www.slu.edu/nursing/faculty/smith-lee.php,False,False,"Lee I. Smith, Ph.D., M.S.N., B.S.N., RN",Ph.D.
+Trudy Busch Valentine School of Nursing,Faculty,Joy Stark,joy stark,https://www.slu.edu/nursing/faculty/stark-joy.php,False,False,"Joy Stark, M.S.N., RN, APRN, CPNP-PC",
+Trudy Busch Valentine School of Nursing,Faculty,John M. Taylor,john m taylor,https://www.slu.edu/nursing/faculty/taylor-john.php,False,False,"John M. Taylor, Ph.D.",Ph.D.
+Trudy Busch Valentine School of Nursing,Faculty,Shelley von der Lancken,shelley von der lancken,https://www.slu.edu/nursing/faculty/von-der-lancken-shelley.php,False,False,"Shelley  von der Lancken, Ph.D., RN",Ph.D.
+Trudy Busch Valentine School of Nursing,Faculty,Cara Wallace,cara wallace,https://www.slu.edu/nursing/faculty/cara-wallace.php,False,False,"Cara Wallace, Ph.D., LMSW, APHSW-C",Ph.D.
+Trudy Busch Valentine School of Nursing,Faculty,Elaine Young,elaine young,https://www.slu.edu/nursing/faculty/young-elaine.php,False,False,"Elaine Young, D.N.P. RN, ACNS-BC, CV-BC",D.N.P.
+School of Education,(unknown),School of Education Awards,school of education awards,https://www.slu.edu/education/faculty/soe-awards.php,False,False,School of Education Awards,
+School of Education,(unknown),School of Education Awards Recipients,school of education awards recipients,https://www.slu.edu/education/faculty/soe-awards-recipients.php,False,False,School of Education Awards Recipients,
+School of Education,Office of the Dean,"Gary Ritter, Ph.D.",gary ritter,https://www.slu.edu/education/faculty/gary-ritter.php,False,False,,Ph.D.
+School of Education,Office of the Dean,"Molly A. Schaller, Ph.D.",molly a schaller,https://www.slu.edu/education/faculty/schaller-molly.php,False,False,,Ph.D.
+School of Education,Office of the Dean,"Alexandra Boyd, Ph.D.",alexandra boyd,https://www.slu.edu/education/faculty/boyd-alexandra.php,False,False,,Ph.D.
+School of Education,Office of the Dean,"Benton Brown, Ph.D.",benton brown,https://www.slu.edu/education/faculty/benton-brown.php,False,False,,Ph.D.
+School of Education,Office of the Dean,"Karen Hall, Ed.D.",karen hall ed d,https://www.slu.edu/education/faculty/karen-hall.php,False,False,,Ed.D.
+School of Education,Teacher Education Faculty,"Madeleine Bailey, Ph.D.",madeleine bailey,https://www.slu.edu/education/faculty/madeleine-bailey.php,False,False,,Ph.D.
+School of Education,Teacher Education Faculty,"Jennifer Buehler, Ph.D.",jennifer buehler,https://www.slu.edu/education/faculty/jennifer-buehler.php,False,False,,Ph.D.
+School of Education,Teacher Education Faculty,"Jeannine Butler, Ed.D.",jeannine butler ed d,https://www.slu.edu/education/faculty/jeannine-butler.php,False,False,,Ed.D.
+School of Education,Teacher Education Faculty,"Mary “Rina” M. Chittooran, Ph.D.",mary rina m chittooran,https://www.slu.edu/education/faculty/mary-chittooran.php,False,False,,Ph.D.
+School of Education,Teacher Education Faculty,"Christa Jackson, Ph.D.",christa jackson,https://www.slu.edu/education/faculty/christa-jackson.php,False,False,,Ph.D.
+School of Education,Teacher Education Faculty,"Jessica A. Leonard, Ph.D.",jessica a leonard,https://www.slu.edu/education/faculty/jessica-leonard.php,False,False,,Ph.D.
+School of Education,Teacher Education Faculty,"Angela Moret, Ed.D.",angela moret ed d,https://www.slu.edu/education/faculty/moret-angela.php,False,False,,Ed.D.
+School of Education,Teacher Education Faculty,"Joseph R. Nichols, Ph.D.",joseph r nichols,https://www.slu.edu/education/faculty/joseph-nichols.php,False,False,,Ph.D.
+School of Education,Teacher Education Faculty,"Kristi Baker Patterson, Ph.D.",kristi baker patterson,https://www.slu.edu/education/faculty/kristi-baker-patterson.php,False,False,,Ph.D.
+School of Education,Teacher Education Faculty,Karissa Sywulka Mitchell,karissa sywulka mitchell,https://www.slu.edu/education/faculty/karissa-sywulka-mitchell.php,False,False,Karissa Sywulka Mitchell,
+School of Education,Teacher Education Faculty,"Diane Richter, Ph.D.",diane richter,https://www.slu.edu/education/faculty/diane-richter.php,False,False,,Ph.D.
+School of Education,Teacher Education Faculty,"Mei-Ling Tung, Ph.D.",mei-ling tung,https://www.slu.edu/education/faculty/tung-mei-ling.php,False,False,,Ph.D.
+School of Education,Educational Studies Faculty,"Takako Nomi, Ph.D.",takako nomi,https://www.slu.edu/education/faculty/takako-nomi.php,False,False,,Ph.D.
+School of Education,Catholic Educational Leadership Faculty,"Michael J. Boyle, Ph.D.",michael j boyle,https://www.slu.edu/education/faculty/boyle-michael.php,False,False,,Ph.D.
+School of Education,Catholic Educational Leadership Faculty,"John T. James, Ed.D.",john t james ed d,https://www.slu.edu/education/faculty/john-james.php,False,False,,Ed.D.
+School of Education,Educational Leadership Faculty,"Donna Jahnke, Ph.D.",donna jahnke,https://www.slu.edu/education/faculty/donna-jahnke.php,False,False,,Ph.D.
+School of Education,Educational Leadership Faculty,"Robert Vogelaar, Ed.D.",robert vogelaar ed d,https://www.slu.edu/education/faculty/robert-vogelaar.php,False,False,,Ed.D.
+School of Education,Educational Leadership Faculty,"Jaime E. Welborn, Ph.D.",jaime e welborn,https://www.slu.edu/education/faculty/jaime-welborn.php,False,False,,Ph.D.
+School of Education,Educational Leadership Faculty,"Jo Nell (Jody) Wood, Ed.D.",jo nell wood ed d,https://www.slu.edu/education/faculty/jonell-wood.php,False,False,,Ed.D.
+School of Education,Higher Education Faculty,"Dannielle Joy Davis, Ph.D.",dannielle joy davis,https://www.slu.edu/education/faculty/dannielle-davis.php,False,False,,Ph.D.
+School of Education,Higher Education Faculty,"Carolyn O'Laughlin, Ph.D.",carolyn o'laughlin,https://www.slu.edu/education/faculty/carolyn-olaughlin.php,False,False,,Ph.D.
+School of Education,Higher Education Faculty,"J. Mark Pousson, Ph.D.",j mark pousson,https://www.slu.edu/education/faculty/j-mark-pousson.php,False,False,,Ph.D.
