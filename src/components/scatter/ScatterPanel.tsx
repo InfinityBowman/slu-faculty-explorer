@@ -18,8 +18,7 @@ interface ScatterPanelProps {
 export function ScatterPanel({ rows }: ScatterPanelProps) {
   const config = useAppStore((s) => s.scatterConfig)
   const setConfig = useAppStore((s) => s.setScatterConfig)
-  const metricSource = useAppStore((s) => s.metricSource)
-  const result = useScatterPoints(rows, config, metricSource)
+  const result = useScatterPoints(rows, config)
 
   // Set of category values the user has clicked off in the legend. Scoped to
   // the current colorId so switching between Color encodings starts fresh.

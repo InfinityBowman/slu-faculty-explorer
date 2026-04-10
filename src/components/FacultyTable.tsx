@@ -75,7 +75,6 @@ const fmt = (n: number | null) =>
   )
 
 export function FacultyTable({ rows }: FacultyTableProps) {
-  const metricSource = useAppStore((s) => s.metricSource)
   const search = useAppStore((s) => s.search)
   const hasSearch = search.trim().length > 0
   const [sorting, setSorting] = useState<SortingState>([
@@ -85,7 +84,7 @@ export function FacultyTable({ rows }: FacultyTableProps) {
 
   const tableData = useMemo<Array<Row>>(() => {
     return rows.map((f) => {
-      const hIndex = metricSource === 'scholar' ? f.hIndex : f.openalexHIndex
+      const hIndex = f.hIndex ?? f.openalexHIndex
       const years =
         f.openalexFirstYear != null ? CURRENT_YEAR - f.openalexFirstYear : null
       const mIndex =
@@ -94,16 +93,15 @@ export function FacultyTable({ rows }: FacultyTableProps) {
         faculty: f,
         hIndex,
         mIndex,
-        i10: metricSource === 'scholar' ? f.i10Index : f.openalexI10Index,
-        citations:
-          metricSource === 'scholar' ? f.citations : f.openalexCitations,
+        i10: f.i10Index ?? f.openalexI10Index,
+        citations: f.citations ?? f.openalexCitations,
         works: f.openalexWorksCount,
         fwci: f.openalex2yrFwci,
         tier: f.primaryHTier,
         field: f.openalexField,
       }
     })
-  }, [rows, metricSource])
+  }, [rows])
 
   const columns = useMemo<Array<ColumnDef<Row>>>(
     () => [

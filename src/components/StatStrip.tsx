@@ -1,6 +1,5 @@
 import { useMemo } from 'react'
 import type { Faculty } from '@/lib/types'
-import { useAppStore } from '@/store/appStore'
 
 interface StatStripProps {
   rows: Array<Faculty>
@@ -17,20 +16,16 @@ function median(values: Array<number>): number | null {
 }
 
 export function StatStrip({ rows, total }: StatStripProps) {
-  const metricSource = useAppStore((s) => s.metricSource)
-
   const stats = useMemo(() => {
     const hValues: Array<number> = []
     const citeValues: Array<number> = []
     let withProfile = 0
     for (const f of rows) {
-      const h = metricSource === 'scholar' ? f.hIndex : f.openalexHIndex
-      const c = metricSource === 'scholar' ? f.citations : f.openalexCitations
-      const hasProfile =
-        metricSource === 'scholar' ? f.scholarId != null : f.openalexId != null
+      const h = f.hIndex ?? f.openalexHIndex
+      const c = f.citations ?? f.openalexCitations
       if (h != null) hValues.push(h)
       if (c != null) citeValues.push(c)
-      if (hasProfile) withProfile += 1
+      if (f.scholarId != null || f.openalexId != null) withProfile += 1
     }
     return {
       count: rows.length,
@@ -38,11 +33,9 @@ export function StatStrip({ rows, total }: StatStripProps) {
       medianH: median(hValues),
       totalCitations: citeValues.reduce((sum, n) => sum + n, 0),
     }
-  }, [rows, metricSource])
+  }, [rows])
 
   const isFiltered = rows.length !== total
-  const profileLabel =
-    metricSource === 'scholar' ? 'With Scholar profile' : 'With OpenAlex ID'
   const profileRatio =
     stats.count > 0 ? Math.round((stats.withProfile / stats.count) * 100) : 0
 
@@ -57,9 +50,9 @@ export function StatStrip({ rows, total }: StatStripProps) {
           }
         />
         <Stat
-          label={profileLabel}
+          label="With profile"
           value={stats.withProfile.toLocaleString()}
-          hint={`${profileRatio}% of total`}
+          hint={`${profileRatio}% coverage`}
         />
         <Stat
           label="Median h-index"
@@ -70,12 +63,12 @@ export function StatStrip({ rows, total }: StatStripProps) {
                 ? stats.medianH.toString()
                 : stats.medianH.toFixed(1)
           }
-          hint={metricSource === 'scholar' ? 'Google Scholar' : 'OpenAlex'}
+          hint="Scholar + OpenAlex"
         />
         <Stat
           label="Total citations"
           value={stats.totalCitations.toLocaleString()}
-          hint={metricSource === 'scholar' ? 'Google Scholar' : 'OpenAlex'}
+          hint="Scholar + OpenAlex"
         />
       </div>
     </section>

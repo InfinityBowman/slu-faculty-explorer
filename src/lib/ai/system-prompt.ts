@@ -1,18 +1,17 @@
 import type { Faculty } from '@/lib/types'
-import type { MetricSource, TierFilter } from '@/store/appStore'
+import type { TierFilter } from '@/store/appStore'
 
 interface ExplorerState {
   search: string
   school: string
   department: string
   tier: TierFilter
-  metricSource: MetricSource
 }
 
 const PAGE_CONTEXT: Record<string, string> = {
-  '/': `The user is on the Explorer page. It has a filter bar (search, school, department, tier, source toggle), a stat strip, a configurable scatter chart (you can change axes/color/size via set_scatter), and a sortable faculty table. All UI tools work here.`,
-  '/schools': `The user is on the Schools page. It shows a strip chart of field percentile (or FWCI) by school and a school comparison table. The set_scatter tool does NOT work here (no scatter chart). set_filters still works for the Explorer page but won't affect what's visible on this page. Do not bring up the data source toggle unless asked about it as it does not affect this page - only the explorer page.`,
-  '/insights': `The user is on the Insights page. It shows presentation-ready analytics: tier distribution by school, FWCI distribution, m-index by career stage, admin role vs research output, SLU vs global field benchmarks, and data source coverage. No UI tools affect this page — it's read-only. You can still answer data questions via data tools. Do not bring up the data source toggle unless asked about it as it does not affect this page - only the explorer page.`,
+  '/': `The user is on the Explorer page. It has a filter bar (search, school, department, tier), a stat strip, a configurable scatter chart (you can change axes/color/size via set_scatter), and a sortable faculty table. All UI tools work here.`,
+  '/schools': `The user is on the Schools page. It shows a strip chart of field percentile (or FWCI) by school and a school comparison table. The set_scatter tool does NOT work here (no scatter chart). set_filters still works for the Explorer page but won't affect what's visible on this page.`,
+  '/insights': `The user is on the Insights page. It shows presentation-ready analytics: tier distribution by school, FWCI distribution, m-index by career stage, admin role vs research output, SLU vs global field benchmarks, and data source coverage. No UI tools affect this page — it's read-only. You can still answer data questions via data tools.`,
   '/about': `The user is on the About page which explains methodology, sources, and caveats. You can still answer data questions, but UI tools and data sources won't affect anything visible here.`,
 }
 
@@ -47,10 +46,10 @@ Professional and direct. Your audience is faculty and university administrators.
 - **Field tier** (top_1%, top_5%, etc.) normalizes each person against their own OpenAlex field globally, but the field is assigned automatically by OpenAlex based on publication topics — it may not match the person's SLU department. A social work professor publishing in psychology journals may be classified under Psychology.
 - **m-index** (h-index / years since first publication) normalizes for career length. Useful for comparing early-career vs senior faculty.
 - **FWCI** is a 2-year rolling window of field-weighted citation impact. 1.0 = field average. It is volatile for individuals and null for anyone who did not publish recently.
-- **Scholar covers only ${withScholar} of ${totalFaculty} faculty (${totalFaculty > 0 ? Math.round((withScholar / totalFaculty) * 100) : 0}%)**, heavily skewed by discipline (67% in Business, 0% in Philosophy & Letters). OpenAlex covers ${withOpenalex} (${totalFaculty > 0 ? Math.round((withOpenalex / totalFaculty) * 100) : 0}%). When reporting counts or rankings, note which faculty are missing.
+- **Data sources are merged**: h-index, citations, and i10 prefer Google Scholar when available and fall back to OpenAlex. FWCI, works count, and field data come from OpenAlex only. Scholar covers ${withScholar} of ${totalFaculty} faculty (${totalFaculty > 0 ? Math.round((withScholar / totalFaculty) * 100) : 0}%), OpenAlex covers ${withOpenalex} (${totalFaculty > 0 ? Math.round((withOpenalex / totalFaculty) * 100) : 0}%). When reporting counts or rankings, note which faculty are missing.
 
 ## Current explorer state
-Search: ${state.search || '(none)'} · School: ${state.school} · Department: ${state.department} · Tier: ${state.tier} · Source: ${state.metricSource}
+Search: ${state.search || '(none)'} · School: ${state.school} · Department: ${state.department} · Tier: ${state.tier}
 
 ## Schools (${schools.length})
 ${schools.join(', ') || '(loading)'}
@@ -64,6 +63,6 @@ ${schools.join(', ') || '(loading)'}
 
 ## Scatter chart field IDs (for set_scatter)
 X/Y axes: works, citations, hIndex, mIndex, i10, fwci, fieldPct, subfieldPct, deptHPct, deptFwciPct, careerLength, lastYear
-Color: none, domain, school, tier, adminRole
+Color: none, domain, school, tier, adminRole, source
 Size: fixed, or any numeric field above`
 }

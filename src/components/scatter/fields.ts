@@ -45,8 +45,7 @@ export const NUMERIC_FIELDS: ReadonlyArray<NumericField> = [
   {
     id: 'citations',
     label: 'Citations',
-    accessor: (f, source) =>
-      source === 'scholar' ? f.citations : f.openalexCitations,
+    accessor: (f) => f.citations ?? f.openalexCitations,
     scale: 'log',
     tickValues: POWER10_TICK_VALUES,
     formatTick: formatLog10,
@@ -55,8 +54,7 @@ export const NUMERIC_FIELDS: ReadonlyArray<NumericField> = [
   {
     id: 'hIndex',
     label: 'h-index',
-    accessor: (f, source) =>
-      source === 'scholar' ? f.hIndex : f.openalexHIndex,
+    accessor: (f) => f.hIndex ?? f.openalexHIndex,
     scale: 'linear',
     formatTick: formatInt,
     formatValue: formatInt,
@@ -64,8 +62,8 @@ export const NUMERIC_FIELDS: ReadonlyArray<NumericField> = [
   {
     id: 'mIndex',
     label: 'm-index',
-    accessor: (f, source) => {
-      const h = source === 'scholar' ? f.hIndex : f.openalexHIndex
+    accessor: (f) => {
+      const h = f.hIndex ?? f.openalexHIndex
       if (h == null || f.openalexFirstYear == null) return null
       const years = CURRENT_YEAR - f.openalexFirstYear
       return years > 0 ? h / years : null
@@ -77,8 +75,7 @@ export const NUMERIC_FIELDS: ReadonlyArray<NumericField> = [
   {
     id: 'i10',
     label: 'i10',
-    accessor: (f, source) =>
-      source === 'scholar' ? f.i10Index : f.openalexI10Index,
+    accessor: (f) => f.i10Index ?? f.openalexI10Index,
     scale: 'linear',
     formatTick: formatInt,
     formatValue: formatInt,
@@ -184,6 +181,13 @@ export const CATEGORICAL_FIELDS: ReadonlyArray<CategoricalField> = [
     id: 'adminRole',
     label: 'Admin role',
     accessor: (f) => f.adminRole,
+  },
+  {
+    id: 'source',
+    label: 'Data source',
+    accessor: (f) =>
+      f.scholarId != null ? 'Scholar' : f.openalexId != null ? 'OpenAlex' : null,
+    ordered: ['Scholar', 'OpenAlex'],
   },
 ]
 

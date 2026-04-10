@@ -107,16 +107,15 @@ export function CommandBar({ faculty, currentPage }: CommandBarProps) {
   const school = useAppStore((s) => s.school)
   const department = useAppStore((s) => s.department)
   const tier = useAppStore((s) => s.tier)
-  const metricSource = useAppStore((s) => s.metricSource)
 
   const systemPrompt = useMemo(
     () =>
       buildSystemPrompt(
-        { search, school, department, tier, metricSource },
+        { search, school, department, tier },
         faculty,
         currentPage,
       ),
-    [search, school, department, tier, metricSource, faculty, currentPage],
+    [search, school, department, tier, faculty, currentPage],
   )
 
   const connection = useMemo(() => fetchServerSentEvents('/api/chat'), [])

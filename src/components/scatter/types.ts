@@ -1,13 +1,12 @@
 import type { Faculty } from '@/lib/types'
-import type { MetricSource } from '@/store/appStore'
 
 // A numeric field is anything that can be plotted on an axis or used to drive
-// dot size. Some fields depend on the global Source toggle (h-index, citations,
-// i10) and receive it via the accessor's second argument.
+// dot size. For dual-source metrics (h-index, citations, i10), accessors
+// prefer Google Scholar when available and fall back to OpenAlex.
 export interface NumericField {
   id: string
   label: string
-  accessor: (f: Faculty, source: MetricSource) => number | null
+  accessor: (f: Faculty) => number | null
   scale: 'log' | 'linear'
   // Custom domain endpoints for known-bounded fields (e.g. percentiles
   // always go 0–100). When omitted, the chart computes the domain from data.

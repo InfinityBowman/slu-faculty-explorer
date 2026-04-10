@@ -10,8 +10,8 @@ import {
   buildSearch,
 } from './data-executor'
 import type { Faculty } from '@/lib/types'
-import type { TierFilter } from '@/store/appStore'
 import { useAppStore } from '@/store/appStore'
+import type { TierFilter } from '@/store/appStore'
 
 // ── Faculty data ref (set from CommandBar when data loads) ──
 
@@ -30,8 +30,6 @@ const TIER_VALUES = [
   'top_25%',
   'above_median',
 ] as const
-
-const SOURCE_VALUES = ['scholar', 'openalex'] as const
 
 const NUMERIC_FIELD_IDS = [
   'works',
@@ -54,6 +52,7 @@ const COLOR_FIELD_IDS = [
   'school',
   'tier',
   'adminRole',
+  'source',
 ] as const
 
 const SIZE_FIELD_IDS = ['fixed', ...NUMERIC_FIELD_IDS] as const
@@ -94,10 +93,6 @@ const setFiltersDef = toolDefinition({
       .describe(
         'Minimum field tier threshold. "top_5%" means top 5% or better.',
       ),
-    metricSource: z
-      .enum(SOURCE_VALUES)
-      .optional()
-      .describe('Which data source to use for h-index and citations'),
   }),
 })
 
@@ -257,10 +252,6 @@ const setFiltersClient = setFiltersDef.client((args) => {
   if (args.tier !== undefined) {
     store.setTier(args.tier as TierFilter)
     descriptions.push(`Tier: ${args.tier}`)
-  }
-  if (args.metricSource !== undefined) {
-    store.setMetricSource(args.metricSource)
-    descriptions.push(`Source: ${args.metricSource}`)
   }
 
   return {

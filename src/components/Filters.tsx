@@ -35,12 +35,10 @@ export function Filters({ all }: FiltersProps) {
   const school = useAppStore((s) => s.school)
   const department = useAppStore((s) => s.department)
   const tier = useAppStore((s) => s.tier)
-  const metricSource = useAppStore((s) => s.metricSource)
   const setSearch = useAppStore((s) => s.setSearch)
   const setSchool = useAppStore((s) => s.setSchool)
   const setDepartment = useAppStore((s) => s.setDepartment)
   const setTier = useAppStore((s) => s.setTier)
-  const setMetricSource = useAppStore((s) => s.setMetricSource)
 
   const schools = useSchoolOptions(all)
   const departments = useDepartmentOptions(all, school)
@@ -126,22 +124,6 @@ export function Filters({ all }: FiltersProps) {
         </Select>
       </FilterField>
 
-      <FilterField label="Source">
-        <div className="inline-flex h-9 items-center rounded-md border bg-muted p-0.5">
-          <SourceButton
-            active={metricSource === 'scholar'}
-            onClick={() => setMetricSource('scholar')}
-          >
-            Scholar
-          </SourceButton>
-          <SourceButton
-            active={metricSource === 'openalex'}
-            onClick={() => setMetricSource('openalex')}
-          >
-            OpenAlex
-          </SourceButton>
-        </div>
-      </FilterField>
     </div>
   )
 }
@@ -163,25 +145,3 @@ function FilterField({ label, className, children }: FilterFieldProps) {
   )
 }
 
-interface SourceButtonProps {
-  active: boolean
-  onClick: () => void
-  children: React.ReactNode
-}
-
-function SourceButton({ active, onClick, children }: SourceButtonProps) {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      className={cn(
-        'h-full rounded-[5px] px-3 text-[12px] font-medium transition-colors',
-        active
-          ? 'bg-primary text-primary-foreground shadow-sm'
-          : 'text-muted-foreground hover:text-foreground',
-      )}
-    >
-      {children}
-    </button>
-  )
-}

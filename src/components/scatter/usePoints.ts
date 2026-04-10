@@ -5,7 +5,6 @@ import { buildColorAssignment } from './palettes'
 import type { Faculty } from '@/lib/types'
 import type { CategoricalField, NumericField, ScatterConfig } from './types'
 import type { ColorAssignment } from './palettes'
-import type { MetricSource } from '@/store/appStore'
 
 export interface Point {
   id: number
@@ -38,7 +37,6 @@ export interface PointsResult {
 export function useScatterPoints(
   rows: Array<Faculty>,
   config: ScatterConfig,
-  metricSource: MetricSource,
 ): PointsResult {
   const fields = useMemo<ResolvedFields>(() => {
     const xField = findNumericField(config.xId)
@@ -55,8 +53,8 @@ export function useScatterPoints(
   const points = useMemo<Array<Point>>(() => {
     const out: Array<Point> = []
     for (const f of rows) {
-      const x = fields.xField.accessor(f, metricSource)
-      const y = fields.yField.accessor(f, metricSource)
+      const x = fields.xField.accessor(f)
+      const y = fields.yField.accessor(f)
       if (x == null || y == null) continue
       // Log scales require strictly positive values.
       if (fields.xField.scale === 'log' && x <= 0) continue
@@ -64,7 +62,7 @@ export function useScatterPoints(
 
       let size: number | null = null
       if (fields.sizeField) {
-        const s = fields.sizeField.accessor(f, metricSource)
+        const s = fields.sizeField.accessor(f)
         if (s == null) continue
         // Size encoding can't handle non-positive values either (sqrt scale).
         if (s < 0) continue
@@ -88,7 +86,7 @@ export function useScatterPoints(
       })
     }
     return out
-  }, [rows, fields, metricSource])
+  }, [rows, fields])
 
   const colorAssignment = useMemo(() => {
     if (!fields.colorField) return null
