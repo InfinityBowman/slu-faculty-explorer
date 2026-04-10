@@ -12,7 +12,7 @@ const TIER_RANK: Record<HTier, number> = {
   below_median: 1,
 }
 
-export const FUSE_OPTIONS: IFuseOptions<Faculty> = {
+const FUSE_OPTIONS: IFuseOptions<Faculty> = {
   keys: [
     { name: 'name', weight: 3 },
     { name: 'department', weight: 1.5 },
@@ -32,7 +32,7 @@ export function createFuseIndex(data: Array<Faculty>): Fuse<Faculty> {
   return new Fuse(data, FUSE_OPTIONS)
 }
 
-export interface FilterParams {
+interface FilterParams {
   search: string
   school: string
   department: string

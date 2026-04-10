@@ -23,7 +23,7 @@ export const TIER_LABEL: Record<HTier, string> = {
   below_median: 'Below median',
 }
 
-export const SCHOOL_ABBR: Record<string, string> = {
+const SCHOOL_ABBR: Record<string, string> = {
   'Chaifetz School of Business': 'Chaifetz Business',
   'College for Public Health and Social Justice':
     'Public Health & Social Justice',
@@ -156,7 +156,7 @@ export function fwciHistogram(faculty: Array<Faculty>) {
 
 // ── m-index by career decade ───────────────────────────────────────────────
 
-export interface DecadeGroup {
+interface DecadeGroup {
   decade: string
   q1: number
   med: number
@@ -233,7 +233,7 @@ export function adminRoleMetrics(faculty: Array<Faculty>): Array<AdminRoleRow> {
 
 // ── Coverage matrix ────────────────────────────────────────────────────────
 
-export interface CoverageRow {
+interface CoverageRow {
   school: string
   total: number
   scholar: number

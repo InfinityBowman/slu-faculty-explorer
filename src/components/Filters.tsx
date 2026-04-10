@@ -1,6 +1,7 @@
 import { Search } from 'lucide-react'
 import type { Faculty } from '@/lib/types'
 import type { TierFilter } from '@/store/appStore'
+import { Input } from '@/components/ui/input'
 import {
   Select,
   SelectContent,
@@ -53,12 +54,12 @@ export function Filters({ all }: FiltersProps) {
       <FilterField label="Search" className="min-w-[240px] flex-1">
         <div className="relative">
           <Search className="pointer-events-none absolute top-1/2 left-2.5 size-3.5 -translate-y-1/2 text-muted-foreground" />
-          <input
+          <Input
             type="text"
             placeholder="Name, field, research interest…"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="h-9 w-full rounded-md border border-input bg-white pl-8 text-[13px] placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/30 focus-visible:outline-none"
+            className="h-9 bg-white pl-8 text-[13px]"
           />
         </div>
       </FilterField>

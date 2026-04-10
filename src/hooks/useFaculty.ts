@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import Fuse from 'fuse.js'
 import type { Faculty } from '@/lib/types'
 import { loadFaculty } from '@/lib/loadFaculty'
-import { createFuseIndex, filterFaculty, FUSE_OPTIONS } from '@/lib/search'
+import { createFuseIndex, filterFaculty } from '@/lib/search'
 import { useAppStore } from '@/store/appStore'
 
 export function useFacultyData() {

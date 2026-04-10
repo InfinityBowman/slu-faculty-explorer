@@ -5,7 +5,7 @@ import type { Point } from './usePoints'
 // enter/update/exit join. Lives in its own file because it's the chunkiest
 // piece of the chart's d3 code and has no other coupling to the main render.
 
-export interface LabelPlacementInput {
+interface LabelPlacementInput {
   // The clipped overlay group the labels are appended into.
   overlay: Selection<SVGGElement, unknown, null, undefined>
   // Pre-filtered points the labels should consider. Caller is responsible for
