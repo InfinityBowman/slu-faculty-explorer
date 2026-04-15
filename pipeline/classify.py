@@ -35,10 +35,9 @@ RESULTS_FILE = HERE / "results.csv"
 NEW_FIELDS = ["admin_role"]
 
 # Labels that came from directory-parser fallbacks, not real departments.
-# Nursing "Faculty" is intentionally EXCLUDED because the Trudy Busch Valentine
-# School of Nursing genuinely has one faculty pool — "Faculty" is the real dept.
 GENERIC_DEPT_LABELS = {
     "",
+    "(unknown)",
     "Office of the Dean",
     "Teacher Education Faculty",
     "Program Option Coordinators and Directors",

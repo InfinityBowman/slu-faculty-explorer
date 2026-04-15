@@ -174,7 +174,7 @@ DIRECTORIES = [
         "school": "Trudy Busch Valentine School of Nursing",
         "url": f"{BASE}/nursing/faculty/index.php",
         "link_path_substrings": ["/nursing/faculty/"],
-        "default_department": None,
+        "default_department": "Nursing",
     },
 
     # ── School of Education ──

@@ -117,6 +117,13 @@ def extract_metrics(author):
     top_topic = topics[0].get("display_name", "") if topics else ""
     counts = author.get("counts_by_year", []) or []
     years = [c["year"] for c in counts if c.get("year")]
+    # Reject implausible first-publication years — these arise from OpenAlex
+    # author disambiguation errors merging works from other people.  No living
+    # researcher published before 1960; if we see that, drop the value so
+    # downstream m-index doesn't get corrupted.
+    first_year = min(years) if years else ""
+    if isinstance(first_year, int) and first_year < 1960:
+        first_year = ""
     return {
         "openalex_id": author.get("id", "").replace("https://openalex.org/", ""),
         "openalex_works_count": author.get("works_count", ""),
@@ -125,7 +132,7 @@ def extract_metrics(author):
         "openalex_i10_index": summary.get("i10_index", ""),
         "openalex_2yr_fwci": f"{fwci:.3f}" if isinstance(fwci, (int, float)) else "",
         "openalex_top_topic": top_topic,
-        "openalex_first_year": min(years) if years else "",
+        "openalex_first_year": first_year,
         "openalex_last_year": max(years) if years else "",
     }
 

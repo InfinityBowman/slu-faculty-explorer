@@ -8,9 +8,8 @@ See `slu_faculty.md` for the unfiltered source list.
 
 ## Chaifetz School of Business (51)
 
-### Office of the Dean (2)
+### Office of the Dean (1)
 95. Jackson Nickerson
-96. Ben Smyth
 
 ### Accounting (7)
 1. Scott Duellman
@@ -385,13 +384,11 @@ Appended 423 new active Ph.D. faculty pulled from the new schools' directory pag
 280. George O. Ndege
 281. Jennifer J. Popiel
 282. Katrina Thompson Moore
-283. Kenneth Homan
 284. Lorri Glover
 285. Mark Edward Ruff
 286. Nathaniel Millett
 287. Sam Zeno Conedera
 288. Silvana R. Siddali
-289. Steven A. Schoenig
 290. Thomas F. Madden
 291. Thomas J. Finan
 292. Torrie Hester
@@ -429,7 +426,6 @@ Appended 423 new active Ph.D. faculty pulled from the new schools' directory pag
 320. Julianne Rainbolt
 321. Lauren Miller
 322. Michael Landry
-323. Michael May
 324. Nirina Lovasoa Randrianarivony
 325. Philip Huling
 326. Stacey Harris
@@ -497,7 +493,6 @@ Appended 423 new active Ph.D. faculty pulled from the new schools' directory pag
 382. Madeline Stenersen
 383. Michael J. Ross
 384. Paul J. Handal
-385. Quang Tran
 386. Richard D. Harvey
 387. Ruth H. Warner
 388. Terri L. Weaver
@@ -560,13 +555,11 @@ Appended 423 new active Ph.D. faculty pulled from the new schools' directory pag
 
 ## College of Philosophy and Letters (6 new)
 
-### (unknown) (2)
+### (unknown) (1)
 436. Randall S. Rosenberg
-437. Thomas Flowers
 
-### Catholic Studies Program (2)
+### Catholic Studies Program (1)
 438. Jennifer Sanders
-439. Matthew Baugh
 
 ### Center for Ignatian Service (2)
 440. Brian Himes
@@ -591,7 +584,6 @@ Appended 423 new active Ph.D. faculty pulled from the new schools' directory pag
 450. Lauren Landfried
 451. Martha Blaess
 452. María José Romo-Palafox
-453. Rabia Rahman
 454. Whitney Linsenmeyer
 
 ### Occupational Science and Occupational Therapy (5)
@@ -610,7 +602,6 @@ Appended 423 new active Ph.D. faculty pulled from the new schools' directory pag
 465. Katie Sniffen
 466. Kitty Newsham
 467. Lisa Dorsey
-468. Mike Markee
 469. Oluwatoyosi Owoeye
 470. Randy Richter
 
@@ -631,7 +622,7 @@ Appended 423 new active Ph.D. faculty pulled from the new schools' directory pag
 479. Helen Lach
 480. Kristine L’Ecuyer
 
-### Faculty (15)
+### Nursing (15)
 481. Ashley Schmuke
 482. Bridgette Carnes
 483. Denise Côté-Arsenault
