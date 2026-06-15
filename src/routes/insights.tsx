@@ -26,7 +26,7 @@ function InsightsPage() {
   const { data, error, isLoading } = useFacultyData()
 
   return (
-    <main className="mx-auto max-w-350 px-6 py-8">
+    <main className="mx-auto max-w-350 px-4 py-6 sm:px-6 sm:py-8">
       <div className="mb-8">
         <h2 className="text-[19px] leading-tight font-semibold tracking-tight">
           Research insights
@@ -115,11 +115,11 @@ function Section({
 }) {
   return (
     <section className="rounded-lg border bg-card">
-      <div className="border-b px-6 py-4">
+      <div className="border-b px-4 py-3 sm:px-6 sm:py-4">
         <h3 className="text-sm font-medium tracking-tight">{title}</h3>
         <p className="mt-0.5 text-xs text-muted-foreground">{subtitle}</p>
       </div>
-      <div className="p-6">{children}</div>
+      <div className="p-4 sm:p-6">{children}</div>
     </section>
   )
 }

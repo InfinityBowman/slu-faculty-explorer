@@ -37,7 +37,7 @@ function SchoolsPage() {
       : 'Each dot is one faculty member · thick tick marks the median'
 
   return (
-    <main className="mx-auto max-w-350 px-6 py-8">
+    <main className="mx-auto max-w-350 px-4 py-6 sm:px-6 sm:py-8">
       <div className="mb-6">
         <h2 className="text-[19px] leading-tight font-semibold tracking-tight">
           School strength
@@ -67,7 +67,7 @@ function SchoolsPage() {
       {data ? (
         <div className="space-y-8">
           <section className="rounded-lg border bg-card">
-            <div className="flex flex-wrap items-start justify-between gap-3 border-b px-6 py-4">
+            <div className="flex flex-wrap items-start justify-between gap-3 border-b px-4 py-3 sm:px-6 sm:py-4">
               <div className="min-w-0">
                 <h3 className="text-sm font-medium tracking-tight">
                   {headerTitle}
@@ -88,7 +88,7 @@ function SchoolsPage() {
           </section>
 
           <section className="rounded-lg border bg-card">
-            <div className="flex items-baseline justify-between border-b px-6 py-4">
+            <div className="flex items-baseline justify-between gap-3 border-b px-4 py-3 sm:px-6 sm:py-4">
               <h3 className="text-sm font-medium tracking-tight">
                 All schools
                 <span className="tabular ml-2 font-normal text-muted-foreground">

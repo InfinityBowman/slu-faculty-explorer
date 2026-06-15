@@ -41,7 +41,7 @@ export function StatStrip({ rows, total }: StatStripProps) {
 
   return (
     <section className="rounded-lg border bg-card">
-      <div className="grid grid-cols-2 md:grid-cols-4">
+      <div className="grid grid-cols-2 md:grid-cols-4 md:[&>*]:border-t-0 md:[&>*:not(:first-child)]:border-l [&>*:nth-child(2)]:border-l [&>*:nth-child(4)]:border-l [&>*:nth-child(n+3)]:border-t">
         <Stat
           label="Faculty"
           value={stats.count.toLocaleString()}
@@ -83,11 +83,11 @@ interface StatProps {
 
 function Stat({ label, value, hint }: StatProps) {
   return (
-    <div className="relative px-6 py-5 not-first:border-l">
+    <div className="relative px-4 py-4 sm:px-6 sm:py-5">
       <div className="text-[10px] font-medium tracking-[0.08em] text-muted-foreground uppercase">
         {label}
       </div>
-      <div className="tabular mt-1.5 text-3xl leading-none font-semibold tracking-tight">
+      <div className="tabular mt-1.5 text-2xl leading-none font-semibold tracking-tight sm:text-3xl">
         {value}
       </div>
       <div className="tabular mt-2 text-[11px] text-muted-foreground">

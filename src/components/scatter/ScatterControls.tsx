@@ -16,7 +16,7 @@ interface ScatterControlsProps {
 
 export function ScatterControls({ config, onChange }: ScatterControlsProps) {
   return (
-    <div className="flex flex-wrap items-end gap-3 px-6 py-3">
+    <div className="flex flex-wrap items-end gap-3 px-4 py-3 sm:px-6">
       <ControlField label="X axis">
         <NumericSelect
           value={config.xId}

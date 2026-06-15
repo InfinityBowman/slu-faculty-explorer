@@ -25,7 +25,7 @@ function ExplorerPage() {
   const filtered = useFilteredFaculty(data)
 
   return (
-    <main className="mx-auto max-w-350 px-6 py-8">
+    <main className="mx-auto max-w-350 px-4 py-6 sm:px-6 sm:py-8">
       {error ? (
         <div className="rounded-md border border-destructive/30 bg-destructive/5 px-4 py-3 text-sm text-destructive">
           Failed to load faculty data: {error}
@@ -41,7 +41,7 @@ function ExplorerPage() {
           <StatStrip rows={filtered} total={data.length} />
 
           <section className="rounded-lg border bg-card">
-            <div className="flex items-baseline justify-between border-b px-6 py-4">
+            <div className="flex items-baseline justify-between gap-3 border-b px-4 py-3 sm:px-6 sm:py-4">
               <h2 className="text-sm font-medium tracking-tight">
                 Faculty scatter
               </h2>
@@ -53,7 +53,7 @@ function ExplorerPage() {
           </section>
 
           <section className="rounded-lg border bg-card">
-            <div className="flex items-baseline justify-between border-b px-6 py-4">
+            <div className="flex items-baseline justify-between gap-3 border-b px-4 py-3 sm:px-6 sm:py-4">
               <h2 className="text-sm font-medium tracking-tight">
                 Faculty
                 <span className="tabular ml-2 font-normal text-muted-foreground">

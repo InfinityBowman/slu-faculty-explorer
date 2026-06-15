@@ -108,17 +108,22 @@ function RootComponent() {
 function Header() {
   return (
     <header className="border-b">
-      <div className="mx-auto flex max-w-[1400px] items-center gap-4 px-6 py-5">
-        <div className="h-8 w-[3px] rounded-sm bg-primary" aria-hidden />
-        <div className="flex-1">
-          <h1 className="text-[19px] leading-tight font-semibold tracking-tight">
-            SLU Faculty Research Explorer
-          </h1>
-          <p className="mt-0.5 text-[12px] text-muted-foreground">
-            Google Scholar &amp; OpenAlex metrics
-          </p>
+      <div className="mx-auto flex max-w-[1400px] flex-col gap-3 px-4 py-4 sm:flex-row sm:items-center sm:gap-4 sm:px-6 sm:py-5">
+        <div className="flex items-center gap-3 sm:gap-4">
+          <div
+            className="h-8 w-[3px] shrink-0 rounded-sm bg-primary"
+            aria-hidden
+          />
+          <div className="min-w-0 flex-1">
+            <h1 className="text-[17px] leading-tight font-semibold tracking-tight sm:text-[19px]">
+              SLU Faculty Research Explorer
+            </h1>
+            <p className="mt-0.5 text-[12px] text-muted-foreground">
+              Google Scholar &amp; OpenAlex metrics
+            </p>
+          </div>
         </div>
-        <nav className="flex items-center gap-1">
+        <nav className="-mx-4 flex items-center gap-1 overflow-x-auto px-4 [scrollbar-width:none] sm:mx-0 sm:ml-auto sm:px-0 [&::-webkit-scrollbar]:hidden">
           <NavLink to="/">Explorer</NavLink>
           <NavLink to="/schools">Schools</NavLink>
           <NavLink to="/insights">Insights</NavLink>
@@ -139,10 +144,10 @@ function NavLink({
   return (
     <Link
       to={to}
-      className="rounded-md px-3 py-1.5 text-[12px] font-medium text-muted-foreground transition-colors hover:text-foreground"
+      className="rounded-md px-3 py-1.5 text-[12px] font-medium whitespace-nowrap text-muted-foreground transition-colors hover:text-foreground"
       activeProps={{
         className: cn(
-          'rounded-md bg-muted px-3 py-1.5 text-[12px] font-medium text-foreground',
+          'rounded-md bg-muted px-3 py-1.5 text-[12px] font-medium whitespace-nowrap text-foreground',
         ),
       }}
       activeOptions={{ exact: true }}
@@ -154,7 +159,7 @@ function NavLink({
 
 function Footer() {
   return (
-    <footer className="mx-auto flex max-w-[1400px] items-center justify-between px-6 py-8 text-xs text-muted-foreground">
+    <footer className="mx-auto flex max-w-[1400px] flex-col items-start gap-2 px-4 py-8 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between sm:px-6">
       <span>
         Sources: Google Scholar &amp; OpenAlex ·{' '}
         <span className="tabular">Saint Louis University</span>
@@ -173,7 +178,7 @@ function Footer() {
 
 function NotFound() {
   return (
-    <main className="mx-auto flex min-h-[calc(100svh-200px)] max-w-[1400px] flex-col items-center justify-center px-6 py-16">
+    <main className="mx-auto flex min-h-[calc(100svh-200px)] max-w-[1400px] flex-col items-center justify-center px-4 py-16 sm:px-6">
       <div className="flex items-center gap-6">
         <div className="h-24 w-[3px] rounded-sm bg-primary" aria-hidden />
         <div>

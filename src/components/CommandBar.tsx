@@ -193,7 +193,7 @@ export function CommandBar({ faculty, currentPage }: CommandBarProps) {
       <div
         inert={!open || undefined}
         className={cn(
-          'fixed bottom-6 left-1/2 z-50 w-full max-w-120 -translate-x-1/2 transition-all duration-200 ease-out',
+          'fixed bottom-4 left-1/2 z-50 w-[calc(100%-1.5rem)] max-w-120 -translate-x-1/2 transition-all duration-200 ease-out sm:bottom-6',
           open
             ? 'translate-y-0 scale-100 opacity-100'
             : 'pointer-events-none translate-y-4 scale-95 opacity-0',

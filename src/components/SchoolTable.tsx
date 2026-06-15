@@ -31,6 +31,17 @@ const TIER_CLASSES: Record<HTier, string> = {
   below_median: 'text-muted-foreground/80 border-transparent',
 }
 
+// Progressive column reveal by viewport — school, count, and the headline
+// percentile stay on phones; secondary metrics fill in as width allows.
+const COLUMN_VISIBILITY: Record<string, string> = {
+  school: '',
+  n: '',
+  medianFieldPercentile: '',
+  medianFwci: 'hidden sm:table-cell',
+  nTop5: 'hidden md:table-cell',
+  nTop25: 'hidden md:table-cell',
+}
+
 interface SchoolTableProps {
   schools: Array<SchoolSummary>
 }
@@ -144,124 +155,129 @@ export function SchoolTable({ schools }: SchoolTableProps) {
   const totalColumns = columns.length + 1
 
   return (
-    <table className="w-full">
-      <thead>
-        <tr>
-          {table.getHeaderGroups()[0].headers.map((header) => {
-            const isNumeric = numericColumns.has(header.column.id)
-            const canSort = header.column.getCanSort()
-            const sorted = header.column.getIsSorted()
-            return (
-              <th
-                key={header.id}
-                className={cn(
-                  headerCellBase,
-                  'px-4 py-2.5 text-[10px] font-medium tracking-[0.08em] text-muted-foreground uppercase',
-                  isNumeric ? 'text-right' : 'text-left',
-                  header.column.id === 'school' && 'pl-6',
-                  header.column.id === 'nTop25' && 'pr-6',
-                )}
-              >
-                {canSort ? (
-                  <button
-                    type="button"
-                    onClick={header.column.getToggleSortingHandler()}
-                    className={cn(
-                      'inline-flex items-center gap-1 transition-colors hover:text-foreground',
-                      isNumeric && 'flex-row-reverse',
-                      sorted && 'text-foreground',
-                    )}
-                  >
-                    {flexRender(
-                      header.column.columnDef.header,
-                      header.getContext(),
-                    )}
-                    <span className="inline-flex size-3 items-center justify-center">
-                      {sorted === 'asc' ? (
-                        <ArrowUp className="size-3" />
-                      ) : sorted === 'desc' ? (
-                        <ArrowDown className="size-3" />
-                      ) : null}
-                    </span>
-                  </button>
-                ) : (
-                  flexRender(
-                    header.column.columnDef.header,
-                    header.getContext(),
-                  )
-                )}
-              </th>
-            )
-          })}
-          <th className={cn(headerCellBase, 'w-10')} />
-        </tr>
-      </thead>
-      <tbody>
-        {sortedRows.length === 0 ? (
+    <div className="overflow-x-auto">
+      <table className="w-full">
+        <thead>
           <tr>
-            <td
-              colSpan={totalColumns}
-              className="h-24 text-center text-sm text-muted-foreground"
-            >
-              No schools to display.
-            </td>
-          </tr>
-        ) : (
-          sortedRows.map((row) => {
-            const isExpanded = expanded === row.original.school
-            return (
-              <Fragment key={row.original.school}>
-                <tr
-                  onClick={() =>
-                    setExpanded(isExpanded ? null : row.original.school)
-                  }
+            {table.getHeaderGroups()[0].headers.map((header) => {
+              const isNumeric = numericColumns.has(header.column.id)
+              const canSort = header.column.getCanSort()
+              const sorted = header.column.getIsSorted()
+              return (
+                <th
+                  key={header.id}
                   className={cn(
-                    'cursor-pointer border-b transition-colors hover:bg-primary/[0.025] hover:shadow-[inset_3px_0_0_var(--color-primary)]',
-                    isExpanded &&
-                      'bg-primary/[0.04] shadow-[inset_3px_0_0_var(--color-primary)]',
+                    headerCellBase,
+                    'px-3 py-2.5 text-[10px] font-medium tracking-[0.08em] text-muted-foreground uppercase sm:px-4',
+                    isNumeric ? 'text-right' : 'text-left',
+                    header.column.id === 'school' && 'pl-4 sm:pl-6',
+                    header.column.id === 'nTop25' && 'pr-6',
+                    COLUMN_VISIBILITY[header.column.id],
                   )}
                 >
-                  {row.getVisibleCells().map((cell) => {
-                    const isNumeric = numericColumns.has(cell.column.id)
-                    return (
-                      <td
-                        key={cell.id}
-                        className={cn(
-                          'px-4 py-3 align-middle',
-                          isNumeric && 'text-right',
-                          cell.column.id === 'school' && 'max-w-[340px] pl-6',
-                          cell.column.id === 'nTop25' && 'pr-6',
-                        )}
-                      >
-                        {flexRender(
-                          cell.column.columnDef.cell,
-                          cell.getContext(),
-                        )}
-                      </td>
-                    )
-                  })}
-                  <td className="pr-6 text-right">
-                    <ChevronRight
+                  {canSort ? (
+                    <button
+                      type="button"
+                      onClick={header.column.getToggleSortingHandler()}
                       className={cn(
-                        'inline size-3.5 text-muted-foreground transition-transform',
-                        isExpanded && 'rotate-90',
+                        'inline-flex items-center gap-1 transition-colors hover:text-foreground',
+                        isNumeric && 'flex-row-reverse',
+                        sorted && 'text-foreground',
                       )}
-                    />
-                  </td>
-                </tr>
-                {isExpanded ? (
-                  <tr className="border-b bg-primary/[0.02]">
-                    <td colSpan={totalColumns} className="px-6 py-4">
-                      <SchoolDetail summary={row.original} />
+                    >
+                      {flexRender(
+                        header.column.columnDef.header,
+                        header.getContext(),
+                      )}
+                      <span className="inline-flex size-3 items-center justify-center">
+                        {sorted === 'asc' ? (
+                          <ArrowUp className="size-3" />
+                        ) : sorted === 'desc' ? (
+                          <ArrowDown className="size-3" />
+                        ) : null}
+                      </span>
+                    </button>
+                  ) : (
+                    flexRender(
+                      header.column.columnDef.header,
+                      header.getContext(),
+                    )
+                  )}
+                </th>
+              )
+            })}
+            <th className={cn(headerCellBase, 'w-10')} />
+          </tr>
+        </thead>
+        <tbody>
+          {sortedRows.length === 0 ? (
+            <tr>
+              <td
+                colSpan={totalColumns}
+                className="h-24 text-center text-sm text-muted-foreground"
+              >
+                No schools to display.
+              </td>
+            </tr>
+          ) : (
+            sortedRows.map((row) => {
+              const isExpanded = expanded === row.original.school
+              return (
+                <Fragment key={row.original.school}>
+                  <tr
+                    onClick={() =>
+                      setExpanded(isExpanded ? null : row.original.school)
+                    }
+                    className={cn(
+                      'cursor-pointer border-b transition-colors hover:bg-primary/[0.025] hover:shadow-[inset_3px_0_0_var(--color-primary)]',
+                      isExpanded &&
+                        'bg-primary/[0.04] shadow-[inset_3px_0_0_var(--color-primary)]',
+                    )}
+                  >
+                    {row.getVisibleCells().map((cell) => {
+                      const isNumeric = numericColumns.has(cell.column.id)
+                      return (
+                        <td
+                          key={cell.id}
+                          className={cn(
+                            'px-3 py-3 align-middle sm:px-4',
+                            isNumeric && 'text-right',
+                            cell.column.id === 'school' &&
+                              'max-w-[180px] pl-4 sm:max-w-[340px] sm:pl-6',
+                            cell.column.id === 'nTop25' && 'pr-6',
+                            COLUMN_VISIBILITY[cell.column.id],
+                          )}
+                        >
+                          {flexRender(
+                            cell.column.columnDef.cell,
+                            cell.getContext(),
+                          )}
+                        </td>
+                      )
+                    })}
+                    <td className="pr-6 text-right">
+                      <ChevronRight
+                        className={cn(
+                          'inline size-3.5 text-muted-foreground transition-transform',
+                          isExpanded && 'rotate-90',
+                        )}
+                      />
                     </td>
                   </tr>
-                ) : null}
-              </Fragment>
-            )
-          })
-        )}
-      </tbody>
-    </table>
+                  {isExpanded ? (
+                    <tr className="border-b bg-primary/[0.02]">
+                      <td colSpan={totalColumns} className="px-4 py-4 sm:px-6">
+                        <SchoolDetail summary={row.original} />
+                      </td>
+                    </tr>
+                  ) : null}
+                </Fragment>
+              )
+            })
+          )}
+        </tbody>
+      </table>
+    </div>
   )
 }
 

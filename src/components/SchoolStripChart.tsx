@@ -172,7 +172,14 @@ export function SchoolStripChart({
 
   useLayoutEffect(() => {
     if (!svgRef.current) return
-    const innerWidth = width - MARGIN.left - MARGIN.right
+    // Shrink the label gutter on narrow viewports so the plot keeps usable
+    // width on phones. School names are pre-abbreviated, so a tighter gutter
+    // still fits the common cases.
+    const marginLeft = Math.min(
+      MARGIN.left,
+      Math.max(116, Math.round(width * 0.46)),
+    )
+    const innerWidth = width - marginLeft - MARGIN.right
     const innerHeight = sortedSchools.length * ROW_HEIGHT
     if (innerWidth <= 0) return
 
@@ -223,7 +230,7 @@ export function SchoolStripChart({
     if (plot.empty()) {
       plot = svg.append('g').attr('class', 'plot')
     }
-    plot.attr('transform', `translate(${MARGIN.left},${MARGIN.top})`)
+    plot.attr('transform', `translate(${marginLeft},${MARGIN.top})`)
 
     // Alternating row background stripes — keyed on index (not school name)
     // so rows don't animate backgrounds when schools reorder.

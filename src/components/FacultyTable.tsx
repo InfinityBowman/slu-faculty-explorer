@@ -43,6 +43,22 @@ const TIER_CLASSES: Record<HTier, string> = {
   below_median: 'text-muted-foreground/80 border-transparent',
 }
 
+// Progressive column reveal by viewport. Name / tier / h-index stay on the
+// smallest phones; denser metrics fill in as the screen widens. Applied
+// identically to header and body cells so columns stay aligned.
+const COLUMN_VISIBILITY: Record<string, string> = {
+  name: '',
+  tier: '',
+  hIndex: '',
+  citations: 'hidden sm:table-cell',
+  fwci: 'hidden md:table-cell',
+  school: 'hidden lg:table-cell',
+  mIndex: 'hidden lg:table-cell',
+  works: 'hidden lg:table-cell',
+  field: 'hidden xl:table-cell',
+  i10: 'hidden xl:table-cell',
+}
+
 const COLLAPSED_ROW_HEIGHT = 57
 // Generous fixed estimate — actual content varies by which bio fields a row
 // has. The virtualizer tolerates over-estimates better than under-estimates
@@ -273,7 +289,7 @@ export function FacultyTable({ rows }: FacultyTableProps) {
   return (
     <div
       ref={scrollRef}
-      className="max-h-[640px] overflow-y-auto"
+      className="max-h-[640px] overflow-x-auto overflow-y-auto"
       style={{ scrollbarGutter: 'stable' }}
     >
       <table className="w-full">
@@ -288,10 +304,11 @@ export function FacultyTable({ rows }: FacultyTableProps) {
                   key={header.id}
                   className={cn(
                     headerCellBase,
-                    'px-4 py-2.5 text-[10px] font-medium tracking-[0.08em] text-muted-foreground uppercase',
+                    'px-3 py-2.5 text-[10px] font-medium tracking-[0.08em] text-muted-foreground uppercase sm:px-4',
                     isNumeric ? 'text-right' : 'text-left',
-                    header.column.id === 'name' && 'pl-6',
+                    header.column.id === 'name' && 'pl-4 sm:pl-6',
                     header.column.id === 'works' && 'pr-6',
+                    COLUMN_VISIBILITY[header.column.id],
                   )}
                 >
                   {canSort ? (
@@ -366,12 +383,14 @@ export function FacultyTable({ rows }: FacultyTableProps) {
                           <td
                             key={cell.id}
                             className={cn(
-                              'px-4 py-3 align-middle',
+                              'px-3 py-3 align-middle sm:px-4',
                               isNumeric && 'text-right',
-                              cell.column.id === 'name' && 'max-w-[280px] pl-6',
+                              cell.column.id === 'name' &&
+                                'max-w-[160px] pl-4 sm:max-w-[280px] sm:pl-6',
                               cell.column.id === 'school' && 'max-w-[200px]',
                               cell.column.id === 'field' && 'max-w-[160px]',
                               cell.column.id === 'works' && 'pr-6',
+                              COLUMN_VISIBILITY[cell.column.id],
                             )}
                           >
                             {flexRender(
@@ -392,7 +411,10 @@ export function FacultyTable({ rows }: FacultyTableProps) {
                     </tr>
                     {isExpanded ? (
                       <tr className="border-b bg-primary/[0.02]">
-                        <td colSpan={totalColumns} className="px-6 py-4">
+                        <td
+                          colSpan={totalColumns}
+                          className="px-4 py-4 sm:px-6"
+                        >
                           <RowDetail row={row.original} />
                         </td>
                       </tr>
